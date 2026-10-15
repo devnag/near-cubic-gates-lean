@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this Lean proof, please cite the paper it formalizes."
+title: "Near-cubic gate lower bounds for SYM∘THR circuits: a Lean proof of the main theorem"
+type: software
+version: "1.0.0"
+authors:
+  - family-names: Nag
+    given-names: Dev
+    orcid: "https://orcid.org/0009-0006-7304-8082"
+repository-code: "https://github.com/devnag/near-cubic-gates-lean"
+license: Apache-2.0
+preferred-citation:
+  type: unpublished
+  title: "Almost-Everywhere Near-Cubic Gate Lower Bounds for SYM∘THR Circuits"
+  authors:
+    - family-names: Nag
+      given-names: Dev
+      orcid: "https://orcid.org/0009-0006-7304-8082"
+  year: 2026
+  month: 10
+  notes: "Version 2 (October 15, 2026). Subtitle: Constant-Error Hardness for Arbitrary Symmetric Tops and Vanishing Correlation for Periodic Tops. The LaTeX source in paper/paper.tex is this version, the version the Lean proof was checked against."
