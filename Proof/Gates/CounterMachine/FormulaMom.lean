@@ -2,8 +2,8 @@ import Proof.Gates.CounterMachine.FormulaAmp
 
 /-! # RG machine, part 18: the moment formulas (table (b))
 
-**`momDP_spec`**: `(E_j^r(y,x) − E_j^r(y,0^I))^{2k}` (digit moments, v2 1660–1672) and **`momPP_spec`**:
-`(Φ^r(y,x) − Φ^r(y,0^I))^{2k}` with `Φ = M₁ K_J − A X` (1658), each form printed on the variables from `0` (gates at
+**`momDP_spec`**: `(E_j^r(y,x) − E_j^r(y,0^I))^{2k}` (digit moments, table (b) of `sec:algorithm`) and **`momPP_spec`**:
+`(Φ^r(y,x) − Φ^r(y,0^I))^{2k}` with `Φ = M₁ K_J − A X` (defined there), each form printed on the variables from `0` (gates at
 `(y,x)`) and from `G_r` (gates at `(y,0^I)`). The constants `M₁`, `A` follow the rates on the rate stream (`L[J−1]`,
 `L[J]`). -/
 

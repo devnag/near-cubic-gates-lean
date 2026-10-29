@@ -197,7 +197,7 @@ theorem inputNode_emit (cap : ℕ) (τ3 : WState 4 nrH) (i S : ℕ) (out : List 
     refine ⟨τ4, _, WExec.ifrT hg e4, by omega, ?_, w4, f4⟩
     rw [if_neg (by omega)]; exact o4
 
-/-- **`C`'s `input i`** (paper §11.4; `Outer.substStepG` / `inputMapD`): `input i` if `i < q`, else `const false`;
+/-- **`C`'s `input i`** (`sec:gadget-machine`; `Outer.substStepG` / `inputMapD`): `input i` if `i < q`, else `const false`;
 the index is read with the guard `hc q + 1` (`fieldToG`), and an index longer than the guard is `≥ q`. -/
 theorem nC1b_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (hg : σ.val (regH .g) = 0) (preW restW : List Bool)
     (i : ℕ) (hW : σ.st sW = preW ++ natWord i ++ natWord 0 ++ restW) (hWh : σ.sh sW = preW.length)
@@ -268,7 +268,8 @@ theorem native_constFalse {n : ℕ} :
 theorem native_constFalse_length {n : ℕ} : (PCPPRequestNodeSchema.native (BooleanNode.const false : BooleanNode n)).length = 9 := by
   rw [native_constFalse]; simp [natWord_length, natBitLength]
 
-/-- **The padding loop** (paper §11.4: `D_B` is size-padded to its arity with `const false` nodes): `x` iterations of
+/-- **The padding loop** (`sec:gadget-machine`: `D_B` is size-padded to its arity with `const false` nodes): `x`
+iterations of
 `dec x; const false`. -/
 theorem padLoop_run (cap : ℕ) {n : ℕ} : ∀ (m : ℕ) (τ : WState 4 nrH) (o : List Bool), τ.val (regH .x) = m →
     OutOK τ o → WClean τ → 2 * o.length + 18 * m + 100 ≤ cap → m ≤ cap →
@@ -303,7 +304,7 @@ theorem padLoop_run (cap : ℕ) {n : ℕ} : ∀ (m : ℕ) (τ : WState 4 nrH) (o
             simp only [List.mem_append, List.mem_cons, List.not_mem_nil, or_false, or_assoc] at hu
             rcases hu with rfl | rfl | rfl | rfl <;> simp)
 
-/-- **The end of the emission, head**: the image `p1` of `o_C`, the output gate `not p1` (paper §11.4: "negating
+/-- **The end of the emission, head**: the image `p1` of `o_C`, the output gate `not p1` (`sec:gadget-machine`: "negating
 the output"), `x := pd`. -/
 theorem emissionEnd_head (cap : ℕ) {n : ℕ} (σ : WState 4 nrH) (hz : CBZ σ) (hx : σ.val (regH .x) = 0)
     (fl : List Bool) (hF : σ.st sF = fl) (hFh : σ.sh sF = 0) (S : ℕ) (hoC : σ.val (regH .oC) ≤ S)
@@ -355,7 +356,8 @@ theorem emissionEnd_head (cap : ℕ) {n : ℕ} (σ : WState 4 nrH) (hz : CBZ σ)
           simp only [List.mem_append, List.mem_cons, List.not_mem_nil, or_false, or_assoc] at hu
           rcases hu with rfl | rfl | rfl <;> simp)
 
-/-- **The end of the emission** (paper §11.4: "Substituting `O_{B_pf}` for every oracle gate and negating the output
+/-- **The end of the emission** (`sec:gadget-machine`:
+"Substituting `O_{B_pf}` for every oracle gate and negating the output
 gives the outer verifier `D_B`"; `D_B` size-padded to its arity): the output gate `not (image of o_C)`, the padding
 (`pd` nodes `const false`), the output index `sz`, the closing cell. -/
 theorem emissionEnd_spec (cap : ℕ) {n : ℕ} (σ : WState 4 nrH) (hz : CBZ σ) (hx : σ.val (regH .x) = 0)

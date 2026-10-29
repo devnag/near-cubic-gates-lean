@@ -5,7 +5,7 @@ namespace GR
 
 /-! One complete all-length recovery schedule returns the retained address,
 the exact semantic finite-branch flag and the actual ordinary refuter request.
-All fixed-onset printing and framing are included in the C.12 bound. -/
+All fixed-onset printing and framing are included in the bound of the `E^NP` recovery (`sec:all-lengths`). -/
 namespace NearCubicWires.RepairSource.CloseoutSchedule.Guarded
 open LocalBitMultitape RepairOrdinary
 set_option autoImplicit false

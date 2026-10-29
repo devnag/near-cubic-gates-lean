@@ -45,7 +45,7 @@ theorem killIf_spec (c : Cnd VV) (fl : Fin VV) (hcw : c.wf) (hfJ : fl ≠ vJ) (a
     rintro b rfl
     exact ⟨by rw [DS.set_env_ne _ _ hfJ, if_neg (by simp [he])], rfl, rfl, rfl, Fr.set _ _ (by simp)⟩
 
-/-! ## The lift exponent `e_P` (line 1595) -/
+/-! ## The lift exponent `e_P` (`sec:finite`, rule 3) -/
 
 open AE in
 def liftTest : St VV :=
@@ -147,7 +147,7 @@ theorem liftV_spec (a : DS VV) (hc : Cst a) (k P : ℕ) (hP : a.env pP = P) (hk 
     unfold liftCost
     omega
 
-/-! ## The candidate test (eq:prime-budget, line 1597) -/
+/-! ## The candidate test (eq:prime-budget) -/
 
 open AE in
 def pTest : St VV :=

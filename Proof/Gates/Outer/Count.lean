@@ -4,7 +4,7 @@ import Proof.Gates.Outer.Circuit
 # Counting through the truncation `r ↦ r|_ℓ`
 
 `card_trunc`: for `ℓ ≤ q`, the `r ∈ {0,1}^q` whose first `ℓ` bits satisfy a predicate number `2^{q−ℓ}` times the
-`z ∈ {0,1}^ℓ` that satisfy it. Used for the outer soundness bound (paper §11.4: `D_B` "ignores its last q − ℓ_out
+`z ∈ {0,1}^ℓ` that satisfy it. Used for the outer soundness bound (`sec:gadget-machine`: `D_B` "ignores its last q − ℓ_out
 inputs", so the fraction of seeds it accepts is the fraction of `C`'s unsatisfying assignments).
 -/
 

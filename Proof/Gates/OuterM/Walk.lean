@@ -155,7 +155,8 @@ theorem read_cellsOf (d : List Bool) (n i : ℕ) : readTapeBit (cellsOf d n) i =
   · rw [List.getD_eq_getElem _ _ (by simpa using h)]; simp [readTapeBit, List.getD_eq_getElem?_getD]
   · exact List.getD_eq_default _ _ (by simpa using h)
 
-/-- **The guard** (paper v2 §11.4, "description of at most `L_ν` bits"): the walk over the first `L + 1` cells of a
+/-- **The guard** (`sec:gadget-machine`: the source circuit's "description … has at most `L_ν` bits"): the walk
+over the first `L + 1` cells of a
 genuine description ends within `L` iff the description has at most `L` bits. -/
 theorem fits_iff {m : ℕ} (B : BooleanCircuit m) (L : ℕ) :
     walkEnd (cellsOf (PCPPNative.descriptor B) (L + 1)) 0 ≤ L ↔ (PCPPNative.descriptor B).length ≤ L := by

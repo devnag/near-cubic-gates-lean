@@ -4,7 +4,7 @@ import Proof.MachineModel.OrdinaryOracleComposeReady
 /-!
 # The recovery after the refuter: one SAT-oracle program from `(z, point)` to the gate core's bit
 
-Paper §11.6: "The choices of sec:gadget-transfer are recovered in three stages, by prefix self-reduction on SAT
+`sec:all-lengths`: "The choices of sec:gadget-transfer are recovered in three stages, by prefix self-reduction on SAT
 formulas of size 2^{O(q)}. First, a formula over the description of B_src with the N constraints eq:source-check …
 finds the first source circuit B*_src, or shows that there is none, in which case the table is X_z. Second, the
 algorithm of imp:short-pcp is run deterministically on ⟨B*_src⟩_ν …; a formula with one variable per oracle address …
@@ -36,7 +36,7 @@ tape blank. -/
 def afterBank {t : ℕ} (zPort pointPort : Fin t) (zWord pointWord : List Bool) : Fin t → List Bool :=
   fun i => if i = zPort then zWord else if i = pointPort then pointWord else []
 
-/-- **The recovery after the refuter** (paper §11.6, the three stages and the two branches). -/
+/-- **The recovery after the refuter** (`sec:all-lengths`, the three stages and the two branches). -/
 structure AfterRun (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) where
   prog : OrdinaryOracleProgram
   zPort : Fin prog.base.tapeCount

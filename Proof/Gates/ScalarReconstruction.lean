@@ -7,7 +7,7 @@ import Mathlib.LinearAlgebra.Basis.VectorSpace
 # Existence and soundness of exact scalar reconstruction
 
 The actual prime-residue matrix has a rational checked left inverse at the
-manuscript's scalar window. No injectivity or inverse-existence axiom is used.
+scalar window of `lem:one-window`. No injectivity or inverse-existence axiom is used.
 Existence here is algebraic. This module does not claim a running-time bound
 for Gaussian elimination or a circuit-counting machine.
 -/

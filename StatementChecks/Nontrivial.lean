@@ -1,15 +1,15 @@
-import Statement
+import NineInputs
 
 /-! # The main statement is not trivially true or trivially false, and what it asserts
 
 A check of `MainStatement`/`MainAt` in the trusted statement against the main theorem
-(`paper/paper.tex:212-225`, `thm:main`) and the reading of "almost everywhere" fixed before it
-(`paper/paper.tex:207-210`); `SourceMapping/main-theorem.md` (item 1) compares the quantifiers.
+(`thm:main`) and the reading of "almost everywhere" fixed before it
+(`sec:intro`, "Main theorem, informally"); `SourceMapping/main-theorem.md` (item 1) compares the quantifiers.
 
 A skeptic should check that the conclusion cannot hold for a degenerate reason (an empty range of circuits,
 an agreement measure that never reaches the bound), that it cannot fail for a degenerate reason (an
 `E^NP` predicate no language satisfies, which would make the main statement false and the implication
-`FinalStatement` vacuous), and what the existential constant `γ` contributes. This module proves:
+`NineFinalStatement` vacuous), and what the existential constant `γ` contributes. This module proves:
 
 * `constantCircuit_mainBudget`: the constant circuit (no bottom gates) lies within every budget, so the
   conclusion always quantifies over at least one circuit.
@@ -19,7 +19,7 @@ an agreement measure that never reaches the bound), that it cannot fail for a de
   explicit two-state program and an explicit verifier for the empty NP oracle.
 * `mainStatement_iff_exists_d`: `MainStatement` is equivalent to constant-error hardness for one constant
   `d > 0`. As in the paper, `γ` is existential, so the window `0 < d < γ/5` carries no further content;
-  the paper's remark that `γ` comes from a published PCPP (`paper/paper.tex:233-235`) is not part of the
+  the paper's remark that `γ` comes from a published PCPP (the remark after `thm:main`) is not part of the
   theorem.
 -/
 

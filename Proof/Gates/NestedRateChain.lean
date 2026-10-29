@@ -6,7 +6,7 @@ import Mathlib.Tactic.FieldSimp
 
 /-! The square-root acceleration is the high-risk part of the public rate
     chain: multiplying the rate by a fixed constant would cost too many
-    stages. These definitions follow the manuscript's literal floor rule. -/
+    stages. These definitions follow the literal floor rule of `lem:chain`. -/
 
 set_option autoImplicit false
 

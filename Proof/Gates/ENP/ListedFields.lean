@@ -30,7 +30,7 @@ def qField (b : Bool) : List Bool := RepairOrdinary.frame [b, true, true]
 /-- The normalized query row of query `i` on oracle width `R`: its address bits `testBit i j`, `j < R`. -/
 def qRow (R i : ℕ) : List Bool := (List.range R).flatMap fun j => qField (i.testBit j)
 
-/-- The normalized query stream of `M` queries (paper §11.6, stage 1/3 formula input). -/
+/-- The normalized query stream of `M` queries (`sec:all-lengths`, stage 1/3 formula input). -/
 def qStream (R M : ℕ) : List Bool := (List.range M).flatMap fun i => qRow R i
 
 /-- The literal code of the unit clause `y_i = vals[i]`: `2i` for a positive literal, `2i+1` for a negative one. -/

@@ -1,9 +1,9 @@
-import Statement
+import NineInputs
 
 /-! # An `E^NP` certificate is a deterministic computation that pins its language
 
 A check of `InENP` in the trusted statement, the `E^NP` membership required of the hard language in the
-main theorem (`paper/paper.tex:212-225`, `thm:main`); `SourceMapping/main-theorem.md` (item 6) describes
+main theorem (`thm:main`); `SourceMapping/main-theorem.md` (item 6) describes
 the model.
 
 The execution semantics of an oracle program (`OrdinaryOracleStep`, `OrdinaryOracleTrace`,

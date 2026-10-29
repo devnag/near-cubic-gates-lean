@@ -10,7 +10,7 @@ open NearCubicWires.Bindings.CLW20Lemma311 NearCubicWires.RepairSource.CloseoutL
 open NearCubicGates.PublishedSources.PCPP NearCubicGates.Close.Gadget NearCubicGates.Close.Transfer
 open NearCubicGates.Close.Interfaces NearCubicGates NearCubicGates.FiniteAverages
 open NearCubicGates.FreshHelperTable NearCubicGates.GadgetTableTransfer NearCubicGates.FiveCycle
-open NearCubicGates.CircuitNormalization NearCubicWires.Bindings.CTW26
+open NearCubicGates.CircuitNormalization
 
 theorem agreement_comm {α : Type*} [Fintype α] (f g : α → Bool) :
     FiniteAverages.agreement f g = FiniteAverages.agreement g f := by
@@ -41,7 +41,7 @@ noncomputable def candOf (aj : Fin (2 ^ cl) × Fin (2 ^ pl)) : BitInput D.n → 
 /-- The systematic names: the checked circuit's input. -/
 noncomputable def systematicOf (X : Name P D) : Bool := decide (X.val < (checkedCircuit P.code D).n)
 
-/-- The chosen coordinate functions (v2 lines 2462–2466): systematic names exact, every other name one minimizing
+/-- The chosen coordinate functions (`sec:gadget-extract`): systematic names exact, every other name one minimizing
 address cofactor. -/
 noncomputable def chosenOf : Name P D ⊕ Fin (2 ^ cl) → BitInput D.n → Bool :=
   NameCofactors.prescribedSelected (prescribed (systematicOf P D)) (addrName P D cl pl) (honestOf P D hD cl)
@@ -226,7 +226,7 @@ variable (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) {N : ℕ} (x : 
   (B : Outer.OuterGuess (width s g N)) (hD : ∀ r, (substituted s g x B).D.eval r = true)
   (C : Target.WeightedSymmetricCircuit
     ((substituted s g x B).n + clauseWidth g.clauseDegree (width s g N) + g.positionLog))
-  (pub : CTW26_Lemma3_2) (hn : 1 ≤ width s g N)
+  (pub : ThresholdNormalizationContract) (hn : 1 ≤ width s g N)
 
 noncomputable def cofCircuit
     (nm : Name P (substituted s g x B) ⊕ Fin (2 ^ clauseWidth g.clauseDegree (width s g N))) :
@@ -353,7 +353,7 @@ variable (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) {N : ℕ} (x : 
   (B : Outer.OuterGuess (width s g N)) (hD : ∀ r, (substituted s g x B).D.eval r = true)
   (C : Target.WeightedSymmetricCircuit
     ((substituted s g x B).n + clauseWidth g.clauseDegree (width s g N) + g.positionLog))
-  (pub : CTW26_Lemma3_2) (hn : 1 ≤ width s g N) {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ)
+  (pub : ThresholdNormalizationContract) (hn : 1 ≤ width s g N) {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ)
 
 /-- Useful witness prefixes: per term, a witness of radius at most `ω` for its call, when one exists. -/
 noncomputable def usefulWit (a : ℕ) (t : Fin 10) : List Bool := by

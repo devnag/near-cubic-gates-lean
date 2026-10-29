@@ -128,7 +128,7 @@ theorem upperEstimate_eq {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ) :
   rw [G.upperL_termList P x ctr ω, upperQ_eq gadgets_pos]
   rfl
 
-/-- **The verdict bit of the guess's request is the test of the meaning** (`Guess.Certified`, paper v2 §11.4), once
+/-- **The verdict bit of the guess's request is the test of the meaning** (`Guess.Certified`, `sec:gadget-machine`), once
 the set-up's guards hold. -/
 theorem verdictBit_iff {B1 B2 : ℕ} (ctr : Counter B1 B2) (hD : Counter.DenOK ctr) (budget : ℕ → ℕ) (εT ω : ℚ)
     (hS : G.SetupOK x) :

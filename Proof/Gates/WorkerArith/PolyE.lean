@@ -3,8 +3,9 @@ import Mathlib
 /-!
 # Eventual polynomial bounds in `N` with an explicit exponent
 
-`PE f e`: past an onset, `f N ≤ C (N+1)^e`. The exponent is explicit (it must be fixed before the clock, paper v2
-lines 2397–2402); the constant and the onset are free. Closure: `const`, `lin`, `raise`, `add`, `mul`, `pow`, `mono`.
+`PE f e`: past an onset, `f N ≤ C (N+1)^e`. The exponent is explicit (it must be fixed before the clock: `sec:gadget-machine`
+and the order of constants of `app:multitape`); the constant and the onset are free.
+Closure: `const`, `lin`, `raise`, `add`, `mul`, `pow`, `mono`.
 -/
 
 set_option autoImplicit false

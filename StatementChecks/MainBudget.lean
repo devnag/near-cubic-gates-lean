@@ -1,12 +1,12 @@
-import Statement
+import NineInputs
 
 /-! # The integer budget is exactly the paper's floor budget
 
 A check of `MainBudget` in the trusted statement against the boxed budget of the main theorem
-(`paper/paper.tex:212-225`, `thm:main`):
+(`thm:main`):
 
   `W(C) ≤ ⌊n^3 / (K_d · λ_n^(21/4) · μ_n^7)⌋`,  with `λ_n = ⌈log₂ n⌉`, `μ_n = ⌈log₂ λ_n⌉` for `n ≥ 4`
-  (`paper/paper.tex:202-205`).
+  (`sec:main-results`).
 
 `Statement.lean` states the budget without real division or fractional powers, as
 `(K·W·μ^7)^4 · λ^21 ≤ n^12` (`SourceMapping/main-theorem.md`, item 5). A skeptic should ask whether this
@@ -42,7 +42,7 @@ theorem mu_ge_one {n : ℕ} (hn : 4 ≤ n) : 1 ≤ mu n := by
     _ ≤ Nat.clog 2 (lambda n) := Nat.clog_mono_right 2 (lambda_ge_two hn)
 
 /-- For `n ≥ 4` and `K > 0`, `MainBudget K n w` holds exactly when
-`w ≤ ⌊n^3 / (K · λ_n^(21/4) · μ_n^7)⌋₊`, the paper's boxed budget. -/
+`w ≤ ⌊n^3 / (K · λ_n^(21/4) · μ_n^7)⌋₊`, the paper's boxed budget (`thm:main`). -/
 theorem mainBudget_iff_floor {K n w : ℕ} (hK : 0 < K) (hn : 4 ≤ n) :
     MainBudget K n w ↔
       w ≤ ⌊(n : ℝ) ^ 3 / ((K : ℝ) * (lambda n : ℝ) ^ ((21 : ℝ) / 4) * (mu n : ℝ) ^ 7)⌋₊ := by

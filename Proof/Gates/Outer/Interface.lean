@@ -8,7 +8,7 @@ namespace NearCubicGates.Close.Outer
 
 open NearCubicWires NearCubicWires.RepairSource NearCubicWires.RepairOrdinary NearCubicWires.LocalBitMultitape
 
-/-- `L_ν = ν^{G+2}`: the length of the padded instance `⟨B_src⟩_ν` (paper §11.4: "Put L_ν = ν^{G′}", here with
+/-- `L_ν = ν^{G+2}`: the length of the padded instance `⟨B_src⟩_ν` (`sec:gadget-machine`: "Put L_ν = ν^{G′}", here with
 `G′ = G + 2`). -/
 def instLength (G ν : ℕ) : ℕ := ν ^ (G + 2)
 
@@ -42,14 +42,15 @@ theorem ofFn_srcBits (G ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (h : SrcFits 
     simp only [List.getElem_ofFn, srcBits, List.getD_eq_getElem?_getD, List.getElem?_eq_getElem h2,
       Option.getD_some]
 
-/-- The point `(bin_ν(i), 0^{m−ν})` on `m` inputs: bit `j < ν` is bit `j` of `i`, every other bit is `0` (paper §11.4,
+/-- The point `(bin_ν(i), 0^{m−ν})` on `m` inputs: bit `j < ν` is bit `j` of `i`, every other bit is `0`
+(`sec:gadget-machine`,
 eq:source-check). -/
 def pointOf (ν m i : ℕ) : BitInput m := fun j => if j.val < ν then i.testBit j.val else false
 
 /-- `tt_N(B)`, `N = 2^ν`: the table of `B` at the points `(bin_ν(i), 0^{m−ν})`, `i < N`. -/
 def ttN (ν : ℕ) {m : ℕ} (B : BooleanCircuit m) : BitInput (2 ^ ν) := fun i => B.eval (pointOf ν m i.val)
 
-/-- CHECK (paper §11.4, eq:source-check): `B_src(bin_ν(i) 0^{q−ν}) = z_i` for every `i < N`. -/
+/-- CHECK (`sec:gadget-machine`, eq:source-check): `B_src(bin_ν(i) 0^{q−ν}) = z_i` for every `i < N`. -/
 def Check (ν : ℕ) (z : BitInput (2 ^ ν)) {m : ℕ} (B : BooleanCircuit m) : Prop := ttN ν B = z
 
 /-- CHECK at a source length `N` (the weak machine's form; equal to `Check` when `N = 2^ν`). -/
@@ -70,7 +71,7 @@ instance (ν : ℕ) (z : BitInput (2 ^ ν)) {m : ℕ} (B : BooleanCircuit m) : D
   unfold Check
   infer_instance
 
-/-- **lem:succinct-verifier** (paper v2 app:multitape, lem:succinct-verifier (i)–(iii)): the verifier `𝒱_G` of
+/-- **lem:succinct-verifier** (`lem:succinct-verifier` (i)–(iii), `app:multitape`): the verifier `𝒱_G` of
 `L′ = {⟨B⟩_ν : tt_N(B) ∈ L_Tclk}` for the hierarchy `H` at clock `n^{k+2}`. It halts within `T(n)` on every input and
 witness (`RunsInTime`, the hypothesis of input 6), accepts `⟨B⟩_ν` with some witness of length `T(L_ν)` exactly when the
 hierarchy verifier accepts `tt_N(B)` (from the onset `onset` on), `T_G(L_ν) ≤ c_G N^{C_clk}`, and `T_G(L_ν)` is computable
@@ -91,7 +92,8 @@ structure SuccinctVerifier {k : ℕ} (H : OrdinaryHierarchy (fun n => n ^ (k + 2
   timeWord : OrdinaryWordFunction ℕ (fun ν => List.replicate ν true) (fun ν => (T (instLength G ν)).bits)
     (fun ν => timeCoefficient * (ν + 1) ^ timeExp)
 
-/-- The guessed pair `B = (B_src, B_pf)` on the native width `q` (paper §11.4: "Write B = (B_src, B_pf)"; `B_pf` has
+/-- The guessed pair `B = (B_src, B_pf)` on the native width `q` (`sec:gadget-machine`: "Write B = (B_src, B_pf)";
+`B_pf` has
 `q` inputs and answers the oracle query `a` as `B_pf(a 0^{q−ℓ_out})`). -/
 @[ext] structure OuterGuess (q : ℕ) where
   src : BooleanCircuit q

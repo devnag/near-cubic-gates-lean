@@ -10,7 +10,7 @@ The proofs are kernel-checked finite case analyses; they do not use an axiom,
 unfinished-proof placeholders, or compiled decision procedures.
 
 The last two results isolate the linear-arithmetic certificate behind the
-paper's restricted symmetric optimality observation. They use integer-scaled
+paper's restricted symmetric optimality observation (`prop:symmetric-gadget-weight`). They use integer-scaled
 coefficients and weights. They do not assert a representation theorem for
 arbitrary real quadratic polynomials.
 -/
@@ -54,7 +54,7 @@ theorem distance_eq_absolute_difference (a b : Bool) :
     distance a b = Int.ofNat (Int.natAbs (bit a - bit b)) := by
   cases a <;> cases b <;> decide
 
-/-- The paper's five-unit weighted error budget for one gadget. -/
+/-- The paper's five-unit weighted error budget for one gadget (`lem:gadget-stability`). -/
 def weightedError (x₁ x₂ x₃ x₁' x₂' x₃' y' : Bool) : Int :=
   distance x₁ x₁' + distance x₂ x₂' + distance x₃ x₃' +
   2 * distance (honestHelper x₁ x₂ x₃) y'

@@ -1,7 +1,7 @@
 import Proof.Gates.Gadget.Checked
 
 /-!
-# The size of the checked circuit — paper v2 line 2101 ("a polynomial-size list of three-literal clauses")
+# The size of the checked circuit — `imp:three-pcpp` ("a polynomial-size list of three-literal clauses")
 
 Exact node counts of the circuit-kit builders, and `(checkedCircuit E D).m ≤ D.m + L(8 + 5q) + q + L` with
 `q = D.n`, `L = E.length q`: the checks add one parity chain (at most `q` XORs of five nodes) and five more nodes per

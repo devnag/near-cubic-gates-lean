@@ -267,7 +267,8 @@ def cpJ (g info : List Bool) (n o : ℕ) : PS :=
   ⟨![0, 0, 0, 0, 0, o, o], ![Streaming.marks g, info, g, List.replicate n true, List.replicate n true,
       List.replicate o true, List.replicate (o + 1) true], ![0, 0, 0, 0, 0, 0, o], false⟩
 
-/-- **The preparation run** (paper §11.6 stage 2: the formula of `c_T` handed to the SAT search): from the marked graph
+/-- **The preparation run** (`sec:all-lengths` stage 2: the formula of `c_T` handed to the SAT search): from the
+marked graph
 and the info word `1^n 0 1^o` to the raw graph, `1^n` twice, `1^o`, `1^{o+1}`, every head and register at `0`. -/
 theorem prep_exec (g : List Bool) (n o : ℕ) :
     WExec (prepCap g.length n o) prepWM (stIn g (tInfo n o)) (stFin g n o) (prepCost g.length n o) := by

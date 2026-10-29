@@ -15,7 +15,7 @@ rev = "v4.32.0"
 [[lean_lib]]
 name = "NearCubicGates"
 roots = ["MainTheorem"]
-globs = ["MainTheorem", "Statement", "StatementSupport", "StatementChecks.+", "Proof.+", "Bindings.+"]
+globs = ["MainTheorem", "Statement", "NineInputs", "StatementSupport", "StatementChecks.+", "Proof.+", "Bindings.+", "SourceAdapters.+"]
 
 # For comparator only (`make comparator`; README); `make` does not build them.
 [[lean_lib]]

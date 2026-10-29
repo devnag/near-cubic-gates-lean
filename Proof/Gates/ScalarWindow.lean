@@ -7,7 +7,7 @@ import Mathlib.Data.Int.ModEq
 /-!
 # Scalar distribution uniqueness from prime residue histograms
 
-This is the roots-of-unity proof of manuscript `lem:one-window`, not an
+This is the roots-of-unity proof of `lem:one-window`, not an
 assumption of injectivity or of the existence of a reconstruction certificate.
 Masses may be signed rationals. The first theorem uses a finite consecutive
 frame; the integer-frame adapter below permits negative endpoints.
@@ -18,7 +18,7 @@ namespace NearCubicGates.ScalarWindow
 open scoped BigOperators Polynomial
 open Polynomial
 
-/-- The exact scalar distributional window in the manuscript. -/
+/-- The exact scalar distributional window of `lem:one-window`. -/
 def window (primes : Finset ℕ) : ℕ := 1 + ∑ p ∈ primes, (p - 1)
 
 /-- Residue histogram of a rational-valued distribution on `0,...,L-1`. -/
@@ -99,7 +99,7 @@ theorem frequencyRoots_card (primes : Finset ℕ)
   rw [(Complex.isPrimitiveRoot_exp p (hprime p hp).ne_zero).card_primitiveRoots,
     Nat.totient_prime (hprime p hp)]
 
-/-- The manuscript's scalar uniqueness statement on a zero-based frame. -/
+/-- The uniqueness statement of `lem:one-window` on a zero-based frame. -/
 theorem zero_of_residueData_zero {L : ℕ} (primes : Finset ℕ)
     (hne : primes.Nonempty) (hprime : ∀ p ∈ primes, Nat.Prime p)
     (mass : Fin L → ℚ) (hL : L ≤ window primes)

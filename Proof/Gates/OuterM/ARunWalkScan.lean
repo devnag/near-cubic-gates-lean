@@ -47,7 +47,7 @@ theorem payW_spec (S : Fin (ns + 1)) (P ELL : Fin nr) (hPE : P ≠ ELL) :
 /-- The walk over the fields of `S` (head position in `P`, field length scratch `ELL`). -/
 def walkW (S : Fin (ns + 1)) (P ELL : Fin nr) : WM ns nr := .whs S (.seq (WM.readU S P ELL) (payW S P ELL))
 
-/-- **The walk** (paper v2 §11.4, the guard on the description length): from `pos`, the head and `P` end at
+/-- **The walk** (`sec:gadget-machine`, the guard on the description length): from `pos`, the head and `P` end at
 `walkEnd (σ.st S) pos`, within `11` steps per cell walked. -/
 theorem walkW_spec (S : Fin (ns + 1)) (P ELL : Fin nr) (hPE : P ≠ ELL) (d : List Bool) :
     ∀ (pos : ℕ) (σ : WState ns nr), σ.st S = d → σ.sh S = pos → σ.val P = pos → σ.val ELL = 0 →

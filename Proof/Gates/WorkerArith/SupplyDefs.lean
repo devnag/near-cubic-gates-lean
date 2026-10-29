@@ -31,7 +31,7 @@ theorem vmapFacts {s : GateSources} {P : ThreeQueryPCPP} {g : GateParams} (D : S
   ⟨_, WorkerBounds.vmap_ok D (verdictMachine γ εT) (WorkerBounds.verdict_room D γ εT)⟩
 
 /-- What `WeakWorker.WeakWorkerOf` asks beyond the machines: the padding, the fuel with its per-run fits, the guess envelope and
-the runtime split (paper v2 lines 2393–2407). -/
+the runtime split (`sec:gadget-machine`, from "All guesses have a fixed polynomial bound"). -/
 def WeakWorkerRest (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) {B1 B2 : ℕ} (ctr : Counter B1 B2)
     (hD : Counter.DenOK ctr) (budget : ℕ → ℕ) (εT ω : ℚ) (D : SetupData s P g)
     (vm : Worker.VerdictMachine P.gamma εT) : Prop :=

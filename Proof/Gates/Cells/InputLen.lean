@@ -74,7 +74,7 @@ theorem ratWord_bits (q : ℚ) : natBitLength q.num.natAbs ≤ (ratWord q).lengt
   simp only [ratWord, Interfaces.intWord, List.length_append] at *
   omega
 
-/-! ## The parameters (Spec, lines 1565–1621) -/
+/-! ## The parameters (Spec, `sec:finite`) -/
 
 theorem factorRat_mul_le (x : ℚ) (_hx : 0 < x) : (RationalRateChain.factorRat x : ℚ) * x ≤ 1 := by
   have hs' : 16 * ((RationalRateChain.factorRat x : ℕ) : ℚ) ^ 2 * x ≤ 1 := by
@@ -666,7 +666,7 @@ theorem wit_len (wt : Wit c.n) (w : List Bool) (hw : decodeWitness c p w = some 
 
 end Assembly
 
-/-- **The cell input has polynomial length** (paper v2 line 1550). -/
+/-- **The cell input has polynomial length** (`sec:algorithm`: "The entire encoding has polynomial length"). -/
 theorem cellInput_length_le (B1 B2 cT : ℕ) :
     ∃ C e : ℕ, ∀ r : CellReq B1 B2 cT, (cellInput r).length ≤ C * (r.c.n + 1) ^ e := by
   refine ⟨2 ^ 19, B1 + B2 + 13, fun r => ?_⟩

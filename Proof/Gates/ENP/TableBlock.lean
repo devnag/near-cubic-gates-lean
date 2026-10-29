@@ -116,7 +116,7 @@ def argCost (x k bz : ℕ) : ℕ :=
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 20000 in
-/-- **One argument** (paper §11.6 stage 2): reads `args j = x`, writes `w = BZ + x·K + K − 1` in unary. -/
+/-- **One argument** (`sec:all-lengths` stage 2): reads `args j = x`, writes `w = BZ + x·K + K − 1` in unary. -/
 theorem argBody_exec (ε : Bool) (cap : ℕ) (σ : WState 3 40) (x k bz : ℕ) (pre rest out L0 : List Bool)
     (hst : σ.st sCW = pre ++ enc ε (natWord x) ++ rest) (hsh : σ.sh sCW = pre.length)
     (hRF : σ.val rRF = 0) (hRC : σ.val rRC = 0) (hRV : σ.val rRV = 0) (hRP : σ.val rRP = 0) (hRT : σ.val rRT = 0)
@@ -217,7 +217,7 @@ def ast (ε : Bool) (σ : WState 3 40) (p0 : ℕ) (xs : List ℕ) (im : ℕ → 
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **The arguments of an oracle gate** (paper §11.6 stage 2): reads all `ℓ` arguments and writes their images. -/
+/-- **The arguments of an oracle gate** (`sec:all-lengths` stage 2): reads all `ℓ` arguments and writes their images. -/
 theorem argsLoop_exec (ε : Bool) (cap : ℕ) (σ : WState 3 40) (xs : List ℕ) (kk bz Xm : ℕ) (P0 rest L0 : List Bool)
     (hst : σ.st sCW = P0 ++ enc ε (xs.flatMap natWord) ++ rest) (hsh : σ.sh sCW = P0.length)
     (hRF : σ.val rRF = 0) (hRC : σ.val rRC = 0) (hRV : σ.val rRV = 0) (hRP : σ.val rRP = 0) (hRT : σ.val rRT = 0)
@@ -349,7 +349,7 @@ def groupsCost (ℓ T np0 Wm P : ℕ) : ℕ := T * (groupCost ℓ T (np0 + T * (
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **The `T` groups of a multiplexer** (paper §11.6 stage 2: "each oracle gate becomes a selector over the
+/-- **The `T` groups of a multiplexer** (`sec:all-lengths` stage 2: "each oracle gate becomes a selector over the
 `2^{ℓ_out}` oracle variables"). -/
 theorem groupsLoop_exec {ℓ : ℕ} (cap : ℕ) (σ : WState 3 40) (T np0 Wm Vb : ℕ) (ws : List ℕ) (hws : ws.length = ℓ)
     (hWm : ∀ w ∈ ws, w ≤ Wm) (hnp : 1 ≤ np0)
@@ -446,7 +446,7 @@ theorem groupsCost_mono {ℓ T np0 Wm P P' : ℕ} (h : P ≤ P') : groupsCost �
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **An oracle gate's block** (paper §11.6 stage 2): `K = T(2ℓ+1)` nodes, the multiplexer over the table inputs. -/
+/-- **An oracle gate's block** (`sec:all-lengths` stage 2): `K = T(2ℓ+1)` nodes, the multiplexer over the table inputs. -/
 theorem oracleBlock_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (σ : WState 3 40) (xs : List ℕ) (hxs : xs.length = ℓ)
     (T kk bz Xm np0 Vb : ℕ) (P0 rest L0 : List Bool)
     (hst : σ.st sCW = P0 ++ enc ε (xs.flatMap natWord) ++ rest) (hsh : σ.sh sCW = P0.length)

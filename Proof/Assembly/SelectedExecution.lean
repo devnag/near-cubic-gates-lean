@@ -1,4 +1,5 @@
 import Proof.Assembly.SelectedFactorization
+
 set_option autoImplicit false
 set_option maxHeartbeats 800000
 set_option maxRecDepth 120000

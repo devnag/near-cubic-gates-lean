@@ -4,8 +4,8 @@ import Proof.Gates.GateRecovery.Proof.CaseAnalysis.ScheduleRefuter
 
 namespace GR
 
-/-! One fixed all-length schedule/refuter prefix for the paper's common
-language. The actual selected source supplies its own onset and polynomial
+/-! One fixed all-length schedule/refuter prefix for the common
+language of `sec:all-lengths`. The actual selected source supplies its own onset and polynomial
 refuter budget; every short length follows the canonical false branch. -/
 namespace NearCubicWires.RepairSource.CloseoutSchedule.RefuterPrefix
 open LocalBitMultitape RepairOrdinary OrdinaryOracleCompose

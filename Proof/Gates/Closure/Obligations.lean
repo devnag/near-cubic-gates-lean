@@ -29,7 +29,7 @@ structure WorkerMachine (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) 
   fuel : ℕ → ℕ
   /-- The machine halts within `fuel N` on every input and every witness word. -/
   total : Weak.Total worker htapes result fuel
-  /-- An accepted witness word carries a guess passing the test (v2 lines 2344–2378). -/
+  /-- An accepted witness word carries a guess passing the test (`sec:gadget-machine`, `eq:gadget-acceptance`). -/
   sound : ∀ (N : ℕ) (x : BitInput N) (bits : List Bool), Weak.decides worker htapes result fuel N x bits →
     ∃ G : Guess (width s g N), G.Certified P x ctr budget (εT : ℝ) ω
   /-- Every guess within the size limits that passes the test has an accepted witness word of `⌊N/16⌋` bits. -/
@@ -42,7 +42,7 @@ structure WorkerMachine (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) 
   sigma : ℕ
   hot : ℕ → ℕ
   ha : a ≤ g.k + 1
-  /-- `σ > A_pad`: `2^q ≤ C N^{k+2} q^{A_pad}` (`Outer.widthOf_table`, paper v2 §11.4 "`2^q/T_clk(N) = q^{O(1)}`"). -/
+  /-- `σ > A_pad`: `2^q ≤ C N^{k+2} q^{A_pad}` (`Outer.widthOf_table`, `sec:gadget-machine`: "`2^q/T_clk(N) = q^{O(1)}`"). -/
   hsigma : Outer.apad s.mw (g.sv s) + 1 ≤ sigma
   /-- The runtime split: polynomial preprocessing plus a hot part `o(2^q)` per `q^σ`. -/
   split : ∃ onset : ℕ, ∀ N, onset ≤ N →
@@ -51,7 +51,8 @@ structure WorkerMachine (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) 
 
 /-- The worker exists at every parameter choice whose clock exponent covers the preprocessing exponent `d₀`, with the
 computable budget `budgetOf η` (the machine checks `topWeight ≤ b(q)`, so `b` must be computable). `d₀` may depend on
-everything the consumer fixes before the clock (paper: "independent of the clock"). -/
+everything the consumer fixes before the clock (the order of constants of `app:multitape`: `d_0 = 2` comes before
+`C_clk`). -/
 def WorkerSupply : Prop :=
   ∀ (s : GateSources) (P : ThreeQueryPCPP) (B1 B2 : ℕ) (ctr : Counter B1 B2) (η εT ω : ℚ), Counter.DenOK ctr →
     Counter.OutOK ctr → 0 < η → 0 < ω →

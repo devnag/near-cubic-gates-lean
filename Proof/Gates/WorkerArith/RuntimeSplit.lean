@@ -4,7 +4,7 @@ import Proof.Gates.Target
 /-!
 # WeakWorker (abstract part): the runtime split from the component classes
 
-Paper v2 lines 2403–2407: "`2^q q^{O(1)−μ_q} = o(T_clk(N))`". The worker's fuel is a polynomial part plus the counter
+`sec:gadget-machine`: "`2^q q^{O(1)−μ_q} = o(T_clk(N))`". The weak machine's fuel is a polynomial part plus the counter
 budgets of its calls (`termCost`: `10^13 (t+1)(Z+1)^4(B+1) + (300t + 6000)·bud`). With `Counter.fast`
 (`budget · q^{μ(q)} ≤ 2^q` on admitted calls at `q = c.n`) and a call count polynomial in `q`, the hot part times any
 fixed power `q^σ` is `O(2^q)`, because `μ(q) = ⌈lg ⌈lg q⌉⌉ → ∞`. Stated over abstract components until the composed

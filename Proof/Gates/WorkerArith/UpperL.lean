@@ -1,7 +1,7 @@
 import Proof.Gates.WorkerArith.VerdictVal
 
 /-!
-# `upperL` on the gadget-major list is `upperQ` (paper v2 eq:gadget-upper, lines 2216–2228)
+# `upperL` on the gadget-major list is `upperQ` (`eq:gadget-upper`)
 
 For `J : Fin M → Fin 10 → Bool × (ℚ × ℚ)` (flip bit and raw interval of term `t` of gadget `a`), the gadget-major
 list `gmList J = (List.finRange M).flatMap (fun a => (List.finRange 10).map (J a))` holds term `(a, t)` at index

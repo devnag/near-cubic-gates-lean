@@ -81,7 +81,7 @@ theorem guard_spec (X : St VV) (a : DS VV) (hc : Cst a) (t : ℕ) (R : DS VV →
     rintro b rfl
     exact h0 (by simpa [Cnd.eval, hc.one] using he)
 
-/-! ## Stage 0: the header and `k < n` (lines 1569–1572) -/
+/-! ## Stage 0: the header and `k < n` (`sec:finite`) -/
 
 open AE in
 def pS0 (cT : ℕ) : St VV :=
@@ -127,7 +127,7 @@ theorem pS0_spec (cT : ℕ) (c : Call) (a : DS VV) (hc : Cst a) (hp : ParseOut c
   · simp only [AE.cost] at hk2 hk3
     omega
 
-/-! ## Stage 1: `T` (rule 1) and the degree-zero guard (line 1587) -/
+/-! ## Stage 1: `T` (rule 1) and the degree-zero guard (`sec:finite`, rule 2) -/
 
 def pS1 : St VV := .seq pTee (.seq (killIf (.lt v1 pSF) vADM) (.seq (assign pT (.var pSI)) pRule2a))
 
@@ -172,7 +172,7 @@ theorem pS1_spec (a : DS VV) (hc : Cst a) (n k J num den : ℕ) (β : ℚ) (hβn
   · simp only [AE.cost] at hk3
     omega
 
-/-! ## Stage 2: `U`, `D_max`, `P`, `e_P` (lines 1581–1598) -/
+/-! ## Stage 2: `U`, `D_max`, `P`, `e_P` (`sec:finite`, rules 1–3) -/
 
 def pS2 : St VV := .seq pUB (.seq pP2 (.seq pDmax (.seq pPrime (killIf (.lt v1 pEF) vADM))))
 
@@ -225,7 +225,7 @@ theorem pS2_spec (a : DS VV) (hc : Cst a) (n k m J : ℕ) (hN : a.env vN = n) (h
   · unfold s2Cost
     omega
 
-/-! ## Stage 3: the prime set, the windows, `h_E`, `h`, `R₀`, the guards (lines 1599–1617) -/
+/-! ## Stage 3: the prime set, the windows, `h_E`, `h`, `R₀`, the guards (`sec:finite`, rules 3–4) -/
 
 def pS3 : St VV := .seq pPrimes (.seq pPair (.seq pLw (.seq pR4a pGuard)))
 
@@ -283,7 +283,7 @@ theorem pS3_spec (a : DS VV) (hc : Cst a) (n k P T Dm : ℕ) (pr : Bool) (hN : a
   · unfold s3Cost
     omega
 
-/-! ## Stage 4: `ℓ₀`, `ℓ̄`, `M₁`, the rate chain, `J`, `A`, `Λ` (lines 1608–1630) -/
+/-! ## Stage 4: `ℓ₀`, `ℓ̄`, `M₁`, the rate chain, `J`, `A`, `Λ` (`sec:finite`, rule 4) -/
 
 def pJ : Fin VV := ⟨161, by decide⟩
 def pLB : Fin VV := ⟨163, by decide⟩

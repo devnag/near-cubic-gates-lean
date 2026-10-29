@@ -120,7 +120,7 @@ theorem closureSupply_of (hC : CounterSupply) (hW : WorkerSupply) (hA : Asymptot
     rcases Nat.eq_zero_or_pos pl with h | h
     · subst h; norm_num at hpl8
     · exact h
-  -- the degrees and the parameters (constant order, paper v2 app:multitape: G, then G′, then the clock, then d_G)
+  -- the degrees and the parameters (constant order of `app:multitape`: G, then G′, then the clock, then d_G)
   set degree := 17 * s.amplification.stvExponent with hdeg
   obtain ⟨lenRoot, hlenFit⟩ := Transfer.lenFit s degree
   set g0 : GateParams := ⟨d0 + 1, PolynomialClock.ordinaryClock (d0 + 1), degree, lenRoot, 0, pl,
@@ -165,7 +165,7 @@ theorem closureSupply_of (hC : CounterSupply) (hW : WorkerSupply) (hA : Asymptot
       (fun n x bits h => by
         obtain ⟨G, hG⟩ := W.sound n x bits h
         exact meaning_sound ctr budget (εT : ℝ) ω n x G hG)
-  · -- completeness (paper v2 §11.5)
+  · -- completeness (`sec:gadget-extract`, case (Tautology))
     refine ⟨max (max (max Q onsetF) (Nat.ceil (1 / (εT : ℝ)))) (max fitOnset ((g.sv s).onset + 1)), ?_⟩
     intro ν hν z B hsrc hpf hcheck hD C0 hCw0 hagree0
     have hν' : max (max Q onsetF) (Nat.ceil (1 / (εT : ℝ))) ≤ ν := (le_max_left _ _).trans hν
@@ -246,7 +246,7 @@ theorem closureSupply_of (hC : CounterSupply) (hW : WorkerSupply) (hA : Asymptot
         (hardTable P (substituted s g z B) hD1 (clauseWidth g.clauseDegree (width s g (2 ^ ν))) g.positionLog) :=
       hag ▸ hagree0
     have hrb := hRoom (2 ^ ν) z B hpf hqR (by have := Nat.one_lt_two_pow (n := ν) (by omega); omega)
-    obtain ⟨hguards, hsizeok, hU⟩ := approx_complete s P g z B hD1 C s.normalizationLemma hn ctr ω
+    obtain ⟨hguards, hsizeok, hU⟩ := approx_complete s P g z B hD1 C s.normalization hn ctr ω
       aC onsetC hcomp budget ε (εT : ℝ) hCw hagree hε hε1 hεγ (by linarith) hω0'.le hωε hP5 hP hq4 hqC hb4 hr1
       hω16 hr3 hA3c hA1c hsrc hpf hrb hν1 hprec hpair
     exact hfits (2 ^ ν) (hνF.trans (Nat.lt_two_pow_self).le) z _ hsizeok ⟨hguards, hU⟩

@@ -12,7 +12,7 @@ def FrontierSupply : Prop :=
   ∀ (_s : GateSources) (P : ThreeQueryPCPP), ∀ ε : ℝ, 0 < ε → ε < (P.gamma : ℝ) / 5 →
     Nonempty (NativeFrontier (P.gamma : ℝ) ε)
 
-theorem main_from_inputs_of_frontier (hF : FrontierSupply) (hs : Outer.SuccinctSupply) : FinalStatement := by
+theorem main_from_inputs_of_frontier (hF : FrontierSupply) (hs : Outer.SuccinctSupply) : NineFinalStatement := by
   intro inputs
   have s := gateSources_of_inputs inputs hs
   obtain ⟨P⟩ := threeQuery_of_source s.threeQueryPCPP

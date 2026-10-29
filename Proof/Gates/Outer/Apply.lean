@@ -6,7 +6,7 @@ import Proof.Foundations.BooleanCircuitSizePadding
 /-!
 # The short PCP applied once per clock: the width, `D_B`, its soundness and the honest oracle
 
-Paper §11.4 ("We apply imp:short-pcp once, to 𝒱_G with the time bound T_G"): on the instance `⟨B_src⟩_ν` the import
+`sec:gadget-machine` ("We apply imp:short-pcp once, to 𝒱_G with the time bound T_G"): on the instance `⟨B_src⟩_ν` the import
 returns `C`, with `ℓ_out ≤ q(N)` ("A_pad … so that ℓ_out ≤ q(N)"); the guessed `B_pf` is substituted for the oracle,
 giving "the outer verifier D_B(x) = ¬C^{O_{B_pf}}_{⟨B_src⟩_ν}(x_1, …, x_{ℓ_out}), x ∈ {0,1}^q". If CHECK passes and the source input is a
 hierarchy no-instance, `D_B` accepts at most a `1/L_ν` fraction of its inputs (MW's soundness `1 − 1/n` at
@@ -24,15 +24,15 @@ section
 variable (mw : MWSource) {k : ℕ} {H : OrdinaryHierarchy (fun n => n ^ (k + 2))} {G : ℕ}
   (SV : SuccinctVerifier H G)
 
-/-- The import applied to `𝒱_G` (paper §11.4: "We apply imp:short-pcp once, to 𝒱_G with the time bound T_G"). -/
+/-- The import applied to `𝒱_G` (`sec:gadget-machine`: "We apply imp:short-pcp once, to 𝒱_G with the time bound T_G"). -/
 noncomputable def alg : MWSourceAlgorithm SV.V SV.T :=
   Classical.choice (mw SV.V SV.T SV.atLeast SV.runs)
 
-/-- `A_pad`, fixed after the import's constants for `𝒱_G` (paper App. C, the constant order, items 5–6). -/
+/-- `A_pad`, fixed after the import's constants for `𝒱_G` (`app:multitape`, the order of constants, items 5–6). -/
 noncomputable def apad : ℕ :=
   padConst (alg mw SV).coefficient SV.timeCoefficient (alg mw SV).ellExp + 1
 
-/-- The native width `q(N)` (paper §11.4, unchanged formula). -/
+/-- The native width `q(N)` (`sec:gadget-machine`, unchanged formula). -/
 noncomputable def width (N : ℕ) : ℕ := widthOf k (apad mw SV) N
 
 /-- `C^O` for the instance `⟨B_src⟩_ν`. -/
@@ -63,7 +63,7 @@ theorem D_eval (ν : ℕ) (B : OuterGuess (width mw SV (2 ^ ν))) (r : BitInput 
       !((outC mw SV ν B.src).circuit.eval (fun a => B.pf.eval (padQuery a)) (truncInput r)) := by
   exact Dat_eval mw SV ν B r
 
-/-- `D_B` is a tautology when `B_pf` answers as an honest oracle (Case 2, paper v2 §11.5). -/
+/-- `D_B` is a tautology when `B_pf` answers as an honest oracle (Case 2: `sec:gadget-extract`, case (Tautology)). -/
 theorem D_eval_true (ν : ℕ) (B : OuterGuess (width mw SV (2 ^ ν)))
     (O : BitInput (outC mw SV ν B.src).ell → Bool) (hO : ∀ a, B.pf.eval (padQuery a) = O a)
     (hhon : ∀ w, (outC mw SV ν B.src).circuit.eval O w = false) (x : BitInput (width mw SV (2 ^ ν))) :
@@ -77,7 +77,7 @@ theorem instLength_pos (ν : ℕ) (hν : 1 ≤ ν) : 1 ≤ instLength G ν := by
   unfold instLength
   exact Nat.one_le_pow _ _ hν
 
-/-- `ℓ_out ≤ q` from the onset of `𝒱_G` on (paper §11.4: "so that ℓ_out ≤ q(N)"). -/
+/-- `ℓ_out ≤ q` from the onset of `𝒱_G` on (`sec:gadget-machine`: "so that ℓ_out ≤ q(N)"). -/
 theorem ell_le_width (ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (hon : SV.onset ≤ ν) (hν : 1 ≤ ν) :
     (outC mw SV ν B).ell ≤ width mw SV (2 ^ ν) := by
   have hl := (alg mw SV).ellBound (srcInput G ν B) (instLength_pos ν hν)
@@ -101,7 +101,8 @@ theorem ell_le_width (ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (hon : SV.onset
     Nat.mul_le_mul_left _ (by omega)
   nlinarith
 
-/-- **Completeness** (paper §11.5, Case 1 (iii) and Case 2): if CHECK passes on a hierarchy yes-instance, some oracle makes
+/-- **Completeness** (`sec:gadget-extract`, Case 1 (iii) and Case 2): if CHECK passes on a hierarchy yes-instance,
+some oracle makes
 `C^O_{⟨B_src⟩_ν}` unsatisfiable. -/
 theorem honest (ν : ℕ) (z : BitInput (2 ^ ν)) {m : ℕ} (B : BooleanCircuit m) (hon : SV.onset ≤ ν) (hν : 1 ≤ ν)
     (hm : ν ≤ m) (hfit : SrcFits G ν B) (hcheck : Check ν z B) (hyes : H.verifier.language H.time (2 ^ ν) z) :
@@ -109,7 +110,7 @@ theorem honest (ν : ℕ) (z : BitInput (2 ^ ν)) {m : ℕ} (B : BooleanCircuit 
   have hL := (SV.language ν m B hon hν hm hfit).mpr (by rw [hcheck]; exact hyes)
   exact (alg mw SV).complete (srcInput G ν B) (instLength_pos ν hν) hL
 
-/-- **Soundness** (paper §11.4: "On a hierarchy no-instance z, consider a branch whose source circuit passes the
+/-- **Soundness** (`sec:gadget-machine`: "On a hierarchy no-instance z, consider a branch whose source circuit passes the
 check … Hence D_B(x) = 1 on at most a 1/L_ν fraction of inputs"), for every `B_pf`. -/
 theorem sound (ν : ℕ) (z : BitInput (2 ^ ν)) (B : OuterGuess (width mw SV (2 ^ ν))) (hon : SV.onset ≤ ν)
     (hν : 1 ≤ ν) (hfit : SrcFits G ν B.src) (hcheck : Check ν z B.src)

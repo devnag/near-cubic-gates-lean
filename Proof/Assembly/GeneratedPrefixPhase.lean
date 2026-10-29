@@ -1,5 +1,6 @@
 import Proof.Assembly.GeneratedPrefixSource
 import Proof.Assembly.PhaseOrdinalLoaderPhysicalRecipe
+
 set_option autoImplicit false
 set_option maxHeartbeats 250000
 set_option maxRecDepth 120000

@@ -263,7 +263,7 @@ theorem publicGuards {B1 B2 cT : ℕ} (c : Call) (p : Params) (hadm : c.Admitted
 end NearCubicGates.Close.Counter
 
 /-!
-# prop:complete and the completeness clause of thm:pair-uniform (paper v2 lines 1769–1811, 1905–1947)
+# prop:complete and the completeness clause of thm:pair-uniform (proof of `prop:complete`; proof of `thm:pair-uniform`)
 
 From the sampling supply (lem:live + lem:bernstein + lem:sampled + global averaging, `Sampling`), the asymptotic
 parameter facts (`eventual_selection`, `useful_window`) and the cell layer of prop:sound (`certain_of_tests`):
@@ -528,7 +528,9 @@ theorem scalarCapQ_of_real (K : ℕ) (hK : 0 < K) (hd : Header) (hn : 4 ≤ hd.n
 
 /-! ## The witness length -/
 
-/-- A fixed polynomial bound on the witness prefix (line 1651: "Only this polynomial-length prefix is read"). -/
+/-- A fixed polynomial bound on the witness prefix (`sec:algorithm`,
+"Witnesses and the tables to be computed":
+"Only this polynomial-length prefix is read"). -/
 def witnessBound (n : ℕ) : ℕ := 7 * (n + 1) ^ 5
 
 theorem coefWidth_le (a : ℤ) (ha : a ≠ 0) : coefWidth a ≤ 3 * a.natAbs := by

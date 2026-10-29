@@ -2,7 +2,7 @@ import Proof.Gates.TomographyFactorFamily
 import Mathlib.Algebra.Polynomial.Degree.Lemmas
 
 /-! The full finite square-box distribution theorem, using actual joint
-    residue data and the manuscript's S(q) reconstruction criterion. -/
+    residue data and the `S(q)` criterion of `lem:two-window`. -/
 
 set_option autoImplicit false
 

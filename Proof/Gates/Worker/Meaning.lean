@@ -14,19 +14,20 @@ open NearCubicGates.Close.Interfaces
 
 variable (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams)
 
-/-- The native width at source length `N` (paper v2 §11.4, `q(N)`). -/
+/-- The native width at source length `N` (`sec:gadget-machine`, `q(N)`). -/
 noncomputable def width (N : ℕ) : ℕ := Outer.width s.mw (g.sv s) N
 
 /-- The source index `ν` of a length `N = 2^ν`. -/
 def nu (N : ℕ) : ℕ := Nat.log 2 N
 
-/-- The outer verifier `D_B` for the guessed pair `B = (B_src, B_pf)` (paper v2 §11.4: "Substituting `O_{B_pf}` for every
+/-- The outer verifier `D_B` for the guessed pair `B = (B_src, B_pf)` (`sec:gadget-machine`: "Substituting `O_{B_pf}` for every
 oracle gate and negating the output gives the outer verifier"). It does not read the source input; CHECK does
 (`Guards`). -/
 noncomputable def substituted {N : ℕ} (_x : BitInput N) (B : Outer.OuterGuess (width s g N)) : Circuit :=
   Outer.Dat s.mw (g.sv s) (nu N) B
 
-/-- The set-up's guards on a guessed pair (paper §11.4): `N = 2^ν` ("the weak machine first rejects unless N = 2^ν is
+/-- The set-up's guards on a guessed pair (`sec:gadget-machine`): `N = 2^ν`
+("the weak machine first rejects unless N = 2^ν is
 a power of two"); `ν` past the onset of `𝒱_G` (Lean's `SuccinctVerifier` holds from an onset, a finite set of lengths);
 the length guard on the guessed source circuit ("it rejects unless the description of the source circuit B_src guessed
 below has at most L_ν bits. By the choice of G′, once ν is large every general circuit with q inputs and at most q^G
@@ -146,7 +147,8 @@ noncomputable def singleCall (ω : ℚ) (j : ℕ) (S : Finset (Fin (width s g N)
 noncomputable def pairCall (ω : ℚ) (i j : ℕ) : Call :=
   ⟨width s g N, .pair, G.circuits i, G.circuits j, [], ω⟩
 
-/-- The interval of an XOR of at most two (flip, atom) operands, with witness `w` (paper §11.2, eq:gadget-pair-identity): exact for
+/-- The interval of an XOR of at most two (flip, atom) operands, with witness `w` (`sec:gadget-transfer`,
+eq:gadget-pair-identity): exact for
 pure parities and repeated circuits, otherwise the counter's `(p̂, κ̂)` on the call, complemented by the flip. -/
 noncomputable def intervalOf {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ) (w : List Bool)
     (ops : List (Bool × Atom)) : ℚ × ℚ := by
@@ -175,12 +177,12 @@ noncomputable def upperEstimate {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ) :
 /-- The number of auxiliary names: proof coordinates and one helper per gadget. -/
 noncomputable def auxCount : ℕ := (pcpp s P g x G.oracle).proofBits + gadgets s g N
 
-/-- The set-up's guards (paper §11.4, decided by the set-up machine before the term loop): `PairOK` of the guessed
+/-- The set-up's guards (`sec:gadget-machine`, decided by the set-up machine before the term loop): `PairOK` of the guessed
 pair — `N = 2^ν`, `ν` past the onset of `𝒱_G`, "the description of the source circuit B_src guessed below has at most
 L_ν bits", and CHECK (eq:source-check: `B_src(bin_ν(i)0^{q−ν}) = z_i` for every `i < N`). -/
 def SetupOK : Prop := PairOK s g x G.oracle
 
-/-- The guards (paper §11.4): the clause count divides `M` ("repeat the whole clause list to exactly M clauses. The
+/-- The guards (`sec:gadget-machine`): the clause count divides `M` ("repeat the whole clause list to exactly M clauses. The
 original length divides this number"), `q ≥ 2`, `ν ≥ 1`, the precision guard `γ/L_ν < ε`, and the set-up's guards
 `SetupOK`. The size limits are `SizeOK`: they bound the honest guess but need not be tested, since soundness holds for
 every guess. -/
@@ -189,7 +191,8 @@ def Guards {B1 B2 : ℕ} (_ctr : Counter B1 B2) (_budget : ℕ → ℕ) (ε : �
     2 ≤ width s g N ∧ 1 ≤ nu N ∧ (P.gamma : ℝ) / (Outer.instLength g.lenExp (nu N) : ℝ) < ε ∧
     G.SetupOK x
 
-/-- The size limits of paper §11.4 ("All guesses have a fixed polynomial bound in q"), which bound the honest guess. -/
+/-- The size limits of `sec:gadget-machine` ("All guesses have a fixed polynomial bound in q"), which bound the
+honest guess. -/
 def SizeOK {B1 B2 : ℕ} (ctr : Counter B1 B2) (budget : ℕ → ℕ) : Prop :=
   G.oracle.src.size ≤ RecoveryScheduleEnvelope.oracleSizeBound g.degree (width s g N) ∧
     G.oracle.pf.size ≤ RecoveryScheduleEnvelope.oracleSizeBound g.degree (width s g N) ∧

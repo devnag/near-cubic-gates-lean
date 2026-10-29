@@ -35,7 +35,7 @@ def gIdx (z c a j : ℕ) : ℕ := if j = 0 then 1 + a else gs C z c a + 2 * j - 
 /-- The previous running disjunction (`0`, the zero wire, before group `0`). -/
 def oPrev (z c a : ℕ) : ℕ := if a = 0 then 0 else gs C z c a - 1
 
-/-- Group `a` of the multiplexer of an oracle gate with arguments `args` (paper §11.6, stage 2: one variable per
+/-- Group `a` of the multiplexer of an oracle gate with arguments `args` (`sec:all-lengths`, stage 2: one variable per
 oracle address). -/
 def group (z c : ℕ) (args : Fin ℓ → ℕ) (a : ℕ) : List (BooleanNode (T ℓ)) :=
   (List.range ℓ).flatMap (fun j =>

@@ -17,7 +17,7 @@ theorem b17_l : (b17 K).l = [(⟨0, by have := K.c1.large; have := K.c1.output.i
     (⟨1, by have := K.c1.large; have := K.c1.output.isLt; omega⟩, sh K 1),
     (⟨2, by have := K.c1.large; have := K.c1.output.isLt; omega⟩, sh K 7), (K.c1.output, sh K 2)] := rfl
 
-/-- **Piece 17, Case 1 (i)** (paper §11.5–§11.6). -/
+/-- **Piece 17, Case 1 (i)** (`sec:gadget-extract`, `sec:all-lengths`). -/
 theorem caseOne_i_runs : ∃ C E : ℕ, ∀ (n : ℕ) (point : BitInput n) (ν : ℕ) (z : BitInput (2 ^ ν)) (post : List Bool)
     (A : Fin (T K) → List Bool), Live s g n ν → ¬ g.SrcExists s ν z →
     A (sh K 0) = RepairOrdinary.frame (List.ofFn z) ++ post →
@@ -76,7 +76,7 @@ theorem caseOne_i_runs : ∃ C E : ℕ, ∀ (n : ℕ) (point : BitInput n) (ν :
   · rw [Bank.install_port (b17 K) A out (j := K.c1.output) (by rw [b17_l]; simp), hout,
       CaseOneSem.gateCore_caseOne_i s g P _ ν z _ _ n hS]
 
-/-- **Piece 23, the exceptional slice** (paper §11.6). -/
+/-- **Piece 23, the exceptional slice** (`sec:all-lengths`). -/
 theorem falseRuns (n : ℕ) (point : BitInput n) (ν : ℕ) (z : BitInput (2 ^ ν)) (A : Fin (T K) → List Bool)
     (h1 : g.SrcExists s ν z) (h2 : ¬ ∃ t, HonestTable (g.outC s ν (g.firstSrc s ν z h1)).circuit t)
     (hO : A (sh K 2) = []) (hB : ∀ x : Fin (T K), off K 23 ≤ x.val → A x = []) :

@@ -3,7 +3,7 @@ import Proof.Gates.Worker.Meaning
 /-!
 # The native width dominates every fixed threshold, eventually
 
-`gate_nativeWidth_ge`: once `2^T ≤ N`, the native width `q(N)` (paper v2 §11.4,
+`gate_nativeWidth_ge`: once `2^T ≤ N`, the native width `q(N)` (`sec:gadget-machine`,
 `q(N) = ⌈log₂ T_clk(N)⌉ + A_pad⌈log₂(log₂ T_clk(N)+2)⌉ + A_pad`) is at least `T`, since `⌈log₂ N^{k+2}⌉ ≥ T`. Used for the
 cutoffs `2 ≤ q` of the Case 2 producer and the worker.
 -/

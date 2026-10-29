@@ -68,7 +68,7 @@ def prob (c : Call) : ℚ :=
 /-- Total top weight `W`. -/
 def W (c : Call) : ℕ := c.first.topWeight + c.second.topWeight
 
-/-- `B₀ = 4n⌈lg(n+1)⌉` (line 1546). -/
+/-- `B₀ = 4n⌈lg(n+1)⌉` (`sec:algorithm`). -/
 def B0 (n : ℕ) : ℕ := 4 * n * Nat.clog 2 (n + 1)
 
 end Call
@@ -93,7 +93,7 @@ def outputWord (o : ℚ × ℚ) : List Bool := ratWord o.1 ++ ratWord o.2
 
 namespace Call
 
-/-- The normalized calls of lines 1544–1559 at parameters `B₁, B₂`. -/
+/-- The normalized calls of `sec:algorithm` at parameters `B₁, B₂`. -/
 def Admitted (B1 B2 : ℕ) (c : Call) : Prop :=
   4 ≤ c.n ∧ c.first.WellFormed (B0 c.n) ∧ c.second.WellFormed (B0 c.n) ∧
     (c.kind ≠ .pair → c.second = NCircuit.empty c.n) ∧
@@ -104,12 +104,12 @@ def Admitted (B1 B2 : ℕ) (c : Call) : Prop :=
 
 end Call
 
-/-- `𝒜₃(n) = n³ / (λ_n^{21/4} μ_n⁷)` (line 516). -/
+/-- `𝒜₃(n) = n³ / (λ_n^{21/4} μ_n⁷)` (`thm:pair-uniform`). -/
 noncomputable def A3 (n : ℕ) : ℝ :=
   (n : ℝ) ^ 3 / (((NearCubicGates.Target.lambda n : ℕ) : ℝ) ^ ((21 : ℝ) / 4) *
     ((NearCubicGates.Target.mu n : ℕ) : ℝ) ^ 7)
 
-/-- `𝒜₁(n) = n^{7/2} / (λ_n⁶ μ_n⁸)` (line 521). -/
+/-- `𝒜₁(n) = n^{7/2} / (λ_n⁶ μ_n⁸)` (`thm:pair-uniform`). -/
 noncomputable def A1 (n : ℕ) : ℝ :=
   (n : ℝ) ^ ((7 : ℝ) / 2) / (((NearCubicGates.Target.lambda n : ℕ) : ℝ) ^ 6 *
     ((NearCubicGates.Target.mu n : ℕ) : ℝ) ^ 8)

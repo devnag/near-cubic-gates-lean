@@ -7,7 +7,7 @@ import Proof.CaseAnalysis.CommonPortBank
 /-!
 # The common SAT-oracle program of the recovery: layout
 
-Paper §11.6: "The fixed-machine refuter runs in poly(T_clk(N_ν)) = 2^{O(q)} time with SAT access. The choices of
+`sec:all-lengths`: "The fixed-machine refuter runs in poly(T_clk(N_ν)) = 2^{O(q)} time with SAT access. The choices of
 sec:gadget-transfer are recovered in three stages …; Since q = O(n), the final functions belong to E^NP." One ordinary
 SAT-oracle program on every final length `n`, three pieces on one tape bank:
 * piece 0, the refuter prefix (GR's `CloseoutCommonPrefix.program` at `toEight s g`): the schedule selects `ν`, the

@@ -10,7 +10,8 @@ open NearCubicGates.PublishedSources.PCPP NearCubicGates.Close.Gadget NearCubicG
 open NearCubicGates.Close.Recovery.TableSem
 open NearCubicWires.RepairOrdinary.RadixSemantics (value)
 
-/-- The Case 2 branch of `gateCore` without a fit: `false` (paper v2 §11.5–§11.6, the table is padded only when it
+/-- The Case 2 branch of `gateCore` without a fit: `false` (`sec:gadget-extract`, `sec:all-lengths`: the table is
+padded only when it
 fits the target arity). -/
 theorem gateCore_two_nofit (s : GateSources) (g : GateParams) (P : ThreeQueryPCPP) {c d : ℕ}
     (amplifier : OrdinaryScheduleAmplifier c d) (ν : ℕ) (z : BitInput (2 ^ ν)) (cl pl target : ℕ)

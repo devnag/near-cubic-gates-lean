@@ -2,7 +2,8 @@ import Proof.Gates.WordPrograms.RecLoopSum
 
 /-! # Specs as postconditions: `Runs` and frame lemmas
 
-Paper v2, machine model (lines 846-852): every algorithm of the counter is a multitape machine; arithmetic and table
+The paper's machine model (`sec:prelim`, "Machine model"): every algorithm of the counter is a multitape
+machine; arithmetic and table
 work cost "fixed polynomial factors". The tabulator machines (PolyTab, CellTables) are long compositions of `WMX` programs, so
 their specs are stated as postconditions: **`Runs cap P σ c Q`** says that the ONE compiled machine of `P` goes from
 the encoding of `σ` to the encoding of a state satisfying `Q` within `c` steps (`WXExec`). The combinators

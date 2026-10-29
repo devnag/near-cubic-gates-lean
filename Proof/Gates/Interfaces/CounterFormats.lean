@@ -99,7 +99,7 @@ def tabWord (r : TabReq) : List Bool :=
 /-- The outer assignment with index `i`: outer coordinate `t` is bit `t` of `i`. -/
 def outerOf (s i : ℕ) : Fin s → Bool := fun t => i.testBit t.val
 
-/-- The tabulated integer `∑_{x ∈ H} F(y,x)` at the outer assignment `y` (line 1449). -/
+/-- The tabulated integer `∑_{x ∈ H} F(y,x)` at the outer assignment `y` (`lem:print`). -/
 def tabTarget (r : TabReq) (y : Fin r.s → Bool) : ℤ :=
   ∑ x ∈ r.H, r.F.eval (boolPoint ((formulaTabulation r.gates r.layout r.H r.role r.F).value y x))
 
@@ -264,7 +264,7 @@ noncomputable def certainSum (c : Call) (p : Params) (wt : Wit c.n) : ℚ :=
   ∑ y ∈ (Finset.univ : Finset (Cells wt.I)).filter (fun y => Certain c p wt y), cellCount c p wt y
 
 open Classical in
-/-- `N_unc` (line 1731). -/
+/-- `N_unc` (`sec:algorithm`, "Reconstruction inside a certified cell"). -/
 noncomputable def uncCount (c : Call) (p : Params) (wt : Wit c.n) : ℕ :=
   ((Finset.univ : Finset (Cells wt.I)).filter fun y => ¬ Certain c p wt y).card
 

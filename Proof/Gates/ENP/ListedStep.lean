@@ -38,7 +38,7 @@ theorem emitList_exec (O : Fin (ns + 1)) (CO : Fin nr) :
     simp only [List.length_cons]
     omega
 
-/-- One address-bit field: halve `X`, append `qField (X mod 2)` (paper §11.6: query `i`'s address bit `j`). -/
+/-- One address-bit field: halve `X`, append `qField (X mod 2)` (`sec:all-lengths`: query `i`'s address bit `j`). -/
 def qStep (X Y B CO : Fin nr) (O : Fin (ns + 1)) : WMX ns nr :=
   .seq (halve X Y B) (.seq (.ifr B (emitList O CO (qField true)) (emitList O CO (qField false)))
     (.seq (.ifr B (WMX.dec B) WMX.skip) (.wm (WM.move Y X))))

@@ -87,10 +87,10 @@ theorem restrict_bits {n k s : ℕ} (B : ℕ) (g : NormalizedThresholdGate n) (�
     _ ≤ 2 ^ Nat.clog 2 (n + 1) * 2 ^ B := Nat.mul_le_mul_right _ hclog
     _ = 2 ^ (B + Nat.clog 2 (n + 1)) := by rw [pow_add, mul_comm]
 
-/-- `B_b = B' + ⌈lg(m+1)⌉ + 1` (line 1300). -/
+/-- `B_b = B' + ⌈lg(m+1)⌉ + 1` (lem:exact). -/
 def blockBits (m B' : ℕ) : ℕ := B' + Nat.clog 2 (m + 1) + 1
 
-/-- `m_T = 1 + B_b m ⌈m/2⌉` (line 1301). -/
+/-- `m_T = 1 + B_b m ⌈m/2⌉` (lem:exact). -/
 def mT (m B' : ℕ) : ℕ := 1 + blockBits m B' * m * ((m + 1) / 2)
 
 /-- The exact children of a (non-strict) threshold gate `[θ ≤ w·y]`, i.e. the strict gate `[θ-1 < w·y]`. -/
@@ -199,7 +199,7 @@ theorem exactChildren_length_le {m : ℕ} (B' : ℕ) (g : NormalizedThresholdGat
     omega
 
 /-- The coefficient envelope of lem:exact: `(2 m² B_b + m + 5) 2^{B_b}`; its bit length is `O(B' + log(m+1))`
-(line 1305). -/
+(lem:exact). -/
 def childBound (m B' : ℕ) : ℕ :=
   (2 * m * m * blockBits m B' + m + 5) * 2 ^ blockBits m B'
 
@@ -248,7 +248,7 @@ def halves (s : ℕ) : Fin ((s + 1) / 2) ⊕ Fin (s / 2) ≃ Fin s :=
   simp [halves]
 
 /-- The outer assignment `y` printed at cell `(row, column)`: outer coordinate `t` is bit `t` of `row` when
-`t < ⌈s/2⌉`, otherwise bit `t - ⌈s/2⌉` of `column` (lem:signed-printer, line 1390). -/
+`t < ⌈s/2⌉`, otherwise bit `t - ⌈s/2⌉` of `column` (proof of lem:signed-printer). -/
 def outerPoint (s row column : ℕ) : Fin s → Bool := fun t =>
   if t.val < (s + 1) / 2 then row.testBit t.val else column.testBit (t.val - (s + 1) / 2)
 
@@ -366,7 +366,7 @@ structure Role (G : ℕ) where
   gate : Fin G
   reference : Bool
 
-/-- The data of lem:print (lines 1433-1446). -/
+/-- The data of lem:print. -/
 structure Tabulation (n k s G V : ℕ) where
   gates : Fin G → NormalizedThresholdGate n
   layout : Fin n ≃ Fin k ⊕ Fin s
@@ -389,21 +389,21 @@ variable {n k s G V : ℕ} (T : Tabulation n k s G V)
 def value (y : Fin s → Bool) (x : Fin k → Bool) (v : Fin V) : Bool :=
   (T.gates (T.role v).gate).eval (joinPoint T.layout y (roleInner x (T.role v)))
 
-/-- The tabulated integer `∑_{x ∈ H} Q(y,x)` (line 1452). -/
+/-- The tabulated integer `∑_{x ∈ H} Q(y,x)` (lem:print). -/
 def target (y : Fin s → Bool) : ℤ := ∑ x ∈ T.H, Terms.eval (T.value y x) T.Q
 
 /-- The exact children of variable `v` at the inner assignment `x`, on the printer's halves. -/
 def kids (x : Fin k → Bool) (v : Fin V) : List (RowBinLift.Equation ((s + 1) / 2) (s / 2)) :=
   (exactChildren (restrict (T.gates (T.role v).gate) T.layout (roleInner x (T.role v)))).map toHalves
 
-/-- One monomial at one `x`: one packed exact cut per tuple of children (line 1458). -/
+/-- One monomial at one `x`: one packed exact cut per tuple of children (proof of lem:print). -/
 def termCuts (x : Fin k → Bool) (t : Finset (Fin V) × ℤ) : List Cut :=
   (tuples ((t.1.sort (· ≤ ·)).map (T.kids x))).map fun es =>
     RowBinLift.split t.2 (SupplierEstimator.canonicalEquationStack es)
 
 def pointCuts (x : Fin k → Bool) : List Cut := T.Q.flatMap (T.termCuts x)
 
-/-- All signed exact cuts: for `x = 0, …, 2^k-1` in `H`, every monomial, every tuple (line 1462). -/
+/-- All signed exact cuts: for `x = 0, …, 2^k-1` in `H`, every monomial, every tuple (proof of lem:print). -/
 def exactCuts : List Cut :=
   (List.finRange (2 ^ k)).flatMap fun c => if innerPoint k c ∈ T.H then T.pointCuts (innerPoint k c) else []
 
@@ -498,7 +498,7 @@ theorem termCuts_length_le (B : ℕ) (hB : ∀ i, GateBits B (T.gates i)) (x : F
       exact exactChildren_length_le _ _ (restrict_bits B _ T.layout _ (hB _)))
   rwa [List.length_map, Finset.length_sort] at h
 
-/-- **The count** (line 1465): at most `2^k ∑_{d ≤ D} C(V,d) m_T^d` exact cuts. -/
+/-- **The count** (proof of lem:print): at most `2^k ∑_{d ≤ D} C(V,d) m_T^d` exact cuts. -/
 theorem exactCuts_length_le (B D : ℕ) (hB : ∀ i, GateBits B (T.gates i)) (hnd : (Terms.keys T.Q).Nodup)
     (hD : ∀ S ∈ Terms.keys T.Q, S.card ≤ D) :
     T.exactCuts.length ≤

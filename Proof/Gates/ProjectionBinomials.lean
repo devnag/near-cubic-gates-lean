@@ -98,7 +98,7 @@ theorem negative_projection_factor (L : ℕ) (hL : 1 ≤ L)
         (α : ℤ) * j.1.val + (β : ℤ) * i.2.val := by omega
     exact_mod_cast hh
 
-/-- Positive primitive directions with the paper's exact shortness bound. -/
+/-- Positive primitive directions with the exact shortness bound of the proof of `lem:two-window`. -/
 theorem positive_factor_of_joint_data (primes : Finset ℕ)
     (hne : primes.Nonempty) (hprime : ∀ p ∈ primes, Nat.Prime p)
     (L : ℕ) (hL : 1 ≤ L) (mass : Fin L × Fin L → ℚ)

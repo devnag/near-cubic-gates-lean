@@ -10,8 +10,8 @@ namespace NearCubicGates.Close.Recovery.After
 open NearCubicWires NearCubicWires.LocalBitMultitape NearCubicWires.RepairOrdinary NearCubicWires.RepairSource
 open NearCubicGates.Close.Transfer NearCubicGates.Close.Gadget
 
-/-- The Case 1 machine for the selected amplifier (data of `Recovery.CaseOneRuns`; paper §11.5 Case 1 (i)/(iii),
-§11.6 "run the general amplifier"). -/
+/-- The Case 1 machine for the selected amplifier (data of `Recovery.CaseOneRuns`; `sec:gadget-extract` Case 1 (i)/(iii),
+`sec:all-lengths` "Run the general amplifier"). -/
 structure CaseOneKit (s : GateSources) (g : GateParams) where
   t : ℕ
   st : ℕ
@@ -27,7 +27,7 @@ structure CaseOneKit (s : GateSources) (g : GateParams) where
       out output = RepairOrdinary.frame
         (GateParams.amplified (selectedAmplifier s.amplification g.degree) q (cycFn a w q) n point).toNat.bits
 
-/-- The Case 2 producer (data of `Recovery.HardTableRuns`; paper §11.6 "the honest PCPP proof and each AND helper are
+/-- The Case 2 producer (data of `Recovery.HardTableRuns`; `sec:all-lengths` "the honest PCPP proof and each AND helper are
 computable in polynomial time once the pair is known"). -/
 structure HTKit (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) where
   t : ℕ

@@ -123,7 +123,7 @@ theorem sum_digitVectors_eq (hE : 1 ≤ p.hE) (g : (Role c × Fin p.J → ℤ) �
   rw [← hfs, List.sum_toFinset _ hnd, List.map_map]
   rfl
 
-/-- The predicate weight of a score vector on a part (lines 1724–1727). -/
+/-- The predicate weight of a score vector on a part (`sec:algorithm`, "Reconstruction inside a certified cell"). -/
 def predW (part : Option Bool) (u : Role c → ℤ) : ℚ :=
   if scorePredicate c (xor (outerParity c wt y) (part.getD false)) u then 1 else 0
 

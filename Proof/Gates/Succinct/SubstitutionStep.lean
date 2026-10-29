@@ -85,7 +85,7 @@ theorem nIter_ge (S : ℕ) : oIter S ≤ nIter S ∧ cIter S + 4 ≤ nIter S ∧
   unfold nIter; omega
 
 set_option maxHeartbeats 1600000 in
-/-- **One node of `C`** (paper §11.4; `Outer.substStepG`). -/
+/-- **One node of `C`** (`sec:gadget-machine`; `Outer.substStepG`). -/
 theorem nodeStep (cap : ℕ) (o : OracleOutput) (B : BooleanCircuit q) (hK1 : Kind1OK cap o B) (i : ℕ)
     (hi : i < o.circuit.nodes.length) (τ : WState 4 nrH) (hI : MInv o B i τ) (hcap : capH o B ≤ cap) :
     ∃ τ', WExec cap nodeBody (τ.setv (regH .iC) (o.circuit.nodes.length - i - 1)) τ'

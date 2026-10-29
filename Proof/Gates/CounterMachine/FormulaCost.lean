@@ -3,7 +3,7 @@ import Proof.Gates.CounterMachine.FormulaLin
 /-! # RG machine, part 7: cost classes of the token printers
 
 Polynomial bounds `K·(Λ+1)^d` for the printers of parts 2–3, in a size parameter `Λ` that bounds every register value,
-every bit length and every list length the printer touches (v2 846–852: fixed polynomial factors). -/
+every bit length and every list length the printer touches (`sec:prelim`, "Machine model": fixed polynomial factors). -/
 
 set_option autoImplicit false
 

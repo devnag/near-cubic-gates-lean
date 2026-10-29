@@ -114,7 +114,7 @@ theorem Fr.ev {a b : DS VV} {T : List (Fin VV)} (h : Fr a b T) {y : Fin VV} (hy 
 theorem FrS.ev {a b : DS VV} {T : List (Fin VV)} (h : FrS a b T) {y : Fin VV} (hy : y.val < 200) (hT : y ∉ T) :
     b.env y = a.env y := h y hy hT
 
-/-! ## `U` (lines 1581–1582) -/
+/-! ## `U` (`sec:finite`, rule 1) -/
 
 theorem ub_facts (n m : ℕ) (hn : 1 ≤ n) :
     n ≤ n * n ∧ n * n ≤ n * n * (n * n) ∧ Bb n m * m ≤ Bb n m * m * ((m + 1) / 2) ∧
@@ -230,7 +230,7 @@ theorem pP2_spec (a : DS VV) (hc : Cst a) (k m : ℕ) (hk : a.env pK = k) (hm : 
   · simp only [AE.cost] at hk1 hk3 hk4 hk6
     omega
 
-/-! ## `D_max` (eq:degree-budget, line 1587) -/
+/-! ## `D_max` (eq:degree-budget) -/
 
 open AE in
 def dTest : St VV :=

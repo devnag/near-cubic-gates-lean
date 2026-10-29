@@ -93,7 +93,7 @@ theorem CBZ.of_fr {σ τ : WState 4 nrH} {S : List (Fin (4 + 1))} {R : List HReg
     · exact (hR u hm).2 hu
     · rw [hf.v hm]; exact h.z u hu
 
-/-- **`B`'s `const b`, copied** (paper §11.4; `Outer.copyNode`). -/
+/-- **`B`'s `const b`, copied** (`sec:gadget-machine`; `Outer.copyNode`). -/
 theorem cB0_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preD restD : List Bool) (bb : Bool)
     (hD : σ.st sD = preD ++ natWord bb.toNat ++ natWord 0 ++ restD) (hDh : σ.sh sD = preD.length)
     (out : List Bool) (hout : OutOK σ out) (hcl : WClean σ) {n : ℕ}
@@ -153,7 +153,7 @@ theorem cB0_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preD restD : Lis
       rcases hu with rfl | rfl | rfl | rfl | rfl <;> simp_all [hz.z _ (show HReg.f1 ∈ zl by simp [zl])]
   · rw [(f4.s (by simp)).1, (f3.s (by simp)).1, t2, t1]
 
-/-- **`B`'s `not c`, copied at offset `cur`** (paper §11.4; `Outer.copyNode`). -/
+/-- **`B`'s `not c`, copied at offset `cur`** (`sec:gadget-machine`; `Outer.copyNode`). -/
 theorem cB2_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preD restD : List Bool) (c : ℕ)
     (hD : σ.st sD = preD ++ natWord c ++ natWord 0 ++ restD) (hDh : σ.sh sD = preD.length)
     (out : List Bool) (hout : OutOK σ out) (hcl : WClean σ) {n : ℕ}
@@ -214,7 +214,7 @@ theorem cB2_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preD restD : Lis
       rcases hu with rfl | rfl | rfl | rfl | rfl <;> simp_all [hz.z _ (show HReg.f1 ∈ zl by simp [zl])]
   · rw [(f4.s (by simp)).1, (f3.s (by simp)).1, t2, t1]
 
-/-- **`B`'s `and l r` / `or l r`, copied at offset `cur`** (paper §11.4; `Outer.copyNode`). -/
+/-- **`B`'s `and l r` / `or l r`, copied at offset `cur`** (`sec:gadget-machine`; `Outer.copyNode`). -/
 theorem cB34_spec (cap : ℕ) (tg : ℕ) {n : ℕ} (mk : ℕ → ℕ → BooleanNode n)
     (hmk : ∀ x y, PCPPRequestNodeSchema.fields (mk x y) 0 = tg ∧ PCPPRequestNodeSchema.fields (mk x y) 1 = x ∧
       PCPPRequestNodeSchema.fields (mk x y) 2 = y) (htg : tg ≤ 4)
@@ -363,7 +363,7 @@ theorem cB1_outer (S j l g h : ℕ) (hj : j ≤ S) (hl : l ≤ S) (hg : g ≤ 1)
   omega
 
 set_option maxHeartbeats 1600000 in
-/-- **`B`'s input `j`, copied** (paper §11.4; `Outer.copyNode`: `or w w` on the argument wire `w` of the gate when
+/-- **`B`'s input `j`, copied** (`sec:gadget-machine`; `Outer.copyNode`: `or w w` on the argument wire `w` of the gate when
 `j < ℓ`, `false` otherwise). -/
 theorem cB1_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preD restD : List Bool) (j : ℕ)
     (hD : σ.st sD = preD ++ natWord j ++ natWord 0 ++ restD) (hDh : σ.sh sD = preD.length)

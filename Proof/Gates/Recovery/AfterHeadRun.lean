@@ -177,7 +177,7 @@ theorem headOne (c : Cfg) {n ν : ℕ} (point : BitInput n) (z : BitInput (2 ^ �
   unfold headOneD
   linarith
 
-/-- **The head segment** (paper §11.6, the preparation and stage 1), from pieces 0–10 and `HeadTwoRuns`
+/-- **The head segment** (`sec:all-lengths`, the preparation and stage 1), from pieces 0–10 and `HeadTwoRuns`
 (pieces 11–16). -/
 theorem headRuns_of (c : Cfg) (h2 : HeadTwoRuns K c) : HeadRuns K c := by
   intro C0 E0 hSB

@@ -10,7 +10,7 @@ open NearCubicWires.CircuitInputCNF NearCubicWires.TseitinCNF NearCubicWires.Bal
 
 variable {ℓ : ℕ} (C : OracleCircuit ℓ ℓ)
 
-/-- **Honest tables are the inputs `c_T` accepts** (paper §11.6 stage 2: the constraints `C^O(R) = 0` for all `R`). -/
+/-- **Honest tables are the inputs `c_T` accepts** (`sec:all-lengths` stage 2: the constraints `C^O(R) = 0` for all `R`). -/
 theorem honest_iff (t : BitInput (2 ^ ℓ)) : Transfer.HonestTable C t ↔ (TCirc.tCircuit C).eval t = true := by
   rw [TCirc.tCircuit_eval]
   rfl
@@ -21,7 +21,7 @@ def firstInput (first : Transfer.FirstTable C) : FirstInput (TCirc.tCircuit C) w
   accepts := (honest_iff C _).mp first.honest
   minimal := fun x hx => first.minimal x ((honest_iff C x).mpr hx)
 
-/-- **The stage-2 flag** (paper §11.6 stage 2: "finds the first oracle `O*`", or there is none): the corrected SAT
+/-- **The stage-2 flag** (`sec:all-lengths` stage 2: "finds the first oracle `O*`", or there is none): the corrected SAT
 oracle on the uncommitted query of `c_T`'s input formula. -/
 theorem flag_eq :
     RecoveryOracle.correctedSat (RecoveryQuery.code true

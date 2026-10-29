@@ -114,7 +114,7 @@ structure ReadRegs (R : FReg → Fin nr) (B T tgt : Fin nr) : Prop where
   rt : ∀ k, R k ≠ T
   rtg : ∀ k, R k ≠ tgt
 
-/-- **An exact read of one `natWord` field** (paper §11.4: the substitution machine reads `C`'s and `B_pf`'s
+/-- **An exact read of one `natWord` field** (`sec:gadget-machine`: the substitution machine reads `C`'s and `B_pf`'s
 fields). -/
 theorem readEx_spec (cap : ℕ) (i : Fin (ns + 1)) (R : FReg → Fin nr) (B T tgt : Fin nr) (hr : ReadRegs R B T tgt)
     (σ : WState ns nr) (pre rest : List Bool) (x : ℕ)
@@ -200,7 +200,7 @@ theorem flatMap_split {α : Type} (f : ℕ → List α) (xs : List ℕ) (k : ℕ
     xs.flatMap f = (xs.take k).flatMap f ++ f xs[k] ++ (xs.drop (k + 1)).flatMap f := by
   rw [← flatMap_take_succ f xs k hk, ← List.flatMap_append, List.take_append_drop]
 
-/-- **Skipping `k` fields** (paper §11.4: `C`'s oracle-gate arguments, `B`'s nodes before its output index). -/
+/-- **Skipping `k` fields** (`sec:gadget-machine`: `C`'s oracle-gate arguments, `B`'s nodes before its output index). -/
 theorem skipN_spec (cap : ℕ) (i : Fin (ns + 1)) (R : FReg → Fin nr) (hR : Function.Injective R) (Z J K : Fin nr)
     (hZ : ∀ k, R k ≠ Z) (hJ : ∀ k, R k ≠ J) (hK : ∀ k, R k ≠ K) (hKZ : K ≠ Z) (hKJ : K ≠ J)
     (σ : WState ns nr) (pre rest : List Bool) (xs : List ℕ) (V : ℕ) (hV : ∀ x ∈ xs, natBitLength x ≤ V)
@@ -276,7 +276,7 @@ theorem skipN_spec (cap : ℕ) (i : Fin (ns + 1)) (R : FReg → Fin nr) (hR : Fu
 def copyCells (i o : Fin (ns + 1)) (K : Fin nr) : WM ns nr :=
   .whr K (.seq (.dec K) (.seq (.ifs i (.wr o true) (.wr o false)) (.seq (.fwd i) (.fwd o))))
 
-/-- **Copying cells** (paper §11.4: the machine keeps `ℓ`'s field for its oracle gates). -/
+/-- **Copying cells** (`sec:gadget-machine`: the machine keeps `ℓ`'s field for its oracle gates). -/
 theorem copyCells_spec (cap : ℕ) (i o : Fin (ns + 1)) (hio : i ≠ o) (K : Fin nr) (σ : WState ns nr) (k : ℕ)
     (hK : σ.val K = k) (ho : σ.sh o = (σ.st o).length) (hcap : k ≤ cap) :
     WExec cap (copyCells i o K) σ
@@ -367,7 +367,8 @@ def ltWM (A B G H Z F T : Fin nr) : WM ns nr :=
   .seq (addTo A G T) (.seq (.inc G) (.seq (addTo B H T) (.seq (.whr G (.seq (.dec G) (.ifr H (.dec H) (WM.setF Z))))
     (.seq (WM.clear H) (.ifr Z (.dec Z) (.inc F))))))
 
-/-- **Comparison** `F := [A < B]` (paper §11.4: `C`'s input `i` is `D`'s input when `i < q`; `B`'s input `j` reads an
+/-- **Comparison** `F := [A < B]` (`sec:gadget-machine`: `C`'s input `i` is `D`'s input when `i < q`; `B`'s input `j`
+reads an
 argument wire when `j < ℓ`). -/
 theorem ltWM_spec (cap : ℕ) (A B G H Z F T : Fin nr) (hR : [A, B, G, H, Z, F, T].Nodup) (σ : WState ns nr)
     (hG : σ.val G = 0) (hH : σ.val H = 0) (hZ : σ.val Z = 0) (hF : σ.val F = 0) (hT : σ.val T = 0)

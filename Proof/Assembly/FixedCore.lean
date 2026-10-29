@@ -1,6 +1,7 @@
 import Proof.Assembly.NativeSelected
 import Proof.MachineModel.ClosureBinaryPool
 import Proof.CaseAnalysis.FinalModeNativeStageFields
+
 set_option autoImplicit false
 set_option maxHeartbeats 4000000
 set_option maxRecDepth 120000

@@ -17,14 +17,14 @@ open NearCubicWires.WireExponent3_5.UnionMachine.Round (mapS_keepA)
 
 variable {ns nr : ℕ}
 
-/-- **The CHECK program** (paper §11.4, eq:source-check): the table of `d` at the `N` points, compared with `X`;
+/-- **The CHECK program** (`sec:gadget-machine`, eq:source-check): the table of `d` at the `N` points, compared with `X`;
 flag `E .f`, scratch `E .k2`. -/
 def checkW (D P VV TT X : Fin (ns + 1)) (E : VReg → Fin nr) : WM ns nr :=
   .seq (pointsW D P VV TT E) (.seq (.inc (E .f)) (mapPass keepA eqN TT X (E .f) (E .k2)))
 
 def checkCost (dl lb lp N : ℕ) : ℕ := (N + 1) * (pointCost dl lb lp N + 10) + 80 * N + 40
 
-/-- **CHECK on any description** (paper §11.4, eq:source-check): the flag is `[ttWord d lb lp N = z]`; the table
+/-- **CHECK on any description** (`sec:gadget-machine`, eq:source-check): the flag is `[ttWord d lb lp N = z]`; the table
 stays on `TT`; only `P`, `VV`, `TT` and the flag change. -/
 theorem checkW_spec (cap : ℕ) (D P VV TT X : Fin (ns + 1)) (hR : [D, P, VV, TT, X].Nodup) (E : VReg → Fin nr)
     (hE : Function.Injective E) (σ : WState ns nr) (d : List Bool) (lb lp N : ℕ) (z : List Bool)
@@ -73,7 +73,7 @@ theorem checkW_spec (cap : ℕ) (D P VV TT X : Fin (ns + 1)) (hR : [D, P, VV, TT
   · rw [← hτ2]; simpa using h1P
   · rw [← hτ2]; simpa using h1V
 
-/-- **The table is the source check** (paper §11.4, eq:source-check; F-c5): on `d = descriptor B ++ rest`, with the
+/-- **The table is the source check** (`sec:gadget-machine`, eq:source-check; F-c5): on `d = descriptor B ++ rest`, with the
 evaluator's guards met (`B.nodes + 5 ≤ 2^lb`, `ν < 2^lp`) and `N ≤ 2^ν`, the table at the points `bin(i)`, `i < N`, is
 `z` exactly when `B(bin_ν(i)0^{m−ν}) = z_i` for every `i < N`. -/
 theorem ttWord_check {m : ℕ} (B : BooleanCircuit m) (rest : List Bool) (ν lb lp : ℕ) {N : ℕ} (z : BitInput N)

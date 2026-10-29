@@ -9,8 +9,9 @@ This module formalizes the soundness of exact rational reconstruction after a
 left inverse has been supplied and checked. It also defines the actual one-
 and two-score residue push-forward matrices.
 
-This module alone does **not** prove that a left inverse exists at the paper's
-windows; existence is proved in `ScalarReconstruction.lean` and `TwoScoreWindow.lean`. A failed inverse check
+This module alone does **not** prove that a left inverse exists at the
+windows of `lem:one-window` and `lem:two-window`; existence is proved in `ScalarReconstruction.lean` and
+`TwoScoreWindow.lean`. A failed inverse check
 establishes nothing.
 The checker provides a concrete finite certificate, rather than an axiom
 asserting injectivity of the residue map.

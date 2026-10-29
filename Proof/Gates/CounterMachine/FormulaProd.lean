@@ -4,7 +4,7 @@ import Proof.Gates.CounterMachine.FormulaState
 
 **`tP_spec`**: from the formula state (`FState`), the printer emits `tToks d`, the tokens of
 `∏_i (1 − (f_i − ρ_i)^{q−1})` over the digits `E_j^r` (role 0, then role 1 of a pair call) and the scores `X^r`
-(lem:residue-count, v2 1511; table (a) 1660–1666), every head and scratch register restored. -/
+(lem:residue-count; table (a) of `sec:algorithm`), every head and scratch register restored. -/
 
 set_option autoImplicit false
 set_option linter.unusedSimpArgs false

@@ -228,7 +228,7 @@ def nodeCostC {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) : ℕ := nodeCostB ℓ (xm
 
 set_option maxHeartbeats 16000000 in
 set_option maxRecDepth 20000 in
-/-- **The `m` node blocks of seed `z`** (paper §11.6 stage 2). -/
+/-- **The `m` node blocks of seed `z`** (`sec:all-lengths` stage 2). -/
 theorem nodesLoop_exec {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) (post : List Bool) (z : ℕ) (a : List Bool)
     (hz : z < TCirc.T ℓ) (cap : ℕ) (hcap : nodeCapSum C ≤ cap) (hc2 : 2 * C.nodes.length ≤ cap) :
     ∃ b, WXExec cap (repK rM rLC4 (nodeBody false)) (nodeSt C post z a 0 a) (nodeSt C post z a C.nodes.length b)
@@ -282,7 +282,7 @@ def closeCost (o k bz np V : ℕ) : ℕ := imgCost o k bz + 2 * nodeCost V + 40 
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **Closing seed `z`** (paper §11.6 stage 2): `¬C(z)` (the image of the output node) and the running conjunction. -/
+/-- **Closing seed `z`** (`sec:all-lengths` stage 2): `¬C(z)` (the image of the output node) and the running conjunction. -/
 theorem closeSeed_exec {N : ℕ} (cap : ℕ) (σ : WState 3 40) (o k bz np V : ℕ) (pre rest : List Bool)
     (hst : σ.st sCW = pre ++ enc false (natWord o) ++ rest) (hsh : σ.sh sCW = pre.length)
     (hRF : σ.val rRF = 0) (hRC : σ.val rRC = 0) (hRV : σ.val rRV = 0) (hRP : σ.val rRP = 0) (hRT : σ.val rRT = 0)
@@ -416,7 +416,7 @@ theorem closeCost_mono {o k bz np V bz' np' : ℕ} (hb : bz ≤ bz') (hn : np �
 
 set_option maxHeartbeats 16000000 in
 set_option maxRecDepth 20000 in
-/-- **One seed** (paper §11.6 stage 2): the `m` node blocks of seed `z`, its closing nodes, then the word rewound
+/-- **One seed** (`sec:all-lengths` stage 2): the `m` node blocks of seed `z`, its closing nodes, then the word rewound
 (by the bytes written, `TBytesSpec`) and its header skipped. -/
 theorem seedBody_exec {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) (post : List Bool) (z : ℕ) (a : List Bool)
     (hz : z < TCirc.T ℓ) (hB : TBytesSpec) (cap : ℕ) (hcap : seedCapSum C ≤ cap) :
@@ -592,7 +592,7 @@ theorem seedSt_last {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) (post a : List Bool)
   · rfl
 
 set_option maxHeartbeats 4000000 in
-/-- **All `2^ℓ` seeds** (paper §11.6 stage 2): from `preSeeds` to `postSeeds`. -/
+/-- **All `2^ℓ` seeds** (`sec:all-lengths` stage 2): from `preSeeds` to `postSeeds`. -/
 theorem seedsLoop_exec {ℓ : ℕ} (hB : TBytesSpec) (C : OracleCircuit ℓ ℓ) (post : List Bool) (cap : ℕ)
     (hcap : seedCapSum C ≤ cap) :
     ∃ junk, WXExec cap (seedsLoop false) (preSeeds C post) (postSeeds C post junk)

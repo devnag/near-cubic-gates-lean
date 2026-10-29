@@ -8,7 +8,7 @@ open NearCubicWires NearCubicWires.LocalBitMultitape NearCubicWires.RepairOrdina
 open NearCubicWires.RepairSource.OrdinaryOracleCompose NearCubicWires.RepairOrdinary.RecoveryRootRound
 open NearCubicGates.Close.Transfer NearCubicGates.Close.Gadget NearCubicWires.Bindings.MW20
 
-/-- **The middle segment's cost** (paper §11.6, `2^{O(n)}`): the five pieces' costs, each polynomial in `2^n` once
+/-- **The middle segment's cost** (`sec:all-lengths`, `2^{O(n)}`): the five pieces' costs, each polynomial in `2^n` once
 `q, ν ≤ n`, the `q^G` cap is polynomial in `q`, and stage 2 fits the clear capacity `2^{Aq n + Bq}`. -/
 theorem mid_cost (n q ν Bd cap t19 t20 dl t21 cst k D cc cd uK aK ae Aq Bq : ℕ)
     (hD : 1 ≤ D) (hq : q ≤ n) (hν : ν ≤ n) (hBd : Bd + 1 ≤ (q + 1) ^ D)

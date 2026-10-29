@@ -6,7 +6,7 @@ import Mathlib.Data.Fintype.Pi
 import Mathlib.Data.Int.ModEq
 
 /-!
-# Counter module 2/9 — the pure counter (paper v2 §7.2–§7.3) and the witness codec
+# Counter module 2/9 — the pure counter (`sec:algorithm`: witnesses, tables, reconstruction in a cell) and the witness codec
 
 Parts: `counterOnCall` (admission guard, `W = 0` branch, parameters, witness decoding, eq:output); the codec
 `encodeWitness`/`decodeWitness` with `decode_encode` and `encodeWitness_length`.
@@ -44,7 +44,8 @@ theorem eval_eq_topLookup {n : ℕ} (C : NCircuit n) (z : BitInput n) : C.eval z
 def coord0 {c : Call} (u : Role c → ℤ) : ℤ := u ⟨0, roleCount_pos c.kind⟩
 def coord1 {c : Call} (u : Role c → ℤ) : ℤ := if h : 1 < roleCount c.kind then u ⟨1, h⟩ else 0
 
-/-- The requested Boolean predicate on a score vector (lines 1724–1727); `outerParity` is
+/-- The requested Boolean predicate on a score vector (`sec:algorithm`, "Reconstruction inside a certified cell");
+`outerParity` is
 `PAR_{Σ∖I}(y) ⊕ b` for a parity call and ignored otherwise. -/
 def scorePredicate (c : Call) (outerParity : Bool) (u : Role c → ℤ) : Bool :=
   match c.kind with
@@ -57,7 +58,7 @@ def scorePredicate (c : Call) (outerParity : Bool) (u : Role c → ℤ) : Bool :
 /-- The parity's effective coordinates: indices below `n` occurring an odd number of times. -/
 def oddIndices (c : Call) : List ℕ := (List.range c.n).filter fun i => c.parity.count i % 2 = 1
 
-/-- Exact value when `W = 0` (lines 1636–1640): both circuits are constant, a nonempty parity has probability 1/2. -/
+/-- Exact value when `W = 0` (`sec:finite`): both circuits are constant, a nonempty parity has probability 1/2. -/
 def zeroWeightValue (c : Call) : ℚ × ℚ :=
   let t1 := topLookup c.first 0
   let t2 := topLookup c.second 0
@@ -66,7 +67,7 @@ def zeroWeightValue (c : Call) : ℚ × ℚ :=
   | .pair => (if xor t1 t2 then 1 else 0, 0)
   | .parity => if oddIndices c = [] then (if t1 then 1 else 0, 0) else (1 / 2, 0)
 
-/-! ## The witness codec (lines 1642–1654) -/
+/-! ## The witness codec (`sec:algorithm`, "Witnesses and the tables to be computed") -/
 
 /-- Little-endian value of a bit list. -/
 def bitsValue : List Bool → ℕ
@@ -78,7 +79,8 @@ def bitsOf : ℕ → ℕ → List Bool
   | 0, _ => []
   | w + 1, v => (v % 2 == 1) :: bitsOf w (v / 2)
 
-/-- Read consecutive fields of the given widths; missing bits are zeros (line 1650). Returns the values and the
+/-- Read consecutive fields of the given widths; missing bits are zeros (`sec:algorithm`,
+"Witnesses and the tables to be computed"). Returns the values and the
 unread bits. -/
 def readBlock : List Bool → List ℕ → List ℕ × List Bool
   | bits, [] => ([], bits)
@@ -97,22 +99,25 @@ def writeBlock (ws vs : List ℕ) : List Bool := (ws.zip vs).flatMap fun f => bi
 /-- Offset width `⌈lg(2|a|+1)⌉` of the coefficient field of a gate with top weight `a`. -/
 def coefWidth (a : ℤ) : ℕ := Nat.clog 2 (2 * a.natAbs + 1)
 
-/-- The position of the block of stage `s` (paper `K_{s+1}`) and role `r`. -/
+/-- The position of the block of stage `s` (`K_{s+1}` of `sec:algorithm`) and role `r`. -/
 def segmentIndex (c : Call) (s r : ℕ) : ℕ := s * roleCount c.kind + r
 
-/-- Field widths of the coefficient blocks, stage-major then role (lines 1645–1648). -/
+/-- Field widths of the coefficient blocks, stage-major then role (`sec:algorithm`,
+"Witnesses and the tables to be computed"). -/
 def segmentWidths (c : Call) (p : Params) : List (List ℕ) :=
   (List.range p.J).flatMap fun _ => (List.range (roleCount c.kind)).map fun r => (circ c r).coeffs.map coefWidth
 
 /-- The decoded coefficient from an offset `v` for a gate of top weight `a` (valid iff `v ≤ 2|a|`). -/
 def coefOf (a : ℤ) (v : ℕ) : ℤ := (v : ℤ) - a.natAbs
 
-/-- A decoded witness: the inner coordinates and the coefficient list of stage `s` (paper `K_{s+1}`), role `r`. -/
+/-- A decoded witness: the inner coordinates and the coefficient list of stage `s` (`K_{s+1}` of `sec:algorithm`),
+role `r`. -/
 structure Wit (n : ℕ) where
   I : Finset (Fin n)
   coef : ℕ → ℕ → List ℤ
 
-/-- Decoding (lines 1642–1654): `k` coordinates of `λ_n` bits, then the coefficient blocks; `none` on an invalid
+/-- Decoding (`sec:algorithm`, "Witnesses and the tables to be computed"): `k` coordinates of `λ_n` bits, then the
+coefficient blocks; `none` on an invalid
 encoding (a coordinate `≥ n`, a repeated coordinate, or an offset `> 2|w|`). Only the prefix of length
 `k λ_n + J Σ_{r,i} ⌈lg(2|w_i^r|+1)⌉` is read; missing bits are zeros. -/
 def decodeWitness (c : Call) (p : Params) (w : List Bool) : Option (Wit c.n) :=
@@ -166,14 +171,14 @@ def rateOf (j : ℕ) : ℤ := (p.factors.getD j 0 : ℤ)
 def digit (r j : ℕ) (z : BitInput c.n) : ℤ :=
   CountingCore.proposedDigit (rateOf p) (fun s => stageForm c wt r s z) j
 
-/-- `Φ^r = M₁ K_J^r − A X^r` (line 1658). -/
+/-- `Φ^r = M₁ K_J^r − A X^r` (`sec:algorithm`, "Witnesses and the tables to be computed"). -/
 def phi (r : ℕ) (z : BitInput c.n) : ℤ :=
   (p.M1 : ℤ) * stageForm c wt r (p.J - 1) z - (p.A : ℤ) * scoreForm c r z
 
 /-- `A_j = ∏_{i=j+1}^{J−1} a_i` (`A_0 = A`); `rateOf p t = a_{t+1}`. -/
 def tailProd (j : ℕ) : ℤ := ∏ t ∈ Finset.Ico j (p.J - 1), rateOf p t
 
-/-! ### The tables (a) and (b) of lines 1660–1672 -/
+/-! ### The tables (a) and (b) of `sec:algorithm`, "Witnesses and the tables to be computed" -/
 
 /-- Membership in the part `H` of a cell: all points, or `H_b = {x : PAR_{Σ∩I}(x) = b}` for a parity call. -/
 def innerParity (x : Points wt.I) : Bool :=
@@ -207,14 +212,15 @@ def digitMoment (r j : ℕ) (y : Cells wt.I) : ℤ :=
 def phiMoment (r : ℕ) (y : Cells wt.I) : ℤ :=
   ∑ x : Points wt.I, (phi c p wt r (extend wt.I y x) - phi c p wt r (extend wt.I y (zeroPoint wt.I))) ^ (2 * p.k)
 
-/-! ### Reconstruction inside a cell (lines 1683–1730) -/
+/-! ### Reconstruction inside a cell (`sec:algorithm`, "Reconstruction inside a certified cell") -/
 
 /-- The strict tests eq:tests. -/
 def CellTests (y : Cells wt.I) : Prop :=
   (∀ (r : Role c) (j : Fin p.J), digitMoment c p wt r.val j.val y < (p.hE : ℤ) ^ (2 * p.k)) ∧
     ∀ r : Role c, phiMoment c p wt r.val y < (p.Lambda : ℤ) ^ (2 * p.k)
 
-/-- All integer digit vectors with `|κ_j^r − E_j^r(z_y)| < h_E` (line 1693). -/
+/-- All integer digit vectors with `|κ_j^r − E_j^r(z_y)| < h_E` (`sec:algorithm`,
+"Reconstruction inside a certified cell"). -/
 noncomputable def digitVectors (y : Cells wt.I) : Finset (Role c × Fin p.J → ℤ) :=
   Fintype.piFinset fun rj => Finset.Ioo
     (digit c p wt rj.1.val rj.2.val (extend wt.I y (zeroPoint wt.I)) - p.hE)
@@ -240,7 +246,8 @@ noncomputable def box (y : Cells wt.I) (κ : Role c × Fin p.J → ℤ) : Finset
   Fintype.piFinset fun r => Finset.Icc (boxLo c p wt y κ r) (boxHi c p wt y κ r)
 
 /-- `F` solves the push-forward equations of `κ` on a part: for every prime and every score-residue vector, the box
-mass in that residue class equals the tabulated joint count at `κ mod p` (lines 1715–1717). -/
+mass in that residue class equals the tabulated joint count at `κ mod p` (`sec:algorithm`,
+"Reconstruction inside a certified cell"). -/
 def Solves (part : Option Bool) (y : Cells wt.I) (κ : Role c × Fin p.J → ℤ) (F : (Role c → ℤ) → ℚ) : Prop :=
   ∀ q ∈ p.primes, ∀ σ : Role c → Fin q,
     (∑ u ∈ (box c p wt y κ).filter (fun u => ∀ r, u r ≡ (σ r : ℤ) [ZMOD (q : ℤ)]), F u) =
@@ -252,7 +259,8 @@ noncomputable def solveSystem (part : Option Bool) (y : Cells wt.I) (κ : Role c
     Option ((Role c → ℤ) → ℚ) :=
   if h : ∃ F, Solves c p wt part y κ F then some (Classical.choose h) else none
 
-/-- `Σ_u F_κ(u)·[predicate(u)]` for one part and one digit vector (lines 1724–1727). -/
+/-- `Σ_u F_κ(u)·[predicate(u)]` for one part and one digit vector (`sec:algorithm`,
+"Reconstruction inside a certified cell"). -/
 noncomputable def partAnswer (part : Option Bool) (y : Cells wt.I) (κ : Role c × Fin p.J → ℤ) : ℚ :=
   match solveSystem c p wt part y κ with
   | none => 0
@@ -263,7 +271,7 @@ noncomputable def partAnswer (part : Option Bool) (y : Cells wt.I) (κ : Role c 
 def AllSolved (y : Cells wt.I) : Prop :=
   ∀ part ∈ parts c, ∀ κ ∈ digitVectors c p wt y, ∃ F, Solves c p wt part y κ F
 
-/-- `N_y` (line 1728). -/
+/-- `N_y` (`sec:algorithm`, "Reconstruction inside a certified cell"). -/
 noncomputable def cellCount (y : Cells wt.I) : ℚ :=
   ((parts c).map fun part => ∑ κ ∈ digitVectors c p wt y, partAnswer c p wt part y κ).sum
 
@@ -302,7 +310,7 @@ noncomputable def counterOnCall (B1 B2 cT : ℕ) (c : Call) (w : List Bool) : �
 end NearCubicGates.Close.Counter
 
 /-!
-# The witness codec: encoding, decoding, length (paper v2 lines 1642–1654)
+# The witness codec: encoding, decoding, length (`sec:algorithm`, "Witnesses and the tables to be computed")
 
 `encodeWitness` writes an inner coordinate list (`k` fields of `λ_n` bits) and the coefficient offsets (stage-major,
 then role, then gate; `⌈lg(2|w|+1)⌉` bits each). `decode_encode`: every `k`-subset and every family of coefficient

@@ -595,7 +595,7 @@ theorem radius_le_iff (q : ℚ) : q ≤ 1 / 16 ↔ ((if q.num < 0 then 1 else 0)
   · simp only [hn, if_false, forall_const]
     omega
 
-/-- **The computed flag is exactly admission** (`Call.Admitted`, lines 1544–1559). -/
+/-- **The computed flag is exactly admission** (`Call.Admitted`, `sec:algorithm`). -/
 theorem admFlag_iff (B1 B2 : ℕ) (c : Call) : (AdmS c ∧ AdmN B1 B2 c) ↔ c.Admitted B1 B2 := by
   unfold AdmS AdmN Call.Admitted
   constructor

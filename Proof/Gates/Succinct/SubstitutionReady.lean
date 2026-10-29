@@ -14,7 +14,7 @@ open NearCubicWires.WireExponent3_5 NearCubicWires.WireExponent3_5.FinalPass.Tm
 open NearCubicWires.Bindings.MW20
 open NearCubicGates.Close.WordPrograms NearCubicGates.Close.Succinct NearCubicGates.Close.Outer
 
-/-- `C`'s input nodes in the emission loop (paper §11.4, `D_B`: an input gate of `C` is copied). -/
+/-- `C`'s input nodes in the emission loop (`sec:gadget-machine`, `D_B`: an input gate of `C` is copied). -/
 theorem kind1OK (o : OracleOutput) {q : ℕ} (B : BooleanCircuit q) : Kind1OK (capH o B) o B :=
   fun _ _ _ h j hk => kind1 h j hk
 

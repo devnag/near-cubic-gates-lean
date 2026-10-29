@@ -29,7 +29,7 @@ theorem ht_l : (htBank K).l =
       (⟨3, by have := K.ht.large; have := K.ht.output.isLt; omega⟩, sh K 12),
       (⟨4, by have := K.ht.large; have := K.ht.output.isLt; omega⟩, sh K 13), (K.ht.output, sh K 2)] := rfl
 
-/-- **Piece 28, Case 1 (iii)** (paper §11.5–§11.6): the amplified table `O*` at the address. -/
+/-- **Piece 28, Case 1 (iii)** (`sec:gadget-extract`, `sec:all-lengths`): the amplified table `O*` at the address. -/
 theorem ready28 (n : ℕ) (point : BitInput n) {ℓ : ℕ} (t : BitInput (2 ^ ℓ)) (q : ℕ) (hq1 : 1 ≤ q) (hqn : q ≤ n)
     (har : ((selectedAmplifier s.amplification g.degree).output q (cycFn ℓ t q)).arity ≤ n)
     (A : Fin (T K) → List Bool) (h22 : A (sh K 22) = RepairOrdinary.frame (List.ofFn t))
@@ -75,7 +75,7 @@ theorem ready28 (n : ℕ) (point : BitInput n) {ℓ : ℕ} (t : BitInput (2 ^ �
   rw [Bank.install_port (b28 K) A out (j := K.c1.output) (by rw [b28_l]; exact .tail _ (.tail _ (.tail _ (.head _)))),
     hout]
 
-/-- **Piece 29, the A-run on `B*_src`** (paper §11.6, "the algorithm of imp:short-pcp is run deterministically on
+/-- **Piece 29, the A-run on `B*_src`** (`sec:all-lengths`, "the algorithm of imp:short-pcp is run deterministically on
 `⟨B*_src⟩_ν`"): the word of `C_{⟨B⟩_ν}` on shared `24`. -/
 theorem ready29 (ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (A : Fin (T K) → List Bool)
     (h17 : A (sh K 17) = PCPPNative.descriptor B) (h9 : A (sh K 9) = List.replicate ν true) (h24 : A (sh K 24) = [])
@@ -128,7 +128,7 @@ theorem ready29 (ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (A : Fin (T K) → L
     have : off K 30 = off K 29 + sz K 29 := rfl
     omega
 
-/-- **Piece 30, the Case 2 producer** (paper §11.6): the gate core at the address. -/
+/-- **Piece 30, the Case 2 producer** (`sec:all-lengths`): the gate core at the address. -/
 theorem ready30 (n : ℕ) (point : BitInput n) (ν : ℕ) (z : BitInput (2 ^ ν)) (hνn : ν ≤ n)
     (hcut : K.ht.cutoff ≤ 2 ^ ν) (h : g.IsCaseTwo s ν z) (A : Fin (T K) → List Bool)
     (h24 : A (sh K 24) = (Outer.outC s.mw (g.sv s) ν (g.selectedPair s ν z h).src).word)

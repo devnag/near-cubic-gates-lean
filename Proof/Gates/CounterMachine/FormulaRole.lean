@@ -3,8 +3,8 @@ import Proof.Gates.Codec.FieldInt
 
 /-! # RG machine, part 13: the digit factors of one role
 
-**`roleDig_spec`**: for `j = 0, …, J − 1` the factor `1 − (E_j^r − κ_{base+j})^{q−1}` (lem:residue-count, v2 1511;
-table (a)'s digits, 1660–1666), the residues read in order from the residue stream `KV`. Every head except `KV`'s
+**`roleDig_spec`**: for `j = 0, …, J − 1` the factor `1 − (E_j^r − κ_{base+j})^{q−1}` (lem:residue-count;
+table (a)'s digits, `sec:algorithm`), the residues read in order from the residue stream `KV`. Every head except `KV`'s
 and every scratch register end as before; `KV`'s head has moved past the `J` residues used. -/
 
 set_option autoImplicit false

@@ -122,7 +122,7 @@ theorem b16_l : (b16 K).l =
 
 theorem uTapes_ge (d : ℕ) : 342 ≤ ENP.USupply.uTapes d := by unfold ENP.USupply.uTapes; omega
 
-/-- **Piece 16, stage 1** (paper §11.6): the listed-pairs stage on `z`, clocked, focused on its bank. -/
+/-- **Piece 16, stage 1** (`sec:all-lengths`): the listed-pairs stage on `z`, clocked, focused on its bank. -/
 theorem s1_piece (C0 E0 : ℕ) (hSB : StageBudgetAt g.degree c.A c.B C0 E0) {n : ℕ} (ν : ℕ) (z : BitInput (2 ^ ν))
     (hL : Live s g n ν) (A : Fin (T K) → List Bool)
     (h4 : A (sh K 4) = RepairOrdinary.frame (List.ofFn z)) (h5 : A (sh K 5) = List.replicate (g.width s ν) true)
@@ -229,7 +229,7 @@ variable {s : GateSources} {P : ThreeQueryPCPP} {g : GateParams} (K : Kit s P g)
 theorem ne_of_not_mem {i : Fin 32} {l : List (Fin 32)} (h : i ∉ l) {j : Fin 32} (hj : j ∈ l) : i ≠ j := by
   rintro rfl; exact h hj
 
-/-- **The second half of the head** (paper §11.6, stage 1 with its workspace). -/
+/-- **The second half of the head** (`sec:all-lengths`, stage 1 with its workspace). -/
 theorem headTwoRuns : HeadTwoRuns K c := by
   intro C0 E0 hSB
   refine ⟨2 * CloseoutCapacity.coefficient c.A c.B + CloseoutCapacity.coefficient c.Aq c.Bq +

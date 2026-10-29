@@ -1,6 +1,7 @@
 import Proof.CaseAnalysis.RowsTupleSeek
 import Proof.CaseAnalysis.RowsTupleSeekTyped
 import Proof.Assembly.LoaderRecipe
+
 set_option autoImplicit false
 set_option maxHeartbeats 250000
 set_option maxRecDepth 120000

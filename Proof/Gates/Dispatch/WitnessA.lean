@@ -1,7 +1,7 @@
 import Proof.Gates.Dispatch.WitDock
 
 /-!
-# Fragment (W), part A: the witness codec, value level (paper v2 lines 1642–1654)
+# Fragment (W), part A: the witness codec, value level (`sec:algorithm`, "Witnesses and the tables to be computed")
 
 Bit windows (`bitsValue` of `take`/`drop`), the field readers `readBlock`/`readSegments` field by field, the
 coordinate bitmask (a Boolean list of length `n` read as a number), and the call word around the coefficient lists.

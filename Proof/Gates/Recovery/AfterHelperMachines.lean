@@ -82,7 +82,7 @@ theorem readyRun_budget {t s : ℕ} {p : Machine t s} {f f' : ℕ} {input out : 
   OuterM.readyRun_mono h hf
 
 open NearCubicWires.WireExponent3_5.PrimAsm.DockW in
-/-- **`1^ν`** (paper §11.4): `frame x ↦ 1^{⌊log₂ |x|⌋}` within `200 (|x| + 1)` steps. -/
+/-- **`1^ν`** (`sec:gadget-machine`): `frame x ↦ 1^{⌊log₂ |x|⌋}` within `200 (|x| + 1)` steps. -/
 noncomputable def nuDonor : NuDonor where
   t := 1 + 2 + 9 + 1
   st := nuProg.size + 2
@@ -145,7 +145,7 @@ theorem unLoop_spec (cap : ℕ) (d : List Bool) : ∀ (m j : ℕ) (σ : WState 1
     · funext x; fin_cases x <;> simp [σ4, σ2, σ1, Function.update_apply]
 
 open NearCubicWires.WireExponent3_5.PrimAsm.DockW in
-/-- **Unframe** (paper §11.6): `frame d ↦ d` within `30 (|d| + 1)` steps. -/
+/-- **Unframe** (`sec:all-lengths`): `frame d ↦ d` within `30 (|d| + 1)` steps. -/
 noncomputable def unframe : Unframe where
   t := 1 + 2 + 1 + 1
   st := (WMX.wm unLoop : WMX 1 1).size + 2

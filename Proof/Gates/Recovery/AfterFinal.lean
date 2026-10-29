@@ -10,7 +10,7 @@ namespace NearCubicGates.Close.Recovery.After
 
 open NearCubicGates.Close.Transfer NearCubicGates.Close.Gadget
 
-/-- **The after-prefix supply, given the first half of the head** (paper §11.6). -/
+/-- **The after-prefix supply, given the first half of the head** (`sec:all-lengths`). -/
 theorem afterSupply_of_head
     (hHead : ∀ (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) (K : Kit s P g) (c : Cfg),
       HeadTwoRuns K c → HeadRuns K c)
@@ -22,7 +22,7 @@ end NearCubicGates.Close.Recovery.After
 
 namespace NearCubicGates.Close.Recovery
 
-/-- **The recovery after the refuter** (paper §11.6, "For completeness, all canonical choices are recoverable in
+/-- **The recovery after the refuter** (`sec:all-lengths`, "For completeness, all canonical choices are recoverable in
 E^NP"): the after-prefix SAT-oracle program — stage 1, the canonical→native converter, the A-run (imp:short-pcp's
 constructor on `⟨B*_src⟩_ν`), stage 2, stage 3, then Case 1 (i) on `X_z`, the zero slice, Case 1 (iii) on `Ô*` or the
 Case 2 hard table — for every source bundle, PCPP and ready parameter choice, from the stage-2 producer and the

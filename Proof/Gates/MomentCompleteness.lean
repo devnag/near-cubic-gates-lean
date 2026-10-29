@@ -7,7 +7,7 @@ import Mathlib.Tactic.NormNum
 /-!
 # Literal strict even-moment completeness with the sqrt(2) slack
 
-This closes the numerical converse in manuscript `lem:moment` without
+This closes the numerical converse in `lem:moment` without
 assuming a precomputed power-sum slack inequality. The finite cardinality
 is the actual cube cardinality; integer and real casts are proved explicitly.
 -/
@@ -55,7 +55,7 @@ theorem finite_integer_moment_complete {Points : Type*} [Fintype Points]
   rw [hi]
   exact_mod_cast htotal
 
-/-- The manuscript's completeness direction on the actual Boolean cube. -/
+/-- The converse direction of `lem:moment` on the actual Boolean cube. -/
 theorem boolean_cube_moment_complete (k : ℕ) (hk : 1 ≤ k)
     (v : (Fin k → Bool) → ℤ) (R : ℕ) (R' : ℝ) (hR' : 0 ≤ R')
     (hbound : ∀ x, (v x).natAbs ≤ R')

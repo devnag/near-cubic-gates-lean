@@ -98,7 +98,7 @@ theorem pR4a_spec (a : DS VV) (hc : Cst a) (n k P : ℕ) (hN : a.env vN = n) (hK
     have e2 : 40 * (n + 1) * (n + 1) = 40 * ((n + 1) * (n + 1)) := by ring
     omega
 
-/-! ## The guards (line 1617) -/
+/-! ## The guards (`sec:finite`, rule 4) -/
 
 open AE in
 def pGuard : St VV :=
@@ -167,7 +167,7 @@ theorem pGuard_spec (a : DS VV) (hc : Cst a) (Pr : Prop) [Decidable Pr] (hPr : a
   · simp only [AE.cost] at hk1 hk4 hk6 hk8
     omega
 
-/-! ## `ℓ₀` reduced (line 1612) -/
+/-! ## `ℓ₀` reduced (`sec:finite`, rule 4) -/
 
 open AE in
 def pEll : St VV :=
@@ -236,7 +236,7 @@ theorem pEll_spec (a : DS VV) (hc : Cst a) (W k den num R0 S : ℕ) (hW : a.env 
     have z2 : Nat.size (num * R0) ≤ S := Nat.size_le.2 hB
     omega
 
-/-! ## `ℓ̄`, `M₁`, `x₁` (lem:chain, lines 1118–1137, 1626–1630) -/
+/-! ## `ℓ̄`, `M₁`, `x₁` (lem:chain; `sec:finite`) -/
 
 open AE in
 def pBar : St VV :=

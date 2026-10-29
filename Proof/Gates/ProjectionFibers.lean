@@ -6,8 +6,8 @@ import Mathlib.Tactic.Ring
 
 /-! The primitive-direction kernel argument starts with its literal fibers.
     Equal projected exponents differ by an integer multiple of the kernel
-    vector. The corresponding monomial differences have the manuscript's
-    binomial factor, for both signs of the direction. -/
+    vector. The corresponding monomial differences have the
+    binomial factor of the proof of `lem:two-window`, for both signs of the direction. -/
 
 set_option autoImplicit false
 

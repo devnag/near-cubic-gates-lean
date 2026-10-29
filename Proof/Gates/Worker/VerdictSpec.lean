@@ -34,7 +34,8 @@ def upperL (M : ℕ) (I : List (Bool × (ℚ × ℚ))) : ℚ :=
   1 + (((List.range I.length).map fun i => ((tenSigns ⟨i % 10, Nat.mod_lt _ (by norm_num)⟩ : ℚ) *
     (flipI (I.getD i (false, (0, 0)))).1 + (flipI (I.getD i (false, (0, 0)))).2)).sum) / (2 * M)
 
-/-- The test bit (v2 lines 2344–2392, with the machine threshold `εT`). -/
+/-- The test bit (the guards and the test `eq:gadget-acceptance` of `sec:gadget-machine`, with the machine
+threshold `εT`). -/
 def verdictBit (γ εT : ℚ) (r : VerdictReq) : Bool :=
   decide (r.rb ≤ r.cl ∧ 2 ≤ r.q ∧ 1 ≤ r.N ∧ γ < εT * (r.N : ℚ) ^ 10 ∧ upperL r.M r.I < γ - εT)
 

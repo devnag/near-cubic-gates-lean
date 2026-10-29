@@ -1,6 +1,6 @@
 import Proof.Gates.NestedRateChain
 
-/-! Public rates start from the manuscript's maximum and ceiling, then use
+/-! Public rates start from the maximum and ceiling of `lem:chain`, then use
     the actual accelerated recursion. These bounds do not assume that a
     proposed coefficient vector was sampled. -/
 

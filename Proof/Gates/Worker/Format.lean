@@ -171,7 +171,7 @@ noncomputable def oracleOK (N : ℕ) (w : List Bool) : Bool :=
   (decodeBooleanCircuit (width s g N) (value (readField w).1)).isSome &&
     (decodeBooleanCircuit (width s g N) (value (readField (readField w).2).1)).isSome
 
-/-- Both circuit fields of the word `w` decode, to the pair `B` (the set-up's decoders, paper v2 §11.4: "rejecting
+/-- Both circuit fields of the word `w` decode, to the pair `B` (the set-up's decoders, `sec:gadget-machine`: "rejecting
 malformed descriptions"). -/
 def Decodes (q : ℕ) (w : List Bool) (B : Outer.OuterGuess q) : Prop :=
   decodeBooleanCircuit q (value (readField w).1) = some B.src ∧
@@ -302,7 +302,7 @@ theorem decodeGuess_encode {N : ℕ} (x : BitInput N) (G : Guess (width s g N))
 
 /-! ## The verdict: what the worker machine computes -/
 
-/-- **The set-up's flag** (paper v2 §11.4): both circuit fields decode, and the decoded pair passes the set-up's guards
+/-- **The set-up's flag** (`sec:gadget-machine`): both circuit fields decode, and the decoded pair passes the set-up's guards
 (`N = 2^ν`, the onset, `B_src`'s description within `L_ν` bits, CHECK). The set-up machine computes this flag. -/
 noncomputable def setupFlag (N : ℕ) (x : BitInput N) (w : List Bool) : Bool := by
   classical

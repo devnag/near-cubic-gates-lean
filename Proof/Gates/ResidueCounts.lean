@@ -5,7 +5,7 @@ import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
 /-!
 # Exact joint residue counts from the literal lifting polynomial
 
-Pointwise Fermat tests and the manuscript's amplifier give a value congruent
+Pointwise Fermat tests and the amplifier of `lem:amp` give a value congruent
 to the actual indicator modulo `p^e`. Summing and using the cardinality guard
 gives the unique exact count, not just a residue or an approximate count.
 Polynomial multilinearization and the batch evaluator are separate modules.

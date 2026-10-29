@@ -52,7 +52,7 @@ def body : WMX 6 16 :=
   .seq (copyReg rZ rX rT) <| .seq (emitBits rX rY rB rCC sOC) <|
   .seq (clearReg rZ) <| .seq (emitO sOK rCK true) <| .seq (.ifr rV (WMX.dec rV) WMX.skip) (WMX.inc rI)
 
-/-- The count stage (paper §11.6, stages 1 and 3). -/
+/-- The count stage (`sec:all-lengths`, stages 1 and 3). -/
 def prog : WMX 6 16 :=
   .seq (.wm (WM.readU sTR rCR rRR)) <| .seq (.wm (WM.rewind sTR rCR)) <|
   .seq (copyReg rRR rX rT) <| .seq (emitBits rX rY rB rCRo sOR) <|
@@ -62,7 +62,7 @@ def prog : WMX 6 16 :=
   .seq (.wm (WM.rewind sOK rCK)) <| .seq (.wm (WM.rewind sOR rCRo)) <| .seq (.wm (WM.rewind sOM rCM)) <|
   .seq (clearReg rRR) (clearReg rI)
 
-/-- The state before pair `i` (paper §11.6: rows and clauses `< i` written). -/
+/-- The state before pair `i` (`sec:all-lengths`: rows and clauses `< i` written). -/
 def cfg (vals post : List Bool) (R i : ℕ) : St where
   sh := ![2 * i, 0, (qStream R i).length, (cStream vals i).length, i, (RepairOrdinary.frame R.bits).length, 0]
   st := ![RepairOrdinary.frame vals ++ post, List.replicate R true, qStream R i, cStream vals i,
@@ -514,7 +514,8 @@ theorem prog_cost_le (R M lq lc lfR lfM : ℕ) (hq : lq = M * (7 * R)) (hc : lc 
   omega
 
 set_option maxRecDepth 20000 in
-/-- **The count stage** (paper §11.6, stages 1 and 3): from the listed table and `R`, it writes the five source fields of
+/-- **The count stage** (`sec:all-lengths`, stages 1 and 3): from the listed table and `R`, it writes the five source
+fields of
 `unitPCP` and returns every head and register to `0`. -/
 theorem prog_exec (vals post : List Bool) (R : ℕ) :
     WXExec (capOf R vals.length) prog (start vals post R) (finish vals post R) (progCost R vals.length) := by
@@ -610,7 +611,7 @@ theorem prog_exec (vals post : List Bool) (R : ℕ) :
     (WXExec.seq h13 (WXExec.seq h14 h15)))))))))))))
   exact WXExec.mono hall (prog_cost_le R vals.length _ _ _ _ hqS hcS (by omega) (by omega))
 
-/-- **The count stage as a ready run** from empty work tapes (paper §11.6, stages 1 and 3). -/
+/-- **The count stage as a ready run** from empty work tapes (`sec:all-lengths`, stages 1 and 3). -/
 theorem prog_ready (vals post : List Bool) (R : ℕ) :
     ∃ out, ClockJoin.ReadyRun prog.compile (progCost R vals.length)
       (CheckedPCPP.coldBank (start vals post R)) out ∧

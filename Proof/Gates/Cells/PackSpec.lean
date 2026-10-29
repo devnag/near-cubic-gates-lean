@@ -9,7 +9,8 @@ namespace NearCubicGates.Close.Cells
 open NearCubicWires NearCubicGates
 open NearCubicGates.Close.Interfaces NearCubicGates.Close.Interfaces.Formats NearCubicGates.Close.Counter
 
-/-- `N_unc`: the number of cells failing the strict tests (line 1731), set by `mainP`. -/
+/-- `N_unc`: the number of cells failing the strict tests (`sec:algorithm`,
+"Reconstruction inside a certified cell"), set by `mainP`. -/
 def vUnc : Fin VV := ⟨120, by decide⟩
 
 /-- The width the loop may assume (covers `SysGoal`'s `64·(J+4)·(Big+n+16)`, the cell records of width

@@ -29,7 +29,7 @@ noncomputable def caps27 (N : ℕ) : Fin (pU g).base.tapeCount → ℕ :=
 
 theorem uT_ge (d : ℕ) : 342 ≤ ENP.USupply.uTapes d := by unfold ENP.USupply.uTapes; omega
 
-/-- **Piece 27, stage 3** (paper §11.6). -/
+/-- **Piece 27, stage 3** (`sec:all-lengths`). -/
 theorem ready27 (ν : ℕ) (z : BitInput (2 ^ ν)) {ℓ : ℕ} (hℓ : ℓ ≤ g.width s ν) (t : BitInput (2 ^ ℓ)) (W N : ℕ)
     (hb : 0 < g.bound s ν)
     (hW : originalWorkspace (g.width s ν) (g.bound s ν) (List.ofFn t).length (List.ofFn t).length ≤ W)

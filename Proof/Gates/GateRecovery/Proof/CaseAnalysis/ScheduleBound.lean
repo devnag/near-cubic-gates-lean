@@ -3,7 +3,7 @@ import Proof.Gates.GateRecovery.Proof.CaseAnalysis.ScheduleRun
 
 namespace GR
 
-/-! One fixed all-length cold schedule with a paper C.12 resource bound.
+/-! One fixed all-length cold schedule with a resource bound of the `E^NP` recovery (`sec:all-lengths`).
 Every capacity cell, metadata write, sweep and candidate run is included. -/
 namespace NearCubicWires.RepairSource.CloseoutSchedule.Cold
 open LocalBitMultitape RepairOrdinary

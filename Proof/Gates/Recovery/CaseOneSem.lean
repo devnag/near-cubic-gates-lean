@@ -58,7 +58,8 @@ theorem srcFn_eq (s : GateSources) (g : GateParams) (ν : ℕ) (z : BitInput (2 
 /-- Case 1 (iii): `O*` as a function of `q` bits is the cyclic function of its table. -/
 theorem pfFn_eq {q ℓ : ℕ} (t : BitInput (2 ^ ℓ)) : (GateParams.pfFn t : BoolFunction q) = cycFn ℓ t q := rfl
 
-/-- **Case 1 (i)** (paper v2 §11.5–§11.6): without a CHECK-passing source circuit, the gate core is the amplified
+/-- **Case 1 (i)** (`sec:gadget-extract`, case (NoSource); `sec:all-lengths`): without a CHECK-passing source
+circuit, the gate core is the amplified
 padded cyclic function of the source input `z`. -/
 theorem gateCore_caseOne_i (s : GateSources) (g : GateParams) (P : ThreeQueryPCPP) {c d : ℕ}
     (amplifier : OrdinaryScheduleAmplifier c d) (ν : ℕ) (z : BitInput (2 ^ ν)) (cl pl target : ℕ)
@@ -68,7 +69,8 @@ theorem gateCore_caseOne_i (s : GateSources) (g : GateParams) (P : ThreeQueryPCP
   unfold GateParams.gateCore
   rw [dif_neg h, srcFn_eq]
 
-/-- **Case 1 (iii)** (paper v2 §11.5–§11.6): with `B*_src` and `O*` but no `q^G`-gate circuit answering as `O*`, the gate
+/-- **Case 1 (iii)** (`sec:gadget-extract`, case (NoProof); `sec:all-lengths`): with `B*_src` and `O*` but no
+`q^G`-gate circuit answering as `O*`, the gate
 core is the amplified padded cyclic function of the first honest table `O*`. -/
 theorem gateCore_caseOne_iii (s : GateSources) (g : GateParams) (P : ThreeQueryPCPP) {c d : ℕ}
     (amplifier : OrdinaryScheduleAmplifier c d) (ν : ℕ) (z : BitInput (2 ^ ν)) (cl pl target : ℕ)
@@ -83,7 +85,7 @@ theorem gateCore_caseOne_iii (s : GateSources) (g : GateParams) (P : ThreeQueryP
   rw [dif_neg h]
   rfl
 
-/-- **The Case 1 fit** (paper v2 §11.6: "pad the function in either case to exactly `m(q) = K_amp q₀(q)` inputs"):
+/-- **The Case 1 fit** (`sec:all-lengths`: "pad the function in either case to exactly `m(q) = K_amp q₀(q)` inputs"):
 with `K_amp ≥ a_G` (`GateParamsReady.ampLarge`), the amplified function on `q = q(N_ν)` inputs has at most `m(q)`
 (`GateParams.coreArity`) inputs, so it fits every final length `n ≥ m(q)`. -/
 theorem arity_fit (s : GateSources) (g : GateParams) {c d : ℕ} (amplifier : OrdinaryScheduleAmplifier c d)

@@ -1,4 +1,5 @@
 import Proof.Hierarchy.CompetitorWitnessKindInit
+
 namespace NearCubicWires.RepairOrdinary.CompetitorWitnessKind
 open LocalBitMultitape RecoveryRootRound RecoveryExecution RadixSemantics RecoveryLiteralTag
 set_option autoImplicit false

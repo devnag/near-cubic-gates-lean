@@ -1,5 +1,6 @@
 import Proof.MachineModel.TopDownWorkspaceSelectedEntryBudget
 import Proof.MachineModel.ControllerCappedRuntime
+
 set_option autoImplicit false
 set_option maxHeartbeats 500000
 set_option maxRecDepth 120000

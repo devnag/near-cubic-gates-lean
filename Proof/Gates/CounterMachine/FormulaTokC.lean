@@ -6,7 +6,7 @@ Each printer appends the marked words of its tokens to the scratch stream `S` an
 exactly in `emitT σ ts` (stream heads it moved are given explicitly): `litC` (a fixed token), `powC` (`pow v`, `v` a
 register), `constRegC` (a nonnegative constant from a register), `constInC` (a nonnegative constant copied from a
 framed natural on a stream), `rateC` (the constant `L[i]` of a framed list, `i` in a register: the rates `a_j` of
-the digits, v2 1658). -/
+the digits, `sec:finite`). -/
 
 set_option autoImplicit false
 set_option linter.unusedSimpArgs false

@@ -53,7 +53,7 @@ def phaseA (G : ℕ) : WMX ns nrA :=
   (.seq (.wm (flagW 18 sF))
   (.wm (WM.rewind sS 13)))))))))))
 
-/-- **Phase A** (paper v2 §11.4, the guard on `⟨B_src⟩_ν`): the flag `[decide (SrcFits G ν B)]` on stream `2`, the
+/-- **Phase A** (`sec:gadget-machine`, the guard on `⟨B_src⟩_ν`): the flag `[decide (SrcFits G ν B)]` on stream `2`, the
 first `L_ν + 1` cells of the description on stream `3` (head `0`), `ν` in registers `2 3 4`, `L_ν` in register `10`;
 streams from `4` on untouched. -/
 theorem phaseA_spec (G ν : ℕ) {m : ℕ} (B : BooleanCircuit m) (cap : ℕ) (σ : WState ns nrA)

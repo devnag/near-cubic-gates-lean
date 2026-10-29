@@ -4,7 +4,7 @@ import Proof.Foundations.Semantics
 /-!
 # A weighted symmetric circuit is a symmetric threshold circuit
 
-Paper v2's class 𝒲 (integer top coefficients, arbitrary top function) embeds into the shared
+The paper's class 𝒲 (`def:class`: integer top coefficients, arbitrary top function) embeds into the shared
 `SymmetricThresholdCircuit` (a function of the number of true bottom gates): a gate with coefficient `a > 0` becomes
 `a` copies of itself, and `a < 0` becomes `|a|` copies of its complement, so the count equals the score plus the fixed
 offset `N = Σ_{a<0} |a|`. The complement of a real threshold gate is again a real threshold gate on the cube (the

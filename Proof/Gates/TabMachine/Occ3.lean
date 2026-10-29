@@ -2,7 +2,7 @@ import Proof.Gates.TabMachine.Occ2
 
 /-! # One variable occurrence, part 3: **`occB_spec`** (explode, tuple step, copy-back, counts)
 
-lem:print (line 1458): after the compiler has written the occurrence's exact children (`occA_spec`), the children are
+Proof of lem:print: after the compiler has written the occurrence's exact children (`occA_spec`), the children are
 split into fields (`explode`), every child is put before every current tuple (`tupleStep`), the new tuples are copied
 back onto the tuple stream, and the counts are updated: tuple count `NT := NK · NT`, tuple width `M := M + (s + 1)`,
 child count `NK := 0`. -/

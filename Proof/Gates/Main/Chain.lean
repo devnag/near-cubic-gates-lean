@@ -18,7 +18,7 @@ noncomputable def hierarchy (T : ℕ → ℕ) (clock : OrdinaryClock T) : Hierar
 /-- The general-circuit amplifier (input 8). -/
 noncomputable def amplification : SourceAmplifierFactory := Classical.choice s.amplifier
 
-/-- lem:succinct-verifier at clock `n^{k+2}` and instance-length exponent `G` (paper v2 app:multitape). -/
+/-- lem:succinct-verifier at clock `n^{k+2}` and instance-length exponent `G` (`app:multitape`). -/
 noncomputable def sv (k : ℕ) (clock : OrdinaryClock (fun n => n ^ (k + 2))) (G : ℕ) :
     Outer.SuccinctVerifier (s.hierarchy (fun n => n ^ (k + 2)) clock).hierarchy G :=
   Classical.choice (s.succinct k _ G)

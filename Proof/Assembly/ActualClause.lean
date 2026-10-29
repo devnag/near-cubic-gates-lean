@@ -1,4 +1,5 @@
 import Proof.Assembly.Clause
+
 set_option autoImplicit false
 set_option maxHeartbeats 200000
 set_option maxRecDepth 120000

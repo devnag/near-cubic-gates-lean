@@ -155,7 +155,7 @@ theorem pairsBytes_length_le {ℓ : ℕ} (a gs Vb : ℕ) (ws : List ℕ) (k : �
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 20000 in
-/-- **The `ℓ` pairs of a group** (paper §11.6 stage 2). -/
+/-- **The `ℓ` pairs of a group** (`sec:all-lengths` stage 2). -/
 theorem pairsLoop_exec {ℓ : ℕ} (cap : ℕ) (σ : WState 3 40) (a gs Wm : ℕ) (ws : List ℕ) (hws : ws.length = ℓ)
     (hWm : ∀ w ∈ ws, w ≤ Wm) (hgs : 1 ≤ gs)
     (hY : σ.val rY = 0) (hBB : σ.val rBB = 0) (hW : σ.val rW = 0) (hF1 : σ.val rF1 = 0)
@@ -271,7 +271,7 @@ theorem sub2Loop_exec (cap : ℕ) : ∀ (n : ℕ) (σ : WState 3 40) (f : ℕ), 
 
 def tOr : NodeT 40 := ![([], 4), ([rF1], 0), ([rF2], 0)]
 
-/-- **Group `a` of a multiplexer** (paper §11.6 stage 2). -/
+/-- **Group `a` of a multiplexer** (`sec:all-lengths` stage 2). -/
 def groupBody : WMX 3 40 :=
   .seq (copyReg rA rX rTMP) <|
   .seq (repK rL rLC1 pairBody) <|
@@ -294,7 +294,7 @@ def groupCost (ℓ a gs Wm P : ℕ) : ℕ :=
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **One multiplexer group** (paper §11.6 stage 2): writes `TCirc.group`'s nodes for group `a`. -/
+/-- **One multiplexer group** (`sec:all-lengths` stage 2): writes `TCirc.group`'s nodes for group `a`. -/
 theorem groupBody_exec {ℓ : ℕ} (cap : ℕ) (σ : WState 3 40) (a gs Wm : ℕ) (ws : List ℕ) (hws : ws.length = ℓ)
     (hWm : ∀ w ∈ ws, w ≤ Wm) (hgs : 1 ≤ gs)
     (hX : σ.val rX = 0) (hY : σ.val rY = 0) (hBB : σ.val rBB = 0) (hW : σ.val rW = 0) (hF1 : σ.val rF1 = 0)

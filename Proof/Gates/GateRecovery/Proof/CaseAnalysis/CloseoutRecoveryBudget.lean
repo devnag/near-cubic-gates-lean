@@ -2,7 +2,7 @@ import Proof.Gates.GateRecovery.Proof.CaseAnalysis.Assembly
 
 namespace GR
 
-/-! Paper C.12's final resource consumer. One ordinary program with fixed
+/-! The final resource consumer of the `E^NP` recovery (`sec:all-lengths`). One ordinary program with fixed
 polynomial overhead on exponentially bounded data gives the literal
 all-length certificate, including zero. This allowance is recovery-only. -/
 namespace NearCubicWires.RepairSource.Closeout

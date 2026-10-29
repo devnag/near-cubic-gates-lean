@@ -2,8 +2,8 @@ import Proof.Gates.CounterMachine.FormulaBinom
 
 /-! # RG machine, part 17: the amplified residue formula
 
-**`ampP_spec`**: the printer emits `ampToks e (tToks d)`, the tokens of `Amp_e(t)` (lem:amp, v2 1484) of the Fermat
-product `t` (lem:residue-count, 1511): `t` is printed `e + 1` times by `tP`, the binomial constants `C(e−1+j, j)` are
+**`ampP_spec`**: the printer emits `ampToks e (tToks d)`, the tokens of `Amp_e(t)` (lem:amp) of the Fermat
+product `t` (lem:residue-count): `t` is printed `e + 1` times by `tP`, the binomial constants `C(e−1+j, j)` are
 stepped in a unary register (`binStep_spec`). -/
 
 set_option autoImplicit false

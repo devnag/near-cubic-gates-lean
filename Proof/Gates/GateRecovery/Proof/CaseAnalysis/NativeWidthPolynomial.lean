@@ -4,7 +4,7 @@ import Proof.Foundations.PolynomialSchedule
 
 namespace GR
 
-/-! The dyadic native widths grow at most linearly: `q(N_s) ≤ q(N_0) + jump·s` (paper §11.6, "The native widths
+/-! The dyadic native widths grow at most linearly: `q(N_s) ≤ q(N_0) + jump·s` (`sec:all-lengths`, "The native widths
 q(N_ν) have bounded additive jumps"). -/
 namespace NearCubicWires.RepairSource.CloseoutLanguage
 open SourceInterfaces RepairOrdinary PolynomialSchedule

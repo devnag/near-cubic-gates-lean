@@ -24,7 +24,7 @@ open NearCubicWires.RepairRepresentation
 structure GateSources : Prop where
   normalization : ThresholdNormalizationContract
   williams : WilliamsSource
-  /-- Input 6 (Murray–Williams' short PCP as an oracle circuit), in the ordinary model (paper v2 imp:short-pcp). -/
+  /-- Input 6 (Murray–Williams' short PCP as an oracle circuit), in the ordinary model (`imp:short-pcp`). -/
   mw : NearCubicGates.Close.Outer.MWSource
 
   succinct : NearCubicGates.Close.Outer.SuccinctSupply
@@ -35,13 +35,11 @@ structure GateSources : Prop where
   bernstein : NearCubicGates.PublishedSources.Witness.Vershynin18_Theorem2_8_4_FiniteBernstein.{0, 0}
   primes : NearCubicGates.PublishedSources.PrimeDensity.ApostolPrimeNumberTheorem
   threeQueryPCPP : NearCubicGates.PublishedSources.PCPP.ThreeQuerySourceGroup
-  /-- Input 1 itself (CTW26 Lemma 3.2), for the integer descriptions of guessed circuits (paper §11.4: "Only existence of normalized integer descriptions is required"). -/
-  normalizationLemma : NearCubicWires.Bindings.CTW26.CTW26_Lemma3_2
 
 theorem gateSources_of_inputs (h : NineInputs) (hs : NearCubicGates.Close.Outer.SuccinctSupply) : GateSources where
   normalization := NearCubicWires.Bindings.CTW26.ctw26_to_import h.normalization
   williams := NearCubicWires.Bindings.Williams14.williams14_to_import h.rectangularProduct
-  mw := NearCubicGates.Close.Outer.mwSource_of_literal h.shortPCP
+  mw := NearCubicGates.Close.Outer.mwSource_of_ordinary h.shortPCP
   succinct := hs
   hierarchyRefuter := NearCubicWires.Bindings.CLW20Theorem113.clw20_theorem1_13_to_import h.refuter
   xor := NearCubicWires.Bindings.CLW20Lemma38.clw20_xor_source
@@ -50,6 +48,5 @@ theorem gateSources_of_inputs (h : NineInputs) (hs : NearCubicGates.Close.Outer.
   bernstein := h.bernstein
   primes := h.primes
   threeQueryPCPP := h.threeQueryPCPP
-  normalizationLemma := h.normalization
 
 end NearCubicGates.Close

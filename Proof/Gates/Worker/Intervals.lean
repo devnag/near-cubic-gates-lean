@@ -338,7 +338,7 @@ theorem intervalOf_sound {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ) (w : Lis
               Call.predicate])
   · cases a₁ <;> cases a₂ <;> exact hdef _ hb.1 hb.2
 
-/-- **Interval soundness** (v2 lines 2216–2228): every term interval of every guess contains its term's mean. -/
+/-- **Interval soundness** (`eq:gadget-upper`): every term interval of every guess contains its term's mean. -/
 theorem termInterval_sound {B1 B2 : ℕ} (ctr : Counter B1 B2) (ω : ℚ) :
     Sound (G.family P x) (fun (a : Fin (gadgets s g N)) (t : Fin 10) => G.termInterval P x ctr ω a.val t) := by
   intro a t

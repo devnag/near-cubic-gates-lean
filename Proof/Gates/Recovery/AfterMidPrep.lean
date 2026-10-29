@@ -24,7 +24,7 @@ theorem tslot18_inj : Function.Injective (tslot K 18 (by decide) le_rfl (sh K 3)
   have hv := congrArg Fin.val h
   fin_cases a <;> fin_cases b <;> simp [tslot, blk] at hv ⊢ <;> omega
 
-/-- **Piece 18** (the query clear, paper §11.6 "SAT formulas" sharing one query tape): the shared query is erased to
+/-- **Piece 18** (the query clear, `sec:all-lengths` "SAT formulas" sharing one query tape): the shared query is erased to
 `0^cap` with the driver `1^cap` on WC. -/
 theorem piece18 (A : Fin (T K) → List Bool) (cap : ℕ) (h3 : (A (sh K 3)).length ≤ cap)
     (h15 : A (sh K 15) = List.replicate cap true) (hb : A (log18 K) = []) :
@@ -73,7 +73,7 @@ theorem piece19 (A : Fin (T K) → List Bool) {R B : ℕ} (cb : BooleanCircuit R
   exact step_call K c (k := 19) (l := 20) (piece_ordinary (ports K) hrr _ (convBank K).injective A hin)
     (fun q => next_plain K c 19 (by decide) (by decide) (by decide) (by decide) (by decide) (by decide) (by decide) q _)
 
-/-- **Piece 20** (`unframe`, paper §11.6: the A-run reads the raw descriptor): `frame d` on FD (`16`) ↦ `d` on DESC
+/-- **Piece 20** (`unframe`, `sec:all-lengths`: the A-run reads the raw descriptor): `frame d` on FD (`16`) ↦ `d` on DESC
 (`17`). -/
 theorem piece20 (A : Fin (T K) → List Bool) (d : List Bool) (h16 : A (sh K 16) = RepairOrdinary.frame d)
     (h17 : A (sh K 17) = []) (hb : ∀ x : Fin (T K), off K 20 ≤ x.val → A x = []) :

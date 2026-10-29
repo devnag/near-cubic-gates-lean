@@ -40,7 +40,7 @@ theorem cubic (K W : ℕ) :
 end Cost
 
 open Cost in
-/-- **Stage cost** (paper §11.6, "SAT formulas of size `2^{O(q)}`"). -/
+/-- **Stage cost** (`sec:all-lengths`, "SAT formulas of size `2^{O(q)}`"). -/
 theorem uCostPoly (d : ℕ) : UCostPoly d := by
   obtain ⟨E1, C1, hcap⟩ := RecoveryCapacityDrivers.generic_polynomial 16384 (33 * 10000000000) 64
   set E := 150 + E1 + RecoveryFullBound.degree d with hE
@@ -172,7 +172,7 @@ theorem fields_le (w : ℕ) (vals : List Bool) :
 end Need
 
 open Need in
-/-- **Stage workspace** (paper §11.6): the workspace of a listed-pairs stage is polynomial in `2^R`. -/
+/-- **Stage workspace** (`sec:all-lengths`): the workspace of a listed-pairs stage is polynomial in `2^R`. -/
 theorem uNeedPoly (d : ℕ) : UNeedPoly d := by
   obtain ⟨E, C, hF⟩ := wsAt_poly d
   refine ⟨C + 16, E + 2, fun w R vals hw hlen => ?_⟩

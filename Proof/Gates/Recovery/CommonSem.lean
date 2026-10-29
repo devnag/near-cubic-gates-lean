@@ -4,7 +4,7 @@ import Proof.Gates.Transfer.CaseTwo
 /-!
 # The padded native family, read at the full final length
 
-Paper §11.6: "pad the function in either case to exactly m(q) = K_amp q₀(q) inputs, ignoring a suffix … For a final
+`sec:all-lengths`: "pad the function in either case to exactly m(q) = K_amp q₀(q) inputs, ignoring a suffix … For a final
 length n, choose the largest ν with m(q(N_ν)) ≤ n/2. When none exists, set the slice to zero." The native function at
 length `n` is the gate core padded to `m(q(N_ν))`; the padded family reads it on the first `m(q(N_ν))` bits of the
 final address. `gateCore_prefix`: padding first to `t ≥ m(q(N_ν))` and then to `m ≥ t` reads the same prefix as padding

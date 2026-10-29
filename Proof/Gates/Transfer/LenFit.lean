@@ -15,7 +15,7 @@ theorem widthOf_lin (k A ν : ℕ) : Outer.widthOf k A (2 ^ ν) + 1 ≤ ((A + 1)
   have h1 : A * Nat.clog 2 (ν * (k + 2) + 2) ≤ A * (ν * (k + 2) + 2) := Nat.mul_le_mul_left _ hc
   nlinarith
 
-/-- **The instance length fits** (paper v2 §11.4's guard, eventually true). -/
+/-- **The instance length fits** (the guard of `sec:gadget-machine`, eventually true). -/
 theorem lenFit (s : GateSources) (degree : ℕ) :
     ∃ lenRoot : ℕ, ∀ g : GateParams, g.degree = degree → g.lenRoot = lenRoot →
       ∃ ν₀ : ℕ, ∀ ν, ν₀ ≤ ν → ∀ B : BooleanCircuit (g.width s ν), B.size ≤ g.bound s ν →

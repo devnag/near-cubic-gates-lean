@@ -324,7 +324,7 @@ namespace NearCubicGates.Close.Counter
 open scoped BigOperators
 open NearCubicGates
 
-/-- The public admission of a header (lines 1544–1559): `n ≥ 4`, `W ≤ 2n⁴`, `n^{−B₁} ≤ β ≤ 1/16`. -/
+/-- The public admission of a header (`sec:algorithm`): `n ≥ 4`, `W ≤ 2n⁴`, `n^{−B₁} ≤ β ≤ 1/16`. -/
 def HeaderOK (B1 : ℕ) (hd : Header) : Prop :=
   4 ≤ hd.n ∧ hd.W ≤ 2 * hd.n ^ 4 ∧ 1 ≤ hd.beta * (hd.n : ℚ) ^ B1 ∧ hd.beta ≤ 1 / 16
 
@@ -739,7 +739,7 @@ theorem firstRatio_pos' (ell0 : ℚ) (h T : ℕ) (positive : 0 < T) (guard : 64 
   have initialReal := (PublicSamplingRates.initial_bounds T h ell0 positiveReal guardReal).2.2.1
   exact (Rat.cast_lt (K := ℝ)).mp (by simpa only [Rat.cast_zero, firstRatio_cast] using initialReal)
 
-/-- The chain of lem:chain stops within `J_max` stages (lem:chain (iii), lines 1129 and 1902). -/
+/-- The chain of lem:chain stops within `J_max` stages (lem:chain (iii); proof of `lem:asymptotics`). -/
 theorem stopIndex_exists (T h n : ℕ) (ell0 : ℚ) (positive : 0 < T) (guard : 64 * T ≤ h) (size : h ≤ n * T) :
     ∃ Jl, stopIndex (firstRatio ell0 h T) n = some Jl := by
   have positiveReal : (0 : ℝ) < T := by exact_mod_cast positive
@@ -790,7 +790,7 @@ theorem degree_large (cT n : ℕ) (large : 65536 ≤ n) (logLarge : 16 ≤ Targe
     exact coefficientRoom.trans (polynomial.trans (binary.trans lower.le))
   exact room.trans (greatestDegree_lower n (inner cT n) (by omega) innerRoom).2
 
-/-! ## Eventual selection (lem:asymptotics: "All preliminary checks pass for large n", line 1874) -/
+/-! ## Eventual selection (lem:asymptotics: "All preliminary checks pass for large n") -/
 
 /-- The data a successful selection is built from, for large `n` (shared with the window estimate). -/
 theorem eventual_data (source : PublishedSources.PrimeDensity.ApostolPrimeNumberTheorem) (B1 cT : ℕ) :

@@ -4,7 +4,8 @@ import Proof.Gates.Recovery.CaseOneSem
 /-!
 # The Case 1 machine, part 1: the cyclic table loop
 
-Paper v2 §11.5 (Case 1 (i) `X_z`, Case 1 (iii) `O*`) and §11.6 ("run the general amplifier"): the amplifier reads the
+`sec:gadget-extract` (Case 1 (i) `X_z`, Case 1 (iii) `O*`) and `sec:all-lengths` ("Run the general amplifier"):
+the amplifier reads the
 complete truth table of the hard function, which for both Case 1 functions is a table `w` read cyclically
 (`CaseOneSem.table_cycFn`). `cycW` writes it: `k` rounds, each reading the next marked cell of the framed `w` on the stream
 `W` and appending `marks [w_p]` to the stream `X`; at the frame end the head of `W` returns to the start (by the

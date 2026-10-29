@@ -6,7 +6,7 @@ import Proof.CaseAnalysis.CloseoutRecoveryBudget
 /-!
 # The `E^NP` recovery of the padded native family
 
-Paper §11.6: "For completeness, all canonical choices are recoverable in E^NP. The fixed-machine refuter runs in
+`sec:all-lengths`: "For completeness, all canonical choices are recoverable in E^NP. The fixed-machine refuter runs in
 poly(T_clk(N_ν)) = 2^{O(q)} time with SAT access. The choices of sec:gadget-transfer are recovered in three stages …
 Since q = O(n), the final functions belong to E^NP." `recoveryPart_of`: for every closure, after raising its source onset
 to the refuter prefix's (the refuter's ordinary run is only guaranteed past the little-o onset of `M`), the padded native
@@ -50,7 +50,7 @@ theorem budget_le (C E Ca Ea n : ℕ) (a b : ℕ) (ha : a ≤ C * (2 ^ n + 1) ^ 
   have hb' := hb.trans (Nat.mul_le_mul_left Ca h2)
   nlinarith
 
-/-- **The `E^NP` recovery for one closure** (paper §11.6). -/
+/-- **The `E^NP` recovery for one closure** (`sec:all-lengths`). -/
 theorem recoveryPart_of (hA : AfterSupply) {ε : ℝ} (c : GateClosure s P ε) :
     ∃ o, c.g.sourceOnset ≤ o ∧ RecoveryPart (withOnset c o) := by
   classical

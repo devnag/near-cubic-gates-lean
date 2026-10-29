@@ -19,7 +19,7 @@ namespace NearCubicGates.PrimePowerLifting
 
 open scoped BigOperators Polynomial PowerSeries
 
-/-- The finite binomial series appearing in the manuscript. -/
+/-- The finite binomial series of `lem:amp`. -/
 noncomputable def binomialTrunc (e : ℕ) : ℤ[X] :=
   ∑ j ∈ Finset.range e,
     Polynomial.C ((Nat.choose (e - 1 + j) j : ℕ) : ℤ) * Polynomial.X ^ j

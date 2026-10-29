@@ -4,7 +4,7 @@ import Proof.Hierarchy.HierarchyProjectionPrefix
 
 namespace GR
 
-/-! The schedule's native width machine: the bundle's `WidthSource` (paper §11.4, the exact native width
+/-! The schedule's native width machine: the bundle's `WidthSource` (`sec:gadget-machine`, the exact native width
 `q(N_s)` from `1^{2^s}`). -/
 namespace NearCubicWires.RepairSource.CloseoutSchedule
 open RepairOrdinary

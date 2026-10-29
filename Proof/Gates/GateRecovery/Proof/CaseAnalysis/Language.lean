@@ -13,7 +13,8 @@ noncomputable section
 /-- Exact integer form of ceil(d_G log_2(q+2)), with fixed d_G. -/
 def clauseWidth (degree q : Nat) := Nat.clog 2 ((q+2)^degree)
 /-- The gate core arity `m(q) = K_amp·q₀(q)`, `q₀(q) = q + ⌈d_G lg(q+2)⌉ + log₂ P` (paper
-eq:gadget-table-arity, and §11.6 "pad the function in either case to exactly m(q) = K_amp q₀(q) inputs"), written with
+eq:gadget-table-arity, and `sec:all-lengths` "pad the function in either case to exactly m(q) = K_amp q₀(q) inputs"),
+written with
 `ext = log₂ P − 1` so that `ext = 0` is the shared `coreWidth` (one occurrence bit). -/
 def coreWidth (copies ext degree q : Nat) := copies*(q+clauseWidth degree q+(ext+1))
 

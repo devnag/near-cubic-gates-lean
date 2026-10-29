@@ -12,7 +12,8 @@ def clkLog (k N : ℕ) : ℕ := Nat.clog 2 (N ^ (k + 2))
 /-- `q(N) = ⌈log₂ T_clk(N)⌉ + A ⌈log₂(⌈log₂ T_clk(N)⌉ + 2)⌉ + A`. -/
 def widthOf (k A N : ℕ) : ℕ := clkLog k N + A * Nat.clog 2 (clkLog k N + 2) + A
 
-/-- `A_pad` for the envelope constants `K`, `c`, `e` (chosen after them: paper App. C, the constant order, item 6, "An integer A_pad ≥ c_ℓ …"). -/
+/-- `A_pad` for the envelope constants `K`, `c`, `e` (chosen after them: `app:multitape`, the order of constants,
+item 6, "An integer A_pad ≥ c_ℓ …"). -/
 def padConst (K c e : ℕ) : ℕ := e + K * c * Nat.clog 2 (c + 2) ^ e
 
 theorem clog_two_mul_pow_le (a l : ℕ) : Nat.clog 2 (a * 2 ^ l) ≤ Nat.clog 2 a + l := by
@@ -88,7 +89,7 @@ theorem clog_add_le (x d : ℕ) (hx : 1 ≤ x) : Nat.clog 2 (x + d) ≤ Nat.clog
   calc x + d ≤ x * (1 + d) := by nlinarith
     _ ≤ 2 ^ Nat.clog 2 x * 2 ^ d := Nat.mul_le_mul h1 h2
 
-/-- One doubling of `N` moves `q(N)` by at most `(k+2)(A+1)` (bounded additive jumps, paper v2 §11.6). -/
+/-- One doubling of `N` moves `q(N)` by at most `(k+2)(A+1)` (bounded additive jumps, `sec:all-lengths`). -/
 theorem widthOf_step (k A ν : ℕ) : widthOf k A (2 ^ (ν + 1)) ≤ widthOf k A (2 ^ ν) + (k + 2) * (A + 1) := by
   unfold widthOf
   rw [clkLog_two_pow, clkLog_two_pow]
@@ -118,7 +119,7 @@ theorem two_pow_clog_le (x : ℕ) : 2 ^ Nat.clog 2 x ≤ 2 * x + 1 := by
       rw [← pow_succ']; congr 1; omega
     omega
 
-/-- **`2^{q(N)}` is polynomial in `N`** (paper v2 §11.4: `2^q/T_clk(N) = q^{O(1)}`). -/
+/-- **`2^{q(N)}` is polynomial in `N`** (`sec:gadget-machine`: `2^q/T_clk(N) = q^{O(1)}`). -/
 theorem widthOf_pow (k A : ℕ) : ∃ C m : ℕ, ∀ N, 2 ^ widthOf k A N ≤ C * (N + 1) ^ m := by
   refine ⟨2 ^ A * 3 * 11 ^ A, (k + 2) * (A + 1), fun N => ?_⟩
   set T := (N + 1) ^ (k + 2) with hT
@@ -142,7 +143,7 @@ theorem widthOf_pow (k A : ℕ) : ∃ C m : ℕ, ∀ N, 2 ^ widthOf k A N ≤ C 
     _ = 2 ^ A * 3 * 11 ^ A * T ^ (A + 1) := by rw [mul_pow, pow_succ]; ring
     _ = 2 ^ A * 3 * 11 ^ A * (N + 1) ^ ((k + 2) * (A + 1)) := by rw [hT, ← pow_mul]
 
-/-- **`2^{q(N)} ≤ C·N^{k+2}·q^A`** (paper v2 §11.4: "`2^q/T_clk(N) = q^{O(1)}`"), the table bound of the weak machine's
+/-- **`2^{q(N)} ≤ C·N^{k+2}·q^A`** (`sec:gadget-machine`: "`2^q/T_clk(N) = q^{O(1)}`"), the table bound of the weak machine's
 runtime split. -/
 theorem widthOf_table (k A N : ℕ) (hN : 1 ≤ N) (hA : 1 ≤ A) :
     2 ^ widthOf k A N ≤ 3 * 12 ^ A * N ^ (k + 2) * widthOf k A N ^ A := by

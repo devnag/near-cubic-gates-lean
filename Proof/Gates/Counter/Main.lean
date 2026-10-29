@@ -6,7 +6,7 @@ import Proof.Gates.Counter.Eventual
 import Proof.Gates.SavedClockArithmetic
 
 /-!
-# The `W = 0` branch (paper v2 lines 1636–1640)
+# The `W = 0` branch (`sec:finite`)
 
 "If `W = 0`, the circuits are constant and the call is evaluated exactly, using the fact that a nonempty parity has
 probability `1/2`." For an admitted call with `W = 0` every top coefficient vanishes, so (by well-formedness, nonzero
@@ -165,7 +165,7 @@ theorem prob_const (c : Call) (b : Bool) (h : ∀ z, c.predicate z = b) : c.prob
     rw [this, Finset.card_univ, hcard]
     simp
 
-/-- The `W = 0` branch is exact (lines 1636–1640). -/
+/-- The `W = 0` branch is exact (`sec:finite`). -/
 theorem zeroWeightValue_exact {B1 B2 : ℕ} (c : Call) (hadm : c.Admitted B1 B2) (hW : c.W = 0) :
     (zeroWeightValue c).1 = c.prob := by
   classical
@@ -205,7 +205,7 @@ theorem zeroWeightValue_exact {B1 B2 : ℕ} (c : Call) (hadm : c.Admitted B1 B2)
 end NearCubicGates.Close.Counter
 
 /-!
-# prop:sound for every call and every witness; dyadic outputs (paper v2 lines 1561–1562, 1741–1767)
+# prop:sound for every call and every witness; dyadic outputs (`sec:algorithm`: "returns dyadic rationals"; `prop:sound`)
 
 `counterOnCall_sound`: for every call `c` (admitted or not) and every witness word `w`, the returned interval
 contains `Pr[C(z) = 1]`. `counterOnCall_dyadic`: both returned numbers are dyadic.
@@ -505,18 +505,18 @@ theorem value_complete
 end NearCubicGates.Close.Counter
 
 /-!
-# prop:time: the counts (paper v2 lines 1813–1859)
+# prop:time: the counts (proof of `prop:time`)
 
 The per-step counts the machine budget cites, all in terms of the selected parameters:
 * `requestCount_le`: at most `P^{2J+4}` tabulated requests (joint residue counts of `J+1` forms per role for every
-  prime and residue vector, the parity split, and the moments; line 1820);
+  prime and residue vector, the parity split, and the moments);
 * `card_cells`: `2^{n−k}` cells; `jointCount_le`: every tabulated count is at most `2^k`;
-* `digitVectors_card_le`: at most `P^{2J}` digit vectors per cell (line 1823);
-* `box_card_le`, `Lw_le`: every reconstruction box has at most `L_w^2 ≤ (1+P²)²` points (`D' ≤ 1+P²`, line 1825);
+* `digitVectors_card_le`: at most `P^{2J}` digit vectors per cell;
+* `box_card_le`, `Lw_le`: every reconstruction box has at most `L_w^2 ≤ (1+P²)²` points (`D' ≤ 1+P²`);
 * `rows_le`: every residue system has at most `P³` rows;
-* `P_le_n`, `J_le_Jmax`, `k_le_n`: the elementary bounds `P ≤ n`, `J ≤ J_max`, `k ≤ n` (line 1844);
+* `P_le_n`, `J_le_Jmax`, `k_le_n`: the elementary bounds `P ≤ n`, `J ≤ J_max`, `k ≤ n`;
 * `time_budget`: a workload `C · 2^{n−k} n^{2J_max+c₃}` with `C ≤ n²` fits `2^n/n^{μ_n}` once `c_T ≥ c₃ + 2`
-  (lines 1838–1849; this is the already-proved `SavedClockArithmetic.workload_fits_clock`).
+  (this is the already-proved `SavedClockArithmetic.workload_fits_clock`).
 The prime number theorem is not needed for prop:time: only `P ≤ n` and `J ≤ J_max` enter.
 -/
 
@@ -588,7 +588,7 @@ theorem formCount_le : formCount c p ≤ 2 * p.J + 2 := by
   have := roleCount_le_two c
   nlinarith
 
-/-- At most `P^{2J+4}` tabulations (line 1820). -/
+/-- At most `P^{2J+4}` tabulations (proof of `prop:time`). -/
 theorem requestCount_le : requestCount c p ≤ p.P ^ (2 * p.J + 4) := by
   have hP := hs.P_large
   have hP1 : 1 ≤ p.P := by omega
@@ -614,7 +614,7 @@ theorem requestCount_le : requestCount c p ≤ p.P ^ (2 * p.J + 4) := by
     _ ≤ p.P * (p.P * p.P ^ (2 * p.J + 2)) := Nat.mul_le_mul_right _ (by omega)
     _ = p.P ^ (2 * p.J + 4) := by ring
 
-/-- At most `P^{2J}` digit vectors per cell (line 1823). -/
+/-- At most `P^{2J}` digit vectors per cell (proof of `prop:time`). -/
 theorem digitVectors_card_le (wt : Wit c.n) (y : Cells wt.I) : (digitVectors c p wt y).card ≤ p.P ^ (2 * p.J) := by
   unfold digitVectors
   rw [Fintype.card_piFinset]
@@ -631,7 +631,7 @@ theorem digitVectors_card_le (wt : Wit c.n) (y : Cells wt.I) : (digitVectors c p
     _ = p.P ^ (roleCount c.kind * p.J) := by simp [Finset.prod_const, Fintype.card_prod]
     _ ≤ p.P ^ (2 * p.J) := Nat.pow_le_pow_right (by omega) (Nat.mul_le_mul_right _ (roleCount_le_two c))
 
-/-- Every reconstruction box has at most `L_w^2` points (line 1708). -/
+/-- Every reconstruction box has at most `L_w^2` points (`sec:algorithm`, "Reconstruction inside a certified cell"). -/
 theorem box_card_le (wt : Wit c.n) (y : Cells wt.I) (κ : Role c × Fin p.J → ℤ) :
     (box c p wt y κ).card ≤ p.Lw ^ 2 := by
   unfold box
@@ -657,7 +657,7 @@ theorem rows_le : ∑ q ∈ p.primes, q ^ roleCount c.kind ≤ p.P ^ 3 := by
     _ = p.P ^ 3 := by ring
 
 omit hs in
-/-- Every tabulated count is at most `2^k` (the right sides of the residue systems, line 1830). -/
+/-- Every tabulated count is at most `2^k` (the right sides of the residue systems, proof of `prop:time`). -/
 theorem jointCount_le (wt : Wit c.n) (hk : wt.I.card = p.k) (q : ℕ) (part : Option Bool) (y : Cells wt.I)
     (κ : Role c × Fin p.J → ℤ) (σ : Role c → ℤ) : jointCount c p wt q part y κ σ ≤ 2 ^ p.k := by
   unfold jointCount
@@ -675,7 +675,7 @@ theorem cells_card (wt : Wit c.n) (hk : wt.I.card = p.k) : Fintype.card (Cells w
 
 end Counts
 
-/-- The final exponent bookkeeping of prop:time (lines 1838–1849): with `c_T ≥ c₃ + 2`, a workload
+/-- The final exponent bookkeeping of prop:time (its proof): with `c_T ≥ c₃ + 2`, a workload
 `C · 2^{n−k} n^{2J_max+c₃}` with `C ≤ n²` is within `2^n/n^{μ_n}`. -/
 theorem time_budget {cT : ℕ} (c : Call) (p : Params) (hs : Spec cT (header c) p) (c3 C : ℕ)
     (hcT : c3 + 2 ≤ cT) (hC : C ≤ c.n ^ 2) :
@@ -689,7 +689,8 @@ theorem time_budget {cT : ℕ} (c : Call) (p : Params) (hs : Spec cT (header c) 
   unfold SavedClockArithmetic.savedClock at h
   exact (Nat.le_div_iff_mul_le (by positivity)).mp h
 
-/-- The default and guard paths: a polynomial workload fits `2^n/n^{μ_n}` for large `n` (line 1850: "A call that fails
+/-- The default and guard paths: a polynomial workload fits `2^n/n^{μ_n}` for large `n` (proof of `prop:time`:
+"A call that fails
 a parsing or public guard stops with the default after polynomially many steps"). -/
 theorem poly_fits_clock (C e : ℕ) : ∃ onset : ℕ, ∀ n : ℕ, onset ≤ n →
     C * (n + 1) ^ e * n ^ Target.mu n ≤ 2 ^ n := by

@@ -7,7 +7,7 @@ import Proof.Gates.Outer.Size
 /-!
 # Length bounds for the Case 2 producer's words ((a′) form)
 
-The producer's cost (paper v2 §11.6: "computable in polynomial time once the oracle is known") is charged on the
+The producer's cost (`sec:all-lengths`: "computable in polynomial time once the pair is known") is charged on the
 lengths of its input words. Two of them are new with the repair:
 * the word of `C_{⟨B_src⟩_ν}` (`OracleOutput.word`, imp:short-pcp): `word_len_le` bounds it by the size of `C` and its
   arity `ℓ`; `mwWord_poly`: at the instance `⟨B_src⟩_ν` it is at most a fixed polynomial in `2^ν` (the import's size
@@ -148,7 +148,8 @@ theorem desc_len_le' {n : ℕ} (c : BooleanCircuit n) :
 
 /-! ## The word of `C_{⟨B_src⟩_ν}` is polynomial in `2^ν` -/
 
-/-- **The MW word is polynomial in the source length** (paper v2 §11.4: `|C| = poly(L_ν, log T_G(L_ν))` and
+/-- **The MW word is polynomial in the source length** (`sec:gadget-machine` with `imp:short-pcp`:
+`|C| = poly(L_ν, log T_G(L_ν))` and
 `ℓ ≤ q(N_ν)`): past the onset of `𝒱_G`, `|mwWord| ≤ C·(2^ν + 1)^e` for every source circuit. -/
 theorem mwWord_poly (s : GateSources) (g : Transfer.GateParams) :
     ∃ C e : ℕ, ∀ (ν : ℕ) (B : BooleanCircuit (Outer.width s.mw (g.sv s) (2 ^ ν))), 1 ≤ ν →

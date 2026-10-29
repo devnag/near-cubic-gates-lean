@@ -43,7 +43,7 @@ def tableOracle {ℓ : ℕ} (t : BitInput (2 ^ ℓ)) : BitInput ℓ → Bool := 
 def HonestTable {ℓ : ℕ} (C : NearCubicWires.Bindings.MW20.OracleCircuit ℓ ℓ) (t : BitInput (2 ^ ℓ)) : Prop :=
   ∀ w, C.eval (tableOracle t) w = false
 
-/-- The false-first least honest table (paper v2 §11.6 stage 2: one variable per oracle address, prefix
+/-- The false-first least honest table (`sec:all-lengths`, second stage: one variable per oracle address, prefix
 self-reduction). -/
 structure FirstTable {ℓ : ℕ} (C : NearCubicWires.Bindings.MW20.OracleCircuit ℓ ℓ) where
   table : BitInput (2 ^ ℓ)
@@ -84,7 +84,7 @@ theorem honestTable_of_oracle {ℓ : ℕ} (C : NearCubicWires.Bindings.MW20.Orac
   rw [hO']
   exact hO w
 
-/-! ## The width schedule and the canonical choices (paper v2 §11.4–§11.6) -/
+/-! ## The width schedule and the canonical choices (`sec:gadget-machine`, `sec:gadget-extract`, `sec:all-lengths`) -/
 
 open NearCubicWires.RepairSource.CloseoutLanguage in
 
@@ -117,7 +117,7 @@ variable (s : GateSources) (g : GateParams)
 /-- lem:succinct-verifier at this clock and instance-length exponent. -/
 noncomputable def sv := s.sv g.k g.clock g.lenExp
 
-/-- The native width `q(N_ν)` at source length `N_ν = 2^ν` (paper v2 §11.4). -/
+/-- The native width `q(N_ν)` at source length `N_ν = 2^ν` (`sec:gadget-machine`). -/
 noncomputable def width (ν : ℕ) : ℕ := Outer.width s.mw (g.sv s) (2 ^ ν)
 
 theorem nu_lt_width (ν : ℕ) : ν < g.width s ν := by
@@ -162,7 +162,8 @@ noncomputable def amplified {c d : ℕ} (amplifier : OrdinaryScheduleAmplifier c
     let gen := amplifier.output q f
     if ht : gen.arity ≤ target then padCore gen.function ht else fun _ => false
 
-/-- **Case 2** at source index `ν` (paper v2 §11.5 with the canonical choices of §11.6). -/
+/-- **Case 2** at source index `ν` (`sec:gadget-extract`, case (Tautology), with the canonical choices
+of `sec:all-lengths`). -/
 def IsCaseTwo (ν : ℕ) (z : BitInput (2 ^ ν)) : Prop :=
   ∃ h1 : g.SrcExists s ν z,
     ∃ h2 : ∃ t, HonestTable (g.outC s ν (g.firstSrc s ν z h1)).circuit t,
@@ -185,7 +186,8 @@ theorem selected_taut (ν : ℕ) (z : BitInput (2 ^ ν)) (h : g.IsCaseTwo s ν z
   exact Outer.D_eval_true s.mw (g.sv s) ν (g.selectedPair s ν z h) _ hmatch
     (Classical.choice (existsFirstTable _ h.2.1)).honest x
 
-/-- **The gate core** at source index `ν` on the refuter's source input `z` (paper v2 §11.5 and §11.6): Case 2's padded
+/-- **The gate core** at source index `ν` on the refuter's source input `z` (`sec:gadget-extract` and `sec:all-lengths`):
+Case 2's padded
 hard table, or Case 1's amplified hard function ((i) the source input, (iii) the first honest oracle), padded to
 `target` inputs; `false` in the exceptional branch without an honest oracle. -/
 noncomputable def gateCore (P : ThreeQueryPCPP) {c d : ℕ} (amplifier : OrdinaryScheduleAmplifier c d) (ν : ℕ)
@@ -234,11 +236,12 @@ end GateParams
 
 /-! ## The closure record -/
 
-/-- Parameter constraints the transfer proofs need (Case 1: `G/b_amp > h_sim + 1`, `K_amp ≥ a_G`; Case 2 and §11.6:
+/-- Parameter constraints the transfer proofs need (Case 1: `G/b_amp > h_sim + 1`, `K_amp ≥ a_G`; Case 2 and
+`sec:all-lengths`:
 `P = 128/ε`, `b(q)`, `K_d`; the source-circuit descriptions fit in `L_ν`). -/
 structure GateParamsReady (s : GateSources) (_P : ThreeQueryPCPP) (_ε : ℝ) (g : GateParams) (_budget : ℕ → ℕ) :
     Prop where
-  /-- `K_amp ≥ 1`, so the hard table fits inside the core arity (v2 §11.6). -/
+  /-- `K_amp ≥ 1`, so the hard table fits inside the core arity (`sec:all-lengths`). -/
   ampPos : 1 ≤ g.ampFactor
   /-- The weight budget is at least a fixed fraction of `𝒜₃(q)` at large `q` (`b(q) = ⌊η₀ ε 𝒜₃(q)⌋`). -/
   budgetLower : ∃ η : ℝ, 0 < η ∧ ∃ q0 : ℕ, ∀ q, q0 ≤ q → η * NearCubicGates.Close.Interfaces.A3 q ≤ (_budget q : ℝ)
@@ -253,8 +256,9 @@ structure GateParamsReady (s : GateSources) (_P : ThreeQueryPCPP) (_ε : ℝ) (g
   positionPos : 1 ≤ g.positionLog
   /-- `d_G ≥ 1`. -/
   clausePos : 1 ≤ g.clauseDegree
-  /-- "it rejects unless every general circuit with `q` inputs and at most `q^G` gates has a description of at most `L_ν`
-  bits ... these guards fail at only finitely many lengths" (paper v2 §11.4). -/
+  /-- The guard on the description length fails at only finitely many lengths (`sec:gadget-machine`: "once `ν`
+  is large every general circuit with `q` inputs and at most `q^G` gates has such a description", of at most
+  `L_ν` bits). -/
   lenFit : ∃ ν₀ : ℕ, ∀ ν, ν₀ ≤ ν → ∀ B : BooleanCircuit (g.width s ν), B.size ≤ g.bound s ν →
     Outer.SrcFits g.lenExp ν B
 
@@ -268,7 +272,8 @@ structure GateClosure (s : GateSources) (P : ThreeQueryPCPP) (ε : ℝ) where
   littleO : OrdinaryLittleO M (fun n => n ^ (g.k + 2))
   oneSided : ∀ n x, M.accepts n x →
     (s.hierarchy (fun n => n ^ (g.k + 2)) g.clock).hierarchy.timedView.accepts n x = true
-  /-- Case 2 completeness (paper v2 §11.5): for a CHECK-passing pair of `q^G`-gate circuits whose `D_B` is a tautology,
+  /-- Case 2 completeness (`sec:gadget-extract`, case (Tautology)): for a CHECK-passing pair of `q^G`-gate
+  circuits whose `D_B` is a tautology,
   an approximator of the hard table within the native weight budget makes the weak machine accept the source input. -/
   complete : ∃ onset : ℕ, ∀ ν : ℕ, onset ≤ ν → ∀ z : BitInput (2 ^ ν),
     ∀ B : Outer.OuterGuess (g.width s ν), B.src.size ≤ g.bound s ν → B.pf.size ≤ g.bound s ν →

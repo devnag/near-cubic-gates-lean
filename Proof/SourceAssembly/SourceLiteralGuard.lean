@@ -1,4 +1,5 @@
 import Proof.SourceAssembly.SourceLiteralSupport
+
 set_option autoImplicit false
 set_option maxHeartbeats 150000
 set_option maxRecDepth 120000

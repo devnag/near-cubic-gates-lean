@@ -1,6 +1,7 @@
 import Proof.Assembly.NativeNativeSelected
 import Proof.CaseAnalysis.FinalModeNativeStageFields
 import Proof.CaseAnalysis.FinalSupplierAccuracyChain
+
 set_option autoImplicit false
 set_option maxHeartbeats 250000
 set_option maxRecDepth 120000

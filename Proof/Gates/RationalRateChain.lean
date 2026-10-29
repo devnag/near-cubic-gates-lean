@@ -2,7 +2,7 @@ import Proof.Gates.PublicSamplingRates
 import Mathlib.Data.Rat.Floor
 
 /-! Executable rational rates. The mathematical square root is replaced by
-    the finite integer comparison prescribed in the paper. This is a
+    the finite integer comparison prescribed in `sec:finite`. This is a
     computable Lean function. -/
 
 set_option autoImplicit false

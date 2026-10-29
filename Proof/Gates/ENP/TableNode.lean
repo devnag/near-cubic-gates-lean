@@ -485,7 +485,7 @@ theorem high_exec (ε : Bool) (cap : ℕ) (σ : WState 3 40) (t f1 f2 k bz : ℕ
     · omega
 
 /-- Read the two number fields of a plain node (tag `TAG` already read) and compute the translated node's fields
-`TAG`, `IMG2`, `IMG` (paper §11.6 stage 2: gates keep their kind, children map to their images, an input `i` becomes
+`TAG`, `IMG2`, `IMG` (`sec:all-lengths` stage 2: gates keep their kind, children map to their images, an input `i` becomes
 the constant `z_i`). -/
 def plainFields (ε : Bool) : WMX 3 40 :=
   .seq (copyReg rTAG rTMP rT2) <| .seq (WMX.dec rTMP) <|

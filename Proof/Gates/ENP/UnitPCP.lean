@@ -9,17 +9,17 @@ namespace NearCubicGates.Close.ENP
 open NearCubicWires NearCubicWires.RepairSource NearCubicWires.SourceInterfaces NearCubicWires.OuterPCPRecovery
 open NearCubicWires.ProjectionPCPPadding NearCubicWires.ExecutableInterfaces
 
-/-- The unit clause `y_i = v`, as a three-literal clause with three equal literals (paper §11.6, the listed
+/-- The unit clause `y_i = v`, as a three-literal clause with three equal literals (`sec:all-lengths`, the listed
 constraints of stages 1 and 3). -/
 def unitClause {Q : ℕ} (i : Fin Q) (v : Bool) : Fin 3 → Literal Q :=
   fun _ => if v then .positive i else .negative i
 
-/-- A lifted unit clause literal reads `y_i = v` (paper §11.6, the listed constraints). -/
+/-- A lifted unit clause literal reads `y_i = v` (`sec:all-lengths`, the listed constraints). -/
 theorem lift_unit_eval {Q : ℕ} (i : Fin Q) (v : Bool) (k : Fin 3) (a : BitInput Q) :
     (liftQueryLiteral (le_refl Q) (unitClause i v k)).eval a = (a i == v) := by
   cases v <;> cases h : a i <;> simp [unitClause, liftQueryLiteral, Literal.eval, h]
 
-/-- The listed-pairs PCP (paper §11.6, stages 1 and 3): width `w`, query `i` at the constant address `bin_w(i)`, and
+/-- The listed-pairs PCP (`sec:all-lengths`, stages 1 and 3): width `w`, query `i` at the constant address `bin_w(i)`, and
 the decision `⋀_i y_i = vals[i]`. -/
 def unitPCP (w : ℕ) (vals : List Bool) : RawProjectionPCP where
   width := w
@@ -44,7 +44,8 @@ theorem unitOuter_projected (w R : ℕ) (vals : List Bool) (hw : w ≤ R) {n : �
   · simp only [hj, dite_true, i.isLt, liftProjectedRandomBit, ProjectedRandomBit.eval, if_true]
   · simp only [hj, dite_false, ProjectedRandomBit.eval, if_false]
 
-/-- **Bridge (paper §11.6, stages 1 and 3).** On every row, the substituted circuit `B` is accepted by the listed-pairs
+/-- **Bridge (`sec:all-lengths`, stages 1 and 3).** On every row, the substituted circuit `B` is accepted by the
+listed-pairs
 PCP exactly when `B(bin_w(i)0^{R−w}) = vals[i]` for every listed `i`. -/
 theorem unitOuter_accepts (w R : ℕ) (vals : List Bool) (hw : w ≤ R) {n : ℕ} (x : BitInput n)
     (B : BooleanCircuit R) (r : BitInput R) :
@@ -73,7 +74,7 @@ theorem unitOuter_accepts (w R : ℕ) (vals : List Bool) (hw : w ≤ R) {n : ℕ
     rw [lift_unit_eval, beq_iff_eq]
     exact h i
 
-/-- Stage 1 (paper §11.6 with eq:source-check): with `vals = z` and `w = ν`, acceptance is `Outer.Check ν z B`, i.e.
+/-- Stage 1 (`sec:all-lengths` with eq:source-check): with `vals = z` and `w = ν`, acceptance is `Outer.Check ν z B`, i.e.
 `tt_N(B) = z`. -/
 theorem unitOuter_check (ν q : ℕ) (hν : ν ≤ q) (z : BitInput (2 ^ ν)) {n : ℕ} (x : BitInput n)
     (B : BooleanCircuit q) (r : BitInput q) :

@@ -4,9 +4,9 @@ import Proof.Gates.CounterMachine.FormulaMom
 
 `fdata c p wt q ρs`: the formula printer's data for a call (per role the gates' count, the stage coefficient lists of
 the witness, the top coefficients; the rates followed by `M₁`, `A`; the residues `ρs = κ ++ σ`). **`tToks_link`**:
-the residue printer's tokens are `toks` of table (a)'s formula `resFormula c p wt q κ σ` (lem:residue-count, v2
-1503–1529). **`mdToks_link`**, **`mpToks_link`**: the moment printers' tokens are `toks` of table (b)'s formulas
-(1660–1672). -/
+the residue printer's tokens are `toks` of table (a)'s formula `resFormula c p wt q κ σ` (lem:residue-count).
+**`mdToks_link`**, **`mpToks_link`**: the moment printers' tokens are `toks` of table (b)'s formulas
+(`sec:algorithm`). -/
 
 set_option autoImplicit false
 set_option linter.unusedSimpArgs false

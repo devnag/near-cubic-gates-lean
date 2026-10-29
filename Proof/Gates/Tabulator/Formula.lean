@@ -31,7 +31,7 @@ def eval (β : Fin V → ℤ) : Formula V → ℤ
   | mul f g => f.eval β * g.eval β
   | pow f e => f.eval β ^ e
 
-/-- Formal degree (lem:print, line 1445). -/
+/-- Formal degree (lem:print). -/
 def degree : Formula V → ℕ
   | const _ => 0
   | var _ => 1
@@ -378,7 +378,7 @@ theorem coeff_le_absSum (P : Terms V) (t : Finset (Fin V) × ℤ) (ht : t ∈ P)
 /-! ### Counting distinct monomials -/
 
 /-- Distinct monomials of size at most `D`, weighted by any function of their size: at most
-`∑_{d ≤ D} C(V,d) f(d)`. With `f = 1` this is the monomial count of lem:print (line 1468). -/
+`∑_{d ≤ D} C(V,d) f(d)`. With `f = 1` this is the monomial count in the proof of lem:print. -/
 theorem sum_card_le (D : ℕ) (f : ℕ → ℕ) (P : Terms V) (hnd : (keys P).Nodup)
     (hD : ∀ S ∈ keys P, S.card ≤ D) :
     (P.map fun t => f t.1.card).sum ≤ ∑ d ∈ Finset.range (D + 1), V.choose d * f d := by
@@ -420,7 +420,7 @@ theorem length_le (D : ℕ) (P : Terms V) (hnd : (keys P).Nodup) (hD : ∀ S ∈
 
 end Terms
 
-/-- The binomial comparison of lem:print (line 1468): `∑_{d ≤ D} C(V,d) x^d ≤ (1 + V x)^D`. -/
+/-- The binomial comparison in the proof of lem:print: `∑_{d ≤ D} C(V,d) x^d ≤ (1 + V x)^D`. -/
 theorem sum_choose_mul_pow_le (V D x : ℕ) :
     ∑ d ∈ Finset.range (D + 1), V.choose d * x ^ d ≤ (1 + V * x) ^ D := by
   rw [add_comm 1 (V * x), add_pow]
@@ -610,7 +610,7 @@ theorem degree_prodList_le (fs : List (Formula V)) :
     simp only [prodList, degree, List.map_cons, List.sum_cons]
     omega
 
-/-- The literal Beigel–Tarui amplifier `Amp_e(t) = 1 - (1-t)^e ∑_{j<e} C(e-1+j,j) t^j` (lem:amp, line 1484),
+/-- The literal Beigel–Tarui amplifier `Amp_e(t) = 1 - (1-t)^e ∑_{j<e} C(e-1+j,j) t^j` (lem:amp),
 applied to a formula. -/
 def amp (e : ℕ) (t : Formula V) : Formula V :=
   sub (const 1) (mul (pow (sub (const 1) t) e)
@@ -646,7 +646,7 @@ end Formula
 
 /-! ## Affine forms in the formal variables -/
 
-/-- An integer affine form `c₀ + ∑_v c_v x_v` in the formal variables (lem:residue-count, line 1505). -/
+/-- An integer affine form `c₀ + ∑_v c_v x_v` in the formal variables (lem:residue-count). -/
 structure AffineForm (V : ℕ) where
   const : ℤ
   coeff : Fin V → ℤ
@@ -681,7 +681,7 @@ def fermatFormula {V r : ℕ} (p : ℕ) (L : Fin r → AffineForm V) (ρ : Fin r
   Formula.prodList ((List.finRange r).map fun i =>
     .sub (.const 1) (.pow (.sub (L i).formula (.const (ρ i))) (p - 1)))
 
-/-- `Q_{p,ρ} = Amp_e(∏_i (1 - (L_i - ρ_i)^{p-1}))` (line 1511). -/
+/-- `Q_{p,ρ} = Amp_e(∏_i (1 - (L_i - ρ_i)^{p-1}))` (lem:residue-count). -/
 def residueFormula {V r : ℕ} (p e : ℕ) (L : Fin r → AffineForm V) (ρ : Fin r → ℤ) : Formula V :=
   Formula.amp e (fermatFormula p L ρ)
 
@@ -707,7 +707,7 @@ theorem fermatFormula_degree_le {V r : ℕ} (p : ℕ) (L : Fin r → AffineForm 
       nlinarith
   simpa using hle (List.finRange r)
 
-/-- Formal degree of the residue polynomial: at most `(2e-1) r (p-1)` (line 1515). -/
+/-- Formal degree of the residue polynomial: at most `(2e-1) r (p-1)` (lem:residue-count). -/
 theorem residueFormula_degree_le {V r : ℕ} (p e : ℕ) (L : Fin r → AffineForm V) (ρ : Fin r → ℤ) :
     (residueFormula p e L ρ).degree ≤ (2 * e - 1) * r * (p - 1) := by
   refine (Formula.degree_amp_le e _).trans ?_
@@ -721,7 +721,7 @@ theorem residueFormula_eval {V r : ℕ} (p e : ℕ) (L : Fin r → AffineForm V)
     List.map_map, Function.comp_def, Formula.eval, AffineForm.formula_eval, fermatProduct]
   rw [Fin.prod_univ_def]
 
-/-- lem:residue-count (line 1517): for every filter `H` with `|H| < p^e`, the remainder of the tabulated sum
+/-- lem:residue-count: for every filter `H` with `|H| < p^e`, the remainder of the tabulated sum
 modulo `p^e` is the exact joint residue count. `point x` is the Boolean value of every formal variable at the
 inner assignment `x` (for a fixed outer assignment `y`). -/
 theorem residue_count {V r k : ℕ} (p : ℕ) (hp : Nat.Prime p) (e : ℕ) (he : 1 ≤ e)
@@ -747,7 +747,7 @@ theorem residue_count {V r k : ℕ} (p : ℕ) (hp : Nat.Prime p) (e : ℕ) (he :
 /-! ## The moment polynomial `(∑_t c_t (g_t - g_t^ref))^{2k}` -/
 
 /-- `(∑_t c_t (x_{a t} - x_{r t}))^{2k}`: `a t` is the formal variable of gate `t` at `(y,x)`, `r t` the one at the
-reference point `(y,0^I)` (lines 1665-1666 with line 861). -/
+reference point `(y,0^I)` (table (b) of `sec:algorithm`, with `Δ_y` of `sec:prelim`). -/
 def momentFormula {V G : ℕ} (c : Fin G → ℤ) (a r : Fin G → Fin V) (k : ℕ) : Formula V :=
   .pow (Formula.sumList ((List.finRange G).map fun t =>
     .mul (.const (c t)) (.sub (.var (a t)) (.var (r t))))) (2 * k)
@@ -757,7 +757,7 @@ theorem momentFormula_eval {V G : ℕ} (c : Fin G → ℤ) (a r : Fin G → Fin 
   simp only [momentFormula, Formula.eval, Formula.eval_sumList, List.map_map, Function.comp_def]
   rw [Fin.sum_univ_def]
 
-/-- Formal degree of the moment polynomial: at most `2k` (line 1674). -/
+/-- Formal degree of the moment polynomial: at most `2k` (`sec:algorithm`, "Witnesses and the tables to be computed"). -/
 theorem momentFormula_degree_le {V G : ℕ} (c : Fin G → ℤ) (a r : Fin G → Fin V) (k : ℕ) :
     (momentFormula c a r k).degree ≤ 2 * k := by
   simp only [momentFormula, Formula.degree]

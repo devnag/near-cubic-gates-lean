@@ -14,7 +14,7 @@ open NearCubicWires.RepairSource.ProjectionNormalization NearCubicGates.Close.Tr
 theorem bound_eq (s : GateSources) (g : GateParams) (ν : ℕ) :
     oracleSizeBound g.degree (g.width s ν) = g.bound s ν := rfl
 
-/-- **Stage 1** (paper §11.6): the flag is `SrcExists`, the description is that of `B*_src = firstSrc`. -/
+/-- **Stage 1** (`sec:all-lengths`): the flag is `SrcExists`, the description is that of `B*_src = firstSrc`. -/
 theorem stage1_run (s : GateSources) (g : GateParams) (ν : ℕ) (z : BitInput (2 ^ ν)) (post : List Bool) (W : ℕ)
     (hb : 0 < g.bound s ν)
     (hW : originalWorkspace (g.width s ν) (g.bound s ν) (List.ofFn z).length (List.ofFn z).length ≤ W)
@@ -34,7 +34,7 @@ theorem stage1_run (s : GateSources) (g : GateParams) (ν : ℕ) (z : BitInput (
   rw [hflag, caseTwo_true]
   rfl
 
-/-- **Stage 3** (paper §11.6): on the first honest table `t`, the flag is the small-oracle condition of the match PCP
+/-- **Stage 3** (`sec:all-lengths`): on the first honest table `t`, the flag is the small-oracle condition of the match PCP
 (Case 2 given stages 1–2), the description is that of its canonical oracle. -/
 theorem stage3_run (s : GateSources) (g : GateParams) (ν : ℕ) (z : BitInput (2 ^ ν)) {ℓ : ℕ}
     (hℓ : ℓ ≤ g.width s ν) (t : BitInput (2 ^ ℓ)) (post : List Bool) (W : ℕ)

@@ -5,7 +5,8 @@ import Proof.Gates.Recovery.CaseOneHead
 
 `build_exec`: from the entry state, `buildW` (head, cyclic table, frame end, rewinds) leaves exactly
 `frame (amplifierInput ⟨q, cycFn a w q⟩) = frame (frame q.bits ++ boolFunctionTable (cycFn a w q))` on `X`
-(paper v2 §11.6, "run the general amplifier" on the Case 1 hard function, §11.5), with every head at `0` and every
+(`sec:all-lengths`, "Run the general amplifier" on the Case 1 hard function, `sec:gadget-extract`), with every
+head at `0` and every
 other stream unchanged. The cost is `O(q·2^q)`, independent of `|w|` (the cyclic loop never reads past the first frame
 of `W`).
 -/

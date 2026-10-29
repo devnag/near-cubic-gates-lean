@@ -6,7 +6,7 @@ import Proof.Gates.Counter.Params
 import Proof.Gates.CertifiedScoreSupport
 
 /-!
-# Counter module 3/9 — prop:sound (paper v2 lines 1741–1767)
+# Counter module 3/9 — prop:sound (`prop:sound` and its proof)
 
 Parts: uniqueness of the residue systems on the reconstruction boxes (lem:one-window, lem:two-window, singleton);
 the cell layer (`partAnswer_eq`, `cellCount_eq_of_tests`, `certain_of_tests`, `certain_iff_tests`); the output
@@ -17,11 +17,12 @@ layer (`outputOf_sound`, `outputOf_radius_le`).
 # Uniqueness of the residue systems on reconstruction boxes (lem:one-window, lem:two-window)
 
 The counter solves, for each digit vector, the push-forward equations of a distribution on the box
-`∏_r [lo_r, hi_r]` (paper v2 lines 1715–1722). This module proves that a rational function on such a box with zero
+`∏_r [lo_r, hi_r]` (`sec:algorithm`, "Reconstruction inside a certified cell").
+This module proves that a rational function on such a box with zero
 push-forward data vanishes on the box, in the three situations the parameters produce:
-* one score, side at most `D' = window` (lem:one-window, line 951, via `scalarMatrix_injective`);
-* two scores, sides at most an admissible `L ≥ 2` (lem:two-window, line 975, via `pairMatrix_injective`);
-* any number of scores, sides at most one (the singleton convention of `L₂ = 1`, line 1074).
+* one score, side at most `D' = window` (lem:one-window, via `scalarMatrix_injective`);
+* two scores, sides at most an admissible `L ≥ 2` (lem:two-window, via `pairMatrix_injective`);
+* any number of scores, sides at most one (the singleton convention of `L₂ = 1`, after `lem:window-size`).
 -/
 
 set_option autoImplicit false
@@ -289,14 +290,14 @@ theorem box_unique {d : ℕ} (primes : Finset ℕ) (hne : primes.Nonempty) (hpri
 end NearCubicGates.Close.Counter
 
 /-!
-# prop:sound, the cell layer (paper v2 lines 1741–1767)
+# prop:sound, the cell layer (proof of `prop:sound`)
 
 For a selected parameter record and an ARBITRARY decoded witness, a cell that passes the strict tests eq:tests has:
-* every digit within `h_E` of its reference value (lem:moment, line 1689), so the enumeration contains each point's
-  digit vector and a digit residue modulo any `p ∈ 𝒫` fixes the digit vector (lines 1745–1748);
-* on each exact digit class, the score lies in the box eq:box (eq:telescope for arbitrary proposals, line 1752);
+* every digit within `h_E` of its reference value (lem:moment, after `eq:tests`), so the enumeration contains each point's
+  digit vector and a digit residue modulo any `p ∈ 𝒫` fixes the digit vector (proof of `prop:sound`);
+* on each exact digit class, the score lies in the box eq:box (eq:telescope for arbitrary proposals, proof of `prop:sound`);
 * the true score distribution of the class solves the residue system, every solution agrees with it on the box
-  (`box_unique`: lem:one-window / lem:two-window), hence the predicate sum is the exact count (lines 1754–1760).
+  (`box_unique`: lem:one-window / lem:two-window), hence the predicate sum is the exact count (proof of `prop:sound`).
 Main results: `partAnswer_eq`, `cellCount_eq_of_tests`, `certain_of_tests`, `cellCount_eq_of_certain`.
 -/
 
@@ -379,7 +380,7 @@ theorem mem_digitVectors (κ : Role c × Fin p.J → ℤ) (hκ : κ ∈ digitVec
   rw [digitVectors, Fintype.mem_piFinset] at hκ
   exact Finset.mem_Ioo.mp (hκ rj)
 
-/-- A digit residue modulo any prime of the set fixes the digit vector (lines 1745–1748). -/
+/-- A digit residue modulo any prime of the set fixes the digit vector (proof of `prop:sound`). -/
 theorem class_iff (hs : Spec cT (header c) p) (ht : CellTests c p wt y) (κ : Role c × Fin p.J → ℤ)
     (hκ : κ ∈ digitVectors c p wt y) (q : ℕ) (hq : q ∈ p.primes) (x : Points wt.I) :
     (∀ rj, digitVec c p wt y x rj ≡ κ rj [ZMOD (q : ℤ)]) ↔ digitVec c p wt y x = κ := by
@@ -415,7 +416,7 @@ theorem score_abs_le {n : ℕ} (C : NCircuit n) (z : BitInput n) : |C.score z| �
   rw [score_eq_linForm]
   exact linForm_abs_le C.gates C.coeffs z
 
-/-- On an exact digit class the score lies in the box eq:box (lines 1750–1753). -/
+/-- On an exact digit class the score lies in the box eq:box (proof of `prop:sound`). -/
 theorem score_mem_box (hs : Spec cT (header c) p) (ht : CellTests c p wt y) (κ : Role c × Fin p.J → ℤ)
     (x : Points wt.I) (hx : digitVec c p wt y x = κ) (r : Role c) :
     boxLo c p wt y κ r ≤ scoreVec c wt y x r ∧ scoreVec c wt y x r ≤ boxHi c p wt y κ r := by
@@ -444,7 +445,7 @@ theorem score_mem_box (hs : Spec cT (header c) p) (ht : CellTests c p wt y) (κ 
   · split_ifs <;> omega
   · split_ifs <;> omega
 
-/-- Every box side has at most `L_w` integers (line 1708). -/
+/-- Every box side has at most `L_w` integers (`sec:algorithm`, "Reconstruction inside a certified cell"). -/
 theorem box_width (hs : Spec cT (header c) p) (κ : Role c × Fin p.J → ℤ) (r : Role c) :
     boxHi c p wt y κ r - boxLo c p wt y κ r + 1 ≤ (p.Lw : ℤ) := by
   have hA := A_pos hs
@@ -486,7 +487,7 @@ noncomputable def trueDist (part : Option Bool) (κ : Role c × Fin p.J → ℤ)
     inPart c wt part x = true ∧ digitVec c p wt y x = κ ∧ scoreVec c wt y x = u).card : ℚ)
 
 open Classical in
-/-- The true distribution solves the push-forward equations (lines 1748–1756). -/
+/-- The true distribution solves the push-forward equations (proof of `prop:sound`). -/
 theorem trueDist_solves (hs : Spec cT (header c) p) (ht : CellTests c p wt y) (part : Option Bool)
     (κ : Role c × Fin p.J → ℤ) (hκ : κ ∈ digitVectors c p wt y) :
     Solves c p wt part y κ (trueDist c p wt y part κ) := by
@@ -558,7 +559,7 @@ theorem system_unique (hs : Spec cT (header c) p) (part : Option Bool) (κ : Rol
   exact sub_eq_zero.mp (hu u hmem)
 
 open Classical in
-/-- The predicate sum of one digit class is the exact class count (lines 1754–1760). -/
+/-- The predicate sum of one digit class is the exact class count (proof of `prop:sound`). -/
 theorem partAnswer_eq (hs : Spec cT (header c) p) (ht : CellTests c p wt y) (part : Option Bool)
     (κ : Role c × Fin p.J → ℤ) (hκ : κ ∈ digitVectors c p wt y) :
     partAnswer c p wt part y κ = (((Finset.univ : Finset (Points wt.I)).filter fun x =>
@@ -630,7 +631,7 @@ theorem foldl_xor_map {α : Type*} (l : List α) (f g : α → Bool) :
     rw [foldl_xor_acc _ (xor (f a) (g a)), foldl_xor_acc _ (f a), foldl_xor_acc _ (g a), ih]
     cases f a <;> cases g a <;> simp
 
-/-- `PAR_Σ(y, x) = PAR_{Σ∩I}(x) ⊕ PAR_{Σ∖I}(y)`: the parity split is a partition (line 1762). -/
+/-- `PAR_Σ(y, x) = PAR_{Σ∩I}(x) ⊕ PAR_{Σ∖I}(y)`: the parity split is a partition (proof of `prop:sound`). -/
 theorem parityOf_extend (x : Points wt.I) :
     c.parityOf (extend wt.I y x) = xor (innerParity c wt x) (outerParity c wt y) := by
   unfold Call.parityOf innerParity outerParity
@@ -657,7 +658,8 @@ theorem kind_cases : c.kind = .single ∨ c.kind = .pair ∨ c.kind = .parity :=
   cases c.kind <;> simp
 
 open Classical in
-/-- The parts and the requested predicate recover the call's predicate (lines 1724–1730). -/
+/-- The parts and the requested predicate recover the call's predicate (`sec:algorithm`,
+"Reconstruction inside a certified cell"). -/
 theorem parts_sum :
     ((parts c).map fun part => (((Finset.univ : Finset (Points wt.I)).filter fun x =>
       inPart c wt part x = true ∧
@@ -702,7 +704,7 @@ open Classical in
 noncomputable def trueCount : ℚ :=
   (((Finset.univ : Finset (Points wt.I)).filter fun x => c.predicate (extend wt.I y x) = true).card : ℚ)
 
-/-- On a cell passing the tests, the reconstructed count is exact (prop:sound, lines 1745–1763). -/
+/-- On a cell passing the tests, the reconstructed count is exact (proof of prop:sound). -/
 theorem cellCount_eq_of_tests (hs : Spec cT (header c) p) (ht : CellTests c p wt y) :
     cellCount c p wt y = trueCount c wt y := by
   classical
@@ -727,7 +729,7 @@ theorem trueCount_bounds (hk : wt.I.card = p.k) : 0 ≤ trueCount c wt y ∧ tru
   rw [Finset.card_univ, card_points c p wt hk] at h
   exact_mod_cast h
 
-/-- A cell passing the tests is certain (used by prop:complete, line 1806). -/
+/-- A cell passing the tests is certain (used by the proof of prop:complete). -/
 theorem certain_of_tests (hs : Spec cT (header c) p) (hk : wt.I.card = p.k) (ht : CellTests c p wt y) :
     Certain c p wt y := by
   have heq := cellCount_eq_of_tests c p wt y hs ht
@@ -741,7 +743,7 @@ theorem certain_of_tests (hs : Spec cT (header c) p) (hk : wt.I.card = p.k) (ht 
 
 /-- On every cell, certainty is exactly the strict tests eq:tests: once the tests pass, every residue system is
 consistent and its unique solution gives an integer count in `[0, 2^k]`, so the inconsistency and integrality
-checks of lines 1720 and 1728 never fire after passing tests. -/
+checks of `sec:algorithm`, "Reconstruction inside a certified cell", never fire after passing tests. -/
 theorem certain_iff_tests (hs : Spec cT (header c) p) (hk : wt.I.card = p.k) :
     Certain c p wt y ↔ CellTests c p wt y :=
   ⟨fun h => h.1, certain_of_tests c p wt y hs hk⟩
@@ -756,7 +758,7 @@ end Cell
 end NearCubicGates.Close.Counter
 
 /-!
-# prop:sound, the output layer (paper v2 eq:output, lines 1732–1738, and lines 1764–1767)
+# prop:sound, the output layer (`eq:output`, and the end of the proof of `prop:sound`)
 
 The cube is the disjoint union of the cells; certain cells contribute their exact counts and each uncertain cell
 has between zero and `2^k` accepting points, so replacing its count by `2^{k−1}` errs by at most `2^{k−1}`
@@ -839,7 +841,7 @@ theorem outputOf_sound (hs : Spec cT (header c) p) (hk : wt.I.card = p.k) (hk1 :
   exact hbound
 
 open Classical in
-/-- The radius is at most half the fraction of cells failing the tests (prop:complete, line 1808). -/
+/-- The radius is at most half the fraction of cells failing the tests (proof of prop:complete). -/
 theorem outputOf_radius_le (hs : Spec cT (header c) p) (hk : wt.I.card = p.k) (hk1 : 1 ≤ p.k) (hkn : p.k ≤ c.n) :
     (outputOf c p wt).2 ≤
       (((Finset.univ : Finset (Cells wt.I)).filter fun y => ¬ CellTests c p wt y).card : ℚ) /

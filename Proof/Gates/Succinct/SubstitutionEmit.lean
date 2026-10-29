@@ -62,7 +62,7 @@ theorem appendO_st_ne (σ : WState 4 nrH) (r : Fin nrH) (u : List Bool) (i : Fin
     (appendO σ sO r u).st i = σ.st i ∧ (appendO σ sO r u).sh i = σ.sh i := by
   simp [Function.update_apply, hi]
 
-/-- **One node of `D_B`** (paper §11.4; `NodeEmit.nodeW_spec`). -/
+/-- **One node of `D_B`** (`sec:gadget-machine`; `NodeEmit.nodeW_spec`). -/
 theorem emitN_spec (cap : ℕ) (σ : WState 4 nrH) (a b c : CheckedPCPP.NodeEmit.Field nrH) {n : ℕ} (nd : BooleanNode n)
     (out : List Bool) (hout : OutOK σ out) (hcl : WClean σ) (hok : TOK a ∧ TOK b ∧ TOK c)
     (hlen : a.1.length ≤ 3 ∧ b.1.length ≤ 3 ∧ c.1.length ≤ 3)
@@ -83,7 +83,7 @@ theorem emitN_spec (cap : ℕ) (σ : WState 4 nrH) (a b c : CheckedPCPP.NodeEmit
   rw [WR_apply] at h
   exact h
 
-/-- **One field of `D_B`'s header** (paper §11.4; `NodeEmit.fieldW_spec`). -/
+/-- **One field of `D_B`'s header** (`sec:gadget-machine`; `NodeEmit.fieldW_spec`). -/
 theorem fieldN_spec (cap : ℕ) (σ : WState 4 nrH) (u : HReg) (hu : (∀ i, u ≠ .w i) ∧ u ≠ .wt) (out : List Bool)
     (hout : OutOK σ out) (hcl : WClean σ)
     (hcap : σ.val (regH u) + 2 * out.length + 6 * natBitLength (σ.val (regH u)) + 6 ≤ cap) :

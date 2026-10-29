@@ -49,7 +49,8 @@ theorem fetchRegs' : FetchRegs (rgC Rg) (Rg 8) (Rg 9) (Rg 14) (Rg 10) := by
 
 end Regs
 
-/-- The pair call of the worker (v2 lines 2209–2215): circuits `i` and `j`, no parity, radius `ω`. -/
+/-- The pair call of the weak machine (a pair-XOR term of `eq:gadget-pair-identity`): circuits `i` and `j`,
+no parity, radius `ω`. -/
 def pairCallOf {q : ℕ} (Cs : ℕ → NCircuit q) (i j : ℕ) (ω : ℚ) : Call := ⟨q, .pair, Cs i, Cs j, [], ω⟩
 
 /-- **The pair-call writer.** -/

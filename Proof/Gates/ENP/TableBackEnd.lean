@@ -51,7 +51,7 @@ noncomputable def cost {n : ℕ} (fuel : ℕ) (c : BooleanCircuit n) : ℕ :=
 theorem not_ready_144 : ∀ j, RecoveryBoundedGraphSerialize.readySlots j ≠ 144 :=
   RecoveryBoundedGraphSerialize.ready_old_away 144 (by decide) (by decide) (by decide) (by decide)
 
-/-- **The back end on any circuit** (paper §11.6: prefix self-reduction on the SAT formula of `c`). -/
+/-- **The back end on any circuit** (`sec:all-lengths`: prefix self-reduction on the SAT formula of `c`). -/
 theorem run_circuit {u s : ℕ} (E : Machine (1664 + u) s) (fuel : ℕ) (A0 : Fin (1664 + u) → List Bool)
     (r : ExecutionReceipt (1664 + u) s) (hr : LocalBitMultitape.run E fuel A0 = some r)
     {n : ℕ} (c : BooleanCircuit n) (entry : Entry u c r.final.heads r.final.tapes) :
@@ -90,7 +90,8 @@ theorem run_circuit {u s : ℕ} (E : Machine (1664 + u) s) (fuel : ℕ) (A0 : Fi
   · rw [heads]; exact Fin.addCases_right _
   · rw [heads]; exact Fin.addCases_right _
 
-/-- **The back end on `c_T`** (paper §11.6 stage 2; §11.5 "Let `O*` be the first such oracle"): the flag says whether
+/-- **The back end on `c_T`** (`sec:all-lengths` stage 2; `sec:gadget-extract` "Let `O*` be the first such oracle"):
+the flag says whether
 an honest table exists, and the table port holds the first honest table. -/
 theorem run {u s : ℕ} (E : Machine (1664 + u) s) (fuel : ℕ) (A0 : Fin (1664 + u) → List Bool)
     (r : ExecutionReceipt (1664 + u) s) (hr : LocalBitMultitape.run E fuel A0 = some r)
@@ -114,7 +115,7 @@ def backCoefficient : ℕ :=
   2 * RecoveryBoundedGraphBudget.serializerCoefficient + 4 +
     RecoveryBoundedSearchExecution.graphSearchCoefficient
 
-/-- **The back end's cost** (paper §11.6: the stage-2 formula has size `2^{O(q)}`): polynomial in any bound `W` on the
+/-- **The back end's cost** (`sec:all-lengths`: the stage-2 formula has size `2^{O(q)}`): polynomial in any bound `W` on the
 arity and the node count. -/
 theorem back_le {n : ℕ} (c : BooleanCircuit n) (W : ℕ) (hn : n ≤ W) (hc : c.nodes.length ≤ W) :
     RecoveryBoundedGraphSerializeReady.budget c + 2 +

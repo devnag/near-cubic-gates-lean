@@ -143,7 +143,7 @@ def nodeHead (ε : Bool) : WMX 3 40 :=
   .seq (.wm (readNatM ε sCW rRF rRC rTAG rRP rRT)) <| .seq (copyReg rTAG rTMP rT2) <|
   .seq (WMX.dec rTMP) <| .seq (WMX.dec rTMP) <| .seq (WMX.dec rTMP) (WMX.dec rTMP)
 
-/-- **One node of `C` at the current seed** (paper §11.6 stage 2). -/
+/-- **One node of `C` at the current seed** (`sec:all-lengths` stage 2). -/
 def nodeBody (ε : Bool) : WMX 3 40 :=
   .seq (nodeHead ε) <|
   .ifr rTMP (.seq (clearReg rTMP) (.seq (oracleBlock ε) (clearReg rTAG))) (.seq (plainFields ε) emitPlain)
@@ -210,7 +210,7 @@ theorem K_pos (ℓ : ℕ) : 1 ≤ TCirc.K ℓ := Nat.mul_pos (Nat.two_pow_pos �
 
 set_option maxHeartbeats 16000000 in
 set_option maxRecDepth 20000 in
-/-- **An oracle gate** at seed `z`: the multiplexer block (paper §11.6 stage 2). -/
+/-- **An oracle gate** at seed `z`: the multiplexer block (`sec:all-lengths` stage 2). -/
 theorem nodeOracle_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (C : OracleCircuit ℓ ℓ) (z c : ℕ) (args : Fin ℓ → ℕ)
     (σ : WState 3 40) (pre rest L0 : List Bool) (Xm bzM npM zM R7M : ℕ)
     (hst : σ.st sCW = pre ++ enc ε (oracleNodeWord (.oracle args : OracleNode ℓ ℓ)) ++ rest)
@@ -291,7 +291,7 @@ theorem nodeOracle_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (C : OracleCircuit �
 
 set_option maxHeartbeats 16000000 in
 set_option maxRecDepth 20000 in
-/-- **A plain node** at seed `z`: `K − 1` fillers and the translated gate (paper §11.6 stage 2). -/
+/-- **A plain node** at seed `z`: `K − 1` fillers and the translated gate (`sec:all-lengths` stage 2). -/
 theorem nodePlain_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (C : OracleCircuit ℓ ℓ) (z c : ℕ) (nd : OracleNode ℓ ℓ)
     (hnd : Plain nd) (σ : WState 3 40) (pre rest : List Bool) (Xm bzM npM zM R7M np : ℕ)
     (hst : σ.st sCW = pre ++ enc ε (oracleNodeWord nd) ++ rest) (hsh : σ.sh sCW = pre.length)
@@ -370,7 +370,7 @@ theorem nodePlain_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (C : OracleCircuit �
     omega
 
 set_option maxHeartbeats 4000000 in
-/-- **One node of `C`** at seed `z` (paper §11.6 stage 2): the word head moves past the node's word, `G` gains the
+/-- **One node of `C`** at seed `z` (`sec:all-lengths` stage 2): the word head moves past the node's word, `G` gains the
 native bytes of `TCirc.block`, `NP` advances by `K`; `ARGS` (head and counter `0`) may change its contents. -/
 theorem nodeBody_exec {ℓ : ℕ} (ε : Bool) (cap : ℕ) (C : OracleCircuit ℓ ℓ) (z c : ℕ) (nd : OracleNode ℓ ℓ)
     (σ : WState 3 40) (pre rest : List Bool) (Xm bzM npM zM R7M : ℕ)

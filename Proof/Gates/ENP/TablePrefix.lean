@@ -10,7 +10,7 @@ open NearCubicWires NearCubicWires.CanonicalRecoveryLanguage NearCubicWires.Cano
 open NearCubicWires.CanonicalSATSelfReduction NearCubicWires.CircuitInputCNF NearCubicWires.TseitinCNF
 open NearCubicWires.BalancedCNFSATEncoding NearCubicWires.RepairSource
 
-/-- The lex-least accepted input of a circuit (paper §11.5: "'first' refers to this order"). -/
+/-- The lex-least accepted input of a circuit (`sec:gadget-extract`: "'first' refers to this order"). -/
 structure FirstInput {n : ℕ} (c : BooleanCircuit n) where
   input : BitInput n
   accepts : c.eval input = true

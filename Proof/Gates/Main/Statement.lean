@@ -14,8 +14,8 @@ import StatementSupport
 /-!
 # The main statement: nine published inputs imply the main theorem
 
-`FinalStatement` is the exact shape of the main result: the nine published inputs imply
-`NearCubicGates.Target.MainStatement` (paper v2 thm:main, line 206). `Check.lean` asserts a closed proof of
+`NineFinalStatement` is the exact shape of the main result: the nine published inputs imply
+`NearCubicGates.Target.MainStatement` (`thm:main`). `Check.lean` asserts a closed proof of
 exactly this proposition with the axioms `propext`, `Classical.choice`, `Quot.sound`.
 -/
 

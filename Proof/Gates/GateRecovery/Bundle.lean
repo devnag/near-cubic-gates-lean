@@ -10,7 +10,8 @@ namespace NearCubicWires.RepairSource
 
 open SourceInterfaces RepairRepresentation RepairOrdinary LocalBitMultitape
 
-/-- The dyadic native widths and a machine printing them (paper §11.4 `q(N)`, §11.6 "bounded additive jumps"). -/
+/-- The dyadic native widths and a machine printing them (`sec:gadget-machine` `q(N)`, `sec:all-lengths`
+"bounded additive jumps"). -/
 structure WidthSource where
   /-- `s ↦ q(N_s)`, `N_s = 2^s`. -/
   width : ℕ → ℕ

@@ -43,7 +43,7 @@ noncomputable abbrev wdB (W : OuterM.WidthDonor mw SV) : Program := Rewind.progr
 
 noncomputable abbrev wdU (W : OuterM.WidthDonor mw SV) : Program := Rewind.program W.unary.program
 
-/-- `frame q.bits` from `frame x`, `q = qOf N` (paper v2 §11.4, "the exact native width"), within `2K(N+1) + 2`. -/
+/-- `frame q.bits` from `frame x`, `q = qOf N` (`sec:gadget-machine`, "the exact native width"), within `2K(N+1) + 2`. -/
 theorem widthB_ready (W : OuterM.WidthDonor mw SV) {N : ℕ} (x : BitInput N) :
     ∃ out, ClockJoin.ReadyRun (wdB W).machine (2 * (W.K * (N + 1) ^ 1) + 2)
         (fun j => if j = inTape (wdB W) then frame (List.ofFn x) else []) out ∧

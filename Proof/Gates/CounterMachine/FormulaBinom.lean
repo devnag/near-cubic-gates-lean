@@ -2,7 +2,7 @@ import Proof.Gates.CounterMachine.FormulaProd
 
 /-! # RG machine, part 16: the binomial constants of `Amp_e`
 
-`Amp_e(t) = 1 − (1−t)^e Σ_{j<e} C(e−1+j, j) t^j` (lem:amp, v2 1484). The printer keeps `b_j = C(e−1+j, j)` in a
+`Amp_e(t) = 1 − (1−t)^e Σ_{j<e} C(e−1+j, j) t^j` (lem:amp). The printer keeps `b_j = C(e−1+j, j)` in a
 unary register and steps `b_{j+1} = b_j·(e+j)/(j+1)` (`Nat.succ_mul_choose_eq`): **`binStep_spec`**, a unary
 multiplication (`mulR`) and an exact unary division (`divR`). -/
 

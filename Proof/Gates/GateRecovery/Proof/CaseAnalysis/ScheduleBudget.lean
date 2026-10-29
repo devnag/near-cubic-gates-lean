@@ -7,7 +7,7 @@ import Proof.Gates.GateRecovery.Proof.CaseAnalysis.NativeWidthPolynomial
 namespace GR
 
 /-! One all-index resource bound for the actual schedule test. Constants
-may depend on the fixed recovery clock; this is solely a paper C.12 charge. -/
+may depend on the fixed recovery clock; this is solely a charge of the `E^NP` recovery (`sec:all-lengths`). -/
 namespace NearCubicWires.RepairSource.CloseoutSchedule
 open RepairOrdinary ProjectionNormalization
 set_option autoImplicit false

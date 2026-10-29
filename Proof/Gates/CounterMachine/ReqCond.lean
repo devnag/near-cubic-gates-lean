@@ -1,6 +1,6 @@
 import Proof.Gates.CounterMachine.ReqMom
 
-/-! # RG, value level 5: the requests are legal lem:print instances (paper v2 lines 1668–1679)
+/-! # RG, value level 5: the requests are legal lem:print instances (`sec:algorithm`, "Witnesses and the tables to be computed")
 
 "These operations are legal applications of lem:print … The residue polynomials have degree at most the left side of
 eq:prime-budget; moments have degree at most `2k ≤ D_max`. At most twice the original number of gate variables is

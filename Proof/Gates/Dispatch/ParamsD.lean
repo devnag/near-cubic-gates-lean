@@ -184,7 +184,7 @@ theorem pPrimes_spec (a : DS VV) (hc : Cst a) (P : ℕ) (hP : a.env pP = P)
     unfold primesCost
     omega
 
-/-! ## `L₂` (lem:window-size, line 1058) -/
+/-! ## `L₂` (lem:window-size) -/
 
 open AE in
 def aTest : St VV :=
@@ -301,7 +301,7 @@ theorem pPair_spec (a : DS VV) (hc : Cst a) (D : ℕ) (hD : a.env pWIN = D)
   unfold pairCost
   omega
 
-/-! ## `L_w` (line 1606) -/
+/-! ## `L_w` (`sec:finite`, rule 3) -/
 
 def pLw : St VV := .ite (.eq vTAG v1) (assign pLW (.var pL2)) (assign pLW (.var pWIN))
 

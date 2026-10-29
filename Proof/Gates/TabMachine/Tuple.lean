@@ -3,7 +3,7 @@ import Proof.Gates.WordPrograms.RegArith
 
 /-! # The tuple step
 
-lem:print (line 1458): one cut per tuple of children, one child per variable of the monomial. Tuples are built one
+Proof of lem:print: one cut per tuple of children, one child per variable of the monomial. Tuples are built one
 variable at a time, from the last variable to the first (`tuples (L :: Ls) = L.flatMap (a ↦ (tuples Ls).map
 (a :: ·))`). A tuple is stored as its fields side by side (`flatten`), every field one record. **`tupleStep_spec`**:
 from the children's fields `kf` (stream `KF`) and the current tuples `tf` (stream `TP`), the output stream gains

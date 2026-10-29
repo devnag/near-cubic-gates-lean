@@ -16,13 +16,14 @@ comparator:            ## comparator check, tools included (README); run it in a
 names:                 ## the naming check used by CI
 	python3 scripts/check_names.py .
 
-sourcemap:             ## download the cited papers (not shipped here) and run the SourceMapping check
-	bash scripts/fetch_sources.sh && python3 SourceMapping/check.py
+sourcemap:             ## check the local source-mapping manifest, identities and links (no downloads)
+	python3 SourceMapping/check.py
 
 kernel-replay: build   ## re-check every module's declarations with leanchecker (slow)
-	find StatementChecks Proof Bindings -name '*.lean' | sed 's|/|.|g; s|\.lean$$||' | \
+	find StatementChecks Proof Bindings SourceAdapters -name '*.lean' | sed 's|/|.|g; s|\.lean$$||' | \
 	  xargs -P $$(nproc) -I{} lake env leanchecker {}
 	lake env leanchecker Statement
+	lake env leanchecker NineInputs
 	lake env leanchecker StatementSupport
 	lake env leanchecker MainTheorem
 

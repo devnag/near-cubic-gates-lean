@@ -5,7 +5,7 @@ import Proof.Gates.WorkerArith.HotFuel
 /-!
 # SetupU half 2: the native width is logarithmic, so every polynomial in it is at most linear in `N`
 
-Paper v2 line 2396: "All guesses have a fixed polynomial bound in `q` and hence are `o(N)`". The native width
+`sec:gadget-machine`: "All guesses have a fixed polynomial bound in `q` and hence are `o(N)`". The native width
 `q = width s g N` satisfies `2^q ≤ A (N+1)^m` (the shared `HierarchyNormalizedBounds.proof_bound`; `A, m` depend on the
 clock), hence `q ≤ A + m (⌊log₂ (N+1)⌋ + 1)` (`width_log`). With `(L+1)^d ≤ d!·2^d·2^L` (`pow_le_two_pow`):
 * `qpoly`: for every `d`, `(q+1)^d ≤ C (N+1)` — exponent `1` in `N`, whatever `d` and the clock;
@@ -43,7 +43,7 @@ theorem logScale_le (T : ℕ) : logScale T ≤ T + 2 := by
 
 variable (s : GateSources) (g : GateParams)
 
-/-- `2^q ≤ A (N+1)^m` (paper v2 §11.4, `q(N)`'s formula: `2^q/T_clk(N) = q^{O(1)}`). -/
+/-- `2^q ≤ A (N+1)^m` (`sec:gadget-machine`, `q(N)`'s formula: `2^q/T_clk(N) = q^{O(1)}`). -/
 theorem width_pow : ∃ A m : ℕ, ∀ N, 2 ^ width s g N ≤ A * (N + 1) ^ m :=
   Outer.widthOf_pow g.k _
 

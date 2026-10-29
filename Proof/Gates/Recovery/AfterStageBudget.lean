@@ -9,7 +9,7 @@ open NearCubicWires NearCubicWires.LocalBitMultitape NearCubicWires.RepairOrdina
 open NearCubicWires.RecoveryScheduleEnvelope NearCubicWires.RepairOrdinary.CloseoutRecoveryWorkspace
 open NearCubicWires.RepairSource.ProjectionNormalization NearCubicGates.Close.ENP
 
-/-- **Stage workspace and cost from the final address** (paper §11.6, formulas of size `2^{O(q)}`, `q ≤ n`). -/
+/-- **Stage workspace and cost from the final address** (`sec:all-lengths`, formulas of size `2^{O(q)}`, `q ≤ n`). -/
 theorem stageBudget (d : ℕ) : StageBudget d := by
   obtain ⟨Kn, en, hn⟩ := uNeedPoly d
   obtain ⟨Kc, ec, hc⟩ := uCostPoly d

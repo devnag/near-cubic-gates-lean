@@ -19,7 +19,7 @@ def isO : OracleNode ℓ ℓ → Bool
 section
 variable (B : BooleanCircuit q) (C : OracleCircuit ℓ ℓ)
 
-/-- The fold of the substitution over the first `i` nodes of `C` (paper §11.4, `D_B`). -/
+/-- The fold of the substitution over the first `i` nodes of `C` (`sec:gadget-machine`, `D_B`). -/
 def accI (i : ℕ) : List (BooleanNode q) × List ℕ :=
   (C.nodes.take i).foldl (substStepG B inputMapD []) ([.const false], [])
 
@@ -141,7 +141,7 @@ theorem padSize_output' {n : ℕ} (c : BooleanCircuit n) (k : ℕ) : (c.padSize 
 theorem substBuild_eq (B : BooleanCircuit q) (C : OracleCircuit ℓ ℓ) : substBuild C B = accI B C C.nodes.length := by
   simp [substBuild, substBuildG, accI]
 
-/-- **The descriptor of `D_B`** (paper §11.4): the arity `q`, the node count, the fold's nodes, the negation of
+/-- **The descriptor of `D_B`** (`sec:gadget-machine`): the arity `q`, the node count, the fold's nodes, the negation of
 `C`'s output image, `q − (|fold| + 1)` constant padding nodes, and the output index `|fold|`. -/
 theorem descriptor_D (B : BooleanCircuit q) (C : OracleCircuit ℓ ℓ) :
     PCPPNative.descriptor (substCircuit C B).padToArity =

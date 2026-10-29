@@ -9,7 +9,7 @@ open NearCubicWires NearCubicWires.RepairSource NearCubicWires.RepairOrdinary Ne
 open NearCubicWires.ExecutableInterfaces NearCubicGates.Close.Transfer
 
 /-- The periodic function on `q` address bits given by a table `w` of length `2^a`: `w` at the first `a` address bits
-(`false` past `q`) — the common form of Case 1 (i) `X_z` and Case 1 (iii) `O*` (paper v2 §11.5). -/
+(`false` past `q`) — the common form of Case 1 (i) `X_z` and Case 1 (iii) `O*` (`sec:gadget-extract`). -/
 def cycFn (a : ℕ) (w : BitInput (2 ^ a)) (q : ℕ) : BoolFunction q := fun r =>
   w (binaryAddress fun j : Fin a => if h : j.val < q then r ⟨j.val, h⟩ else false)
 
@@ -21,7 +21,8 @@ def threeWords (table address : List Bool) (q : ℕ) : Fin 3 → List Bool :=
 def oneInput (t : ℕ) (table address : List Bool) (q : ℕ) : Fin t → List Bool :=
   fun i => if h : i.val < 3 then threeWords table address q ⟨i.val, h⟩ else []
 
-/-- **The Case 1 machine (statement, (a′) form; paper v2 §11.5–§11.6).** For every schedule amplifier, one fixed
+/-- **The Case 1 machine (statement, (a′) form; `sec:gadget-extract`, `sec:all-lengths`).** For every schedule
+amplifier, one fixed
 machine, started on `frame (List.ofFn w) ++ rest`, `frame (List.ofFn point)` and `1^q`, returns the framed value at
 `point` of the amplified periodic function `cycFn a w q`, padded to the final arity `n` (`GateParams.amplified`),
 whenever `1 ≤ q ≤ n` and the amplified arity fits `n`, within `C·(2^n+1)^E`. -/

@@ -183,7 +183,7 @@ theorem inB_length_le (k V : ℕ) (h : k ≤ V) : (inB k).length ≤ k * (6 * V 
 
 set_option maxHeartbeats 8000000 in
 set_option maxRecDepth 20000 in
-/-- **The `T` input nodes** (paper §11.6 stage 2: one variable per oracle address). -/
+/-- **The `T` input nodes** (`sec:all-lengths` stage 2: one variable per oracle address). -/
 theorem inputs_exec (cap : ℕ) (σ : WState 3 40) (t : ℕ) (hTT : σ.val rTT = t) (hA : σ.val rA = 0)
     (hLC3 : σ.val rLC3 = 0) (hwr : ∀ r : Fin 40, r.val ≤ 6 → σ.val r = 0) (hT : σ.val rTN = 0)
     (hG : σ.sh sG = (σ.st sG).length)
@@ -239,7 +239,7 @@ theorem inputs_exec (cap : ℕ) (σ : WState 3 40) (t : ℕ) (hTT : σ.val rTT =
 
 /-! ## The prologue -/
 
-/-- **The prologue** (paper §11.6 stage 2): header, `T`, `K`, the start region, `NP := T + 2`, `SC := T`. -/
+/-- **The prologue** (`sec:all-lengths` stage 2): header, `T`, `K`, the start region, `NP := T + 2`, `SC := T`. -/
 def prologue : WMX 3 40 :=
   .seq (.wm (readNatM false sCW rRF rRC rL rRP rRT)) <|
   .seq (.wm (readNatM false sCW rRF rRC rM rRP rRT)) <|

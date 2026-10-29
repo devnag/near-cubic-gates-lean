@@ -43,7 +43,7 @@ theorem kOf_le (o : OracleOutput) : kOf o.circuit o.circuit.nodes.length ≤ o.c
   unfold kOf; exact (List.countP_le_length).trans (by simp)
 
 set_option maxHeartbeats 1600000 in
-/-- **The sizes** (paper §11.4: `D_B` padded to `q` inputs, `padToArity`). -/
+/-- **The sizes** (`sec:gadget-machine`: `D_B` padded to `q` inputs, `padToArity`). -/
 theorem sizes_spec (cap : ℕ) (o : OracleOutput) (B : BooleanCircuit q) (σ : WState 4 nrH) (hC : CntPost o B σ)
     (hcap : 4 * (sizeS o B + 2) ^ 2 ≤ cap) :
     ∃ τ, WXExec cap sizes σ τ (sizesCost (sizeS o B)) ∧ τ.st = σ.st ∧ τ.sh = σ.sh ∧ RV τ (V3 o B) ∧

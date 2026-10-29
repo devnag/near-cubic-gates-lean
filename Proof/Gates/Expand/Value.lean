@@ -351,7 +351,7 @@ theorem level_length_le (V : ℕ) : ∀ d, (level V d).length ≤ V ^ d
       _ = (level V d).length * V := by simp
       _ ≤ V ^ d * V := Nat.mul_le_mul_right _ (level_length_le V d)
 
-/-- The family has at most `(V+1)^D` members (line 1469's count). -/
+/-- The family has at most `(V+1)^D` members (the count in the proof of `lem:print`). -/
 theorem fam_length_le (V D : ℕ) : (fam V D).length ≤ (V + 1) ^ D := by
   have key : ∀ D, (fam V D).length ≤ ∑ d ∈ Finset.range (D + 1), V ^ d := by
     intro D

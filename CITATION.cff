@@ -18,4 +18,4 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0006-7304-8082"
   year: 2026
   month: 10
-  notes: "Version 2 (October 15, 2026). Subtitle: Constant-Error Hardness for Arbitrary Symmetric Tops and Vanishing Correlation for Periodic Tops. The LaTeX source in paper/paper.tex is this version, the version the Lean proof was checked against."
+  notes: "Version 3 (October 28, 2026). The LaTeX source in paper/paper.tex is this version; the main-theorem correspondence and seven retained published statements are documented in SourceMapping/."

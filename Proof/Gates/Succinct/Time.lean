@@ -21,7 +21,8 @@ namespace NearCubicGates.Close.Succinct
 
 open NearCubicWires
 
-/-- Polynomials are dominated by `2^ν` (paper: "`(ν+1)^{G+2} 2^{−C_clk ν}` is bounded"). -/
+/-- Polynomials are dominated by `2^ν` (proof of `lem:succinct-verifier`: "`(ν+1)^{G′} 2^{−C_clk ν}` is bounded",
+here `G′ = G + 2`). -/
 theorem poly_le_exp (a : ℕ) : ∃ C, ∀ ν, (ν + 3) ^ a ≤ C * 2 ^ ν := by
   have h := tendsto_pow_const_div_const_pow_of_one_lt a (show (1 : ℝ) < 2 by norm_num)
   have hev := h.eventually (Iic_mem_nhds (show (0 : ℝ) < 1 by norm_num))

@@ -77,7 +77,7 @@ noncomputable def caseOneCost {c d : ℕ} (amplifier : RepairSource.OrdinarySche
   buildCost q + 1 + (65536 * (2 ^ n + 1) ^ (2 * max 1 amplifier.constructionExponent) + 1 +
     4096 * (2 ^ n + 1) ^ 2)
 
-/-- **The Case 1 program's run** (paper v2 §11.5–§11.6). -/
+/-- **The Case 1 program's run** (`sec:gadget-extract`, `sec:all-lengths`). -/
 theorem caseOne_exec {c d : ℕ} (amplifier : RepairSource.OrdinaryScheduleAmplifier c d) (a q : ℕ) (w : BitInput (2 ^ a))
     (rest : List Bool) (n : ℕ) (point : BitInput n) (hq : 1 ≤ q) (hqn : q ≤ n)
     (hn : (amplifier.output q (Recovery.cycFn a w q)).arity ≤ n) (cap : ℕ) (hcap : buildCap a q ≤ cap) :

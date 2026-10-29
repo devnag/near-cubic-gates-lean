@@ -9,11 +9,11 @@ import Mathlib.Tactic.NormNum
 /-!
 # Exact arithmetic of certified intervals
 
-These are finite algebraic components of Sections 6, 7, 10 and 11 of the
+These are finite algebraic components of `sec:printing`, `sec:algorithm`, `sec:imports` and `sec:gadget-transfer` of the
 paper. On their own they do not assert that the counting algorithm exists, that its reconstruction is correct,
 or that it satisfies the running time; other modules prove those.
 In particular `cell_interval_sound` assumes exactness of the certified cells;
-the paper's reconstruction argument must supply that premise.
+the paper's reconstruction argument (proof of `prop:sound`) must supply that premise.
 -/
 
 namespace NearCubicGates.Certificates
@@ -122,7 +122,7 @@ theorem coefficient_mass_budget (s : Finset ι) (a r : ι → ℝ)
     _ = β * M := mul_comm _ _
 
 /-- Uncertain cells contribute half their cardinality as radius.  This is
-the numerator version of manuscript (output), before division by 2^n. -/
+the numerator version of `eq:output`, before division by 2^n. -/
 theorem cell_interval_sound (s : Finset ι) (exact : ι → Bool)
     (truth recovered : ι → ℝ) (cellSize : ℝ)
     (hlo : ∀ i ∈ s, 0 ≤ truth i)

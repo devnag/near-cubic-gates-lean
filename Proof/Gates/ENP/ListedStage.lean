@@ -39,7 +39,7 @@ noncomputable def cost (d w R W : ℕ) (vals : List Bool) (hw : w ≤ R) {n : �
     (RecoveryPrefixCold.radius (RecoveryFormulaPrefix.payload (formula d w R vals hw x))
       (descriptionWidth R (oracleSizeBound d R))) ^ 3
 
-/-- **One listed-pairs stage** (paper §11.6, stages 1 and 3): the flag is `caseTwo` of the listed-pairs PCP and the
+/-- **One listed-pairs stage** (`sec:all-lengths`, stages 1 and 3): the flag is `caseTwo` of the listed-pairs PCP and the
 description tape holds the first bounded circuit agreeing with the listed pairs (description order). -/
 theorem stage_run (d : ℕ) (vals post : List Bool) (w R W : ℕ) (hlen : vals.length = 2 ^ w) (hw : w ≤ R)
     {n : ℕ} (x : BitInput n) (hb : 0 < oracleSizeBound d R)

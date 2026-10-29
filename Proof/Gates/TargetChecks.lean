@@ -2,7 +2,7 @@ import Proof.Gates.Target
 import Mathlib.Tactic.Linarith
 
 /-!
-# Semantic checks on the new paper's target
+# Semantic checks on the paper's target (`thm:main`)
 
 These checks validate basic properties of the statement definitions. They do
 not prove any of the hardness target propositions in `Target.lean`.
@@ -86,7 +86,7 @@ theorem constantCircuit_mainBudget (K n : ℕ) (b : Bool) :
   simp [MainBudget]
 
 /-- A constant language cannot meet the paper's eventual positive-error
-hardness condition, even for an arbitrary proposed constant multiplier. -/
+hardness condition (`thm:main`), even for an arbitrary proposed constant multiplier. -/
 theorem constantLanguage_not_eventually_hard (K : ℕ) (b : Bool)
     (d : ℝ) (hd : 0 < d) :
     ¬ ∃ n₀ : ℕ, ∀ n : ℕ, n₀ ≤ n →

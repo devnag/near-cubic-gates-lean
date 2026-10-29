@@ -95,7 +95,8 @@ theorem eval_subst {S D : Circuit} (h : S = D) (xS : BitInput S.n) (xD : BitInpu
   cases hx
   exact hD
 
-/-- **The producer's whole word program** (paper v2 §11.5–§11.6): on the five Case 2 ports (`initHT`: the word of
+/-- **The producer's whole word program** (`sec:gadget-extract`, `sec:all-lengths`): on the five Case 2 ports
+(`initHT`: the word of
 `C_{⟨B*_src⟩_ν}`, the canonical description of `B*_pf`, `frame point`, `1^q`, `1^B`) the program `htW` ends with
 `OUT = frame (gateCore … n point).toNat.bits`. -/
 theorem ht_exec {s : GateSources} {P : ThreeQueryPCPP} {g : Transfer.GateParams}

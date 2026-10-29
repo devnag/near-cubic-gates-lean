@@ -230,7 +230,7 @@ theorem box_projection_bounds (L : ℕ) (hL : 1 ≤ L) (α β : ℤ)
   · rw [hwidth]
     nlinarith [ha.2, hb.2]
 
-/-- The floor chosen in the manuscript makes every norm-at-most-`q`
+/-- The floor `q = ⌊(D'−1)/(L−1)⌋` of `lem:two-window` makes every norm-at-most-`q`
 projection fit the proved scalar distribution window. -/
 theorem box_projection_window (primes : Finset ℕ) (L : ℕ) (α β : ℤ)
     (hnorm : α.natAbs + β.natAbs ≤ (window primes - 1) / (L - 1)) :

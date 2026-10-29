@@ -8,7 +8,7 @@ open NearCubicWires NearCubicWires.Bindings.MW20
 
 variable {q ℓ : ℕ}
 
-/-- The answer to an oracle query `a ∈ {0,1}^ℓ` is `B_pf(a 0^{q−ℓ})` (paper §11.4, `O_{B_pf}`). -/
+/-- The answer to an oracle query `a ∈ {0,1}^ℓ` is `B_pf(a 0^{q−ℓ})` (`sec:gadget-machine`, `O_{B_pf}`). -/
 def padQuery (a : BitInput ℓ) : BitInput q := fun j => if h : j.val < ℓ then a ⟨j.val, h⟩ else false
 
 /-- `C`'s input: the first `ℓ` of the `q` inputs (`false` beyond `q`). -/

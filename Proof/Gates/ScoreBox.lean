@@ -3,7 +3,7 @@ import Std
 /-!
 # Integer score boxes from the certified final-stage error
 
-This file proves the range arithmetic in equation `box` of the manuscript.
+This file proves the range arithmetic of `eq:box`.
 All statements concern integer arithmetic and arbitrary proposed values.
 Neither sampling honesty nor tomography is assumed.
 -/

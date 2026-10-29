@@ -23,7 +23,8 @@ section
 variable (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams)
 open NearCubicGates.Close.Worker
 
-/-- The checked outer verifier has `poly(q)` nodes (paper v2 §11.4: "`D_B` is a circuit of size `q^{O_G(1)}` on `q`
+/-- The checked outer verifier has `poly(q)` nodes (`sec:gadget-machine`: "`D_B` is a circuit of size
+`q^{O_{G,C_clk}(1)}` on `q`
 inputs"; `Outer.Dat_size_le`, the import's size clause, `L_ν ≤ q^{G′}` and `|bin T_G(L_ν)| = O(q)`). -/
 theorem checked_m_le : ∃ F : ℕ → ℕ, PolynomiallyBounded F ∧ ∀ (N : ℕ) (x : BitInput N)
     (B : Outer.OuterGuess (width s g N)), B.pf.size ≤ oracleSizeBound g.degree (width s g N) → 2 ≤ width s g N →

@@ -1,7 +1,7 @@
 import Proof.Gates.Worker.Intervals
 
 /-!
-# The counter calls of a guess and useful witnesses — paper v2 lines 2216–2235, 2344–2378
+# The counter calls of a guess and useful witnesses — `eq:gadget-upper`, `eq:gadget-upper-complete`, `sec:gadget-machine`
 
 Each term of a gadget makes at most one counter call (`callOf`, the call `intervalOf` reads). If every call's
 witness is useful (radius at most `ω`), every term interval has radius at most `ω`, which is the hypothesis of

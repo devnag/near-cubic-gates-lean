@@ -80,7 +80,7 @@ def pairCost (u w V : ℕ) : ℕ := 10 * u + 15 * w + 2 * nodeCost V + 100 * (V 
 
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 20000 in
-/-- **One pair of a multiplexer group** (paper §11.6 stage 2): writes `lit (a_j) w` and `and gIdx np`. -/
+/-- **One pair of a multiplexer group** (`sec:all-lengths` stage 2): writes `lit (a_j) w` and `and gIdx np`. -/
 theorem pairBody_exec {ℓ : ℕ} (cap : ℕ) (σ : WState 3 40) (u w j np a : ℕ)
     (hX : σ.val rX = u) (hY : σ.val rY = 0) (hBB : σ.val rBB = 0) (hW : σ.val rW = 0) (hF1 : σ.val rF1 = 0)
     (hF2 : σ.val rF2 = 0) (hJ : σ.val rJJ = j) (hNP : σ.val rNP = np) (hA : σ.val rA = a)

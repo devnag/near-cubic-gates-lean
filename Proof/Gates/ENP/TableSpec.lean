@@ -7,7 +7,7 @@ namespace NearCubicGates.Close.ENP
 
 open NearCubicWires NearCubicWires.LocalBitMultitape NearCubicWires.RepairSource NearCubicWires.Bindings.MW20
 
-/-- **Stage 2** (paper §11.6): the first honest oracle table of an oracle circuit, by SAT prefix self-reduction. -/
+/-- **Stage 2** (`sec:all-lengths`): the first honest oracle table of an oracle circuit, by SAT prefix self-reduction. -/
 structure TStage where
   program : OrdinaryOracleProgram
   inPort : Fin program.base.tapeCount

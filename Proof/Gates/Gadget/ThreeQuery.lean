@@ -27,7 +27,7 @@ structure ThreeQueryPCPP where
   honestPoly : Nonempty (Turing.TM2ComputableInPolyTime acceptedCircuitInputWord
     (fun word : List Bool => word) (fun p => List.ofFn (honest p)))
   codeLength : ∃ K : ℕ, ∀ n, 2 ≤ n → code.length n ≤ K * (n + 1)
-  /-- "a polynomial-time computable linear encoding Enc" (v2 line 2100). -/
+  /-- "a binary linear code Enc of constant rate with a polynomial-time encoder" (`imp:three-pcpp`). -/
   encPoly : Nonempty (Turing.TM2ComputableInPolyTime messageWord (fun word : List Bool => word)
     (fun p => List.ofFn (code.enc p.1 p.2.val)))
   /-- "If D(x) = 1, an auxiliary assignment computable in polynomial time satisfies every clause." -/
@@ -63,9 +63,13 @@ theorem sysEnc_far (E : LinearCodeFamily) (q : ℕ) (hq : 0 < q) (hL : q ≤ E.l
       by positivity
     nlinarith
 
-theorem threeQuery_of_source (h : ThreeQuerySourceGroup) : Nonempty ThreeQueryPCPP := by
-  obtain ⟨hpcpp, E, dist, rad, hrad, hrad_lt, hdist_lt, hlen, -, hdistance, -, hencTM, -⟩ := h
-  have hd0 : 0 < dist := hrad.trans hrad_lt
+/-- The three-query PCPP of the gadget from the proximity verifier and an efficient linear encoder: the systematic
+parity-check circuit `checkedCircuit` (`checkedCircuit_accepts_iff`) accepts exactly the words `(x, Enc x)` with
+`D x`, two systematic codewords are `dist/2`-far (`sysEnc_far`), and the verifier is applied at `dist/2`. No
+decoder is used. -/
+theorem threeQuery_of_encoder (hpcpp : PerfectThreeQueryProximityLiteral) (henc : EfficientLinearEncoder) :
+    Nonempty ThreeQueryPCPP := by
+  obtain ⟨E, dist, hd0, hdist_lt, hlen, hdistance, hencTM⟩ := henc
   obtain ⟨s, hs0, hs1, output, hTM, hsize, hsound, honest, hhonest, hhonestTM⟩ :=
     hpcpp (dist / 2) (by linarith) (by linarith)
   obtain ⟨γ, hγ0, hγ1⟩ := exists_rat_btwn (show (0 : ℝ) < 1 - s by linarith)
@@ -101,5 +105,8 @@ theorem threeQuery_of_source (h : ThreeQuerySourceGroup) : Nonempty ThreeQueryPC
   have := hsound (checkedCircuit E D) (sysEnc E D.n x) hfar proof
   have hγ : (1 : ℝ) - s ≥ γ := le_of_lt hγ1
   linarith
+
+theorem threeQuery_of_source (h : ThreeQuerySourceGroup) : Nonempty ThreeQueryPCPP :=
+  threeQuery_of_encoder h.1 h.2
 
 end NearCubicGates.Close.Gadget

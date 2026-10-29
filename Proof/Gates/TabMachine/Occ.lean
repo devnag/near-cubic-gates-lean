@@ -2,7 +2,7 @@ import Proof.Gates.TabMachine.Rest
 
 /-! # One variable occurrence of a monomial (the cut machine's inner step)
 
-lem:print (line 1458), one variable of a monomial at the inner point `c`: restrict the variable's gate to `c`
+Proof of lem:print, one variable of a monomial at the inner point `c`: restrict the variable's gate to `c`
 (`restrictP`), hand its outer weights and strict target to the exact-test compiler (lem:exact, `compileP`), split
 the children into fields (`explode`), put every child before every current tuple (`tupleStep`), and make the new
 tuples the current ones. **`occStep_spec`**: the tuple stream goes from `tf` to `newT (o.kids c) tf`. -/

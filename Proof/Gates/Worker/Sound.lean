@@ -147,7 +147,7 @@ variable {s : GateSources} {g : GateParams} (P : ThreeQueryPCPP) {N : ℕ} (x : 
   (G : Guess (width s g N))
 
 /-- On a hierarchy no-instance, once CHECK passes, `D_B` accepts at most a `1/L_ν` fraction of the outer randomness
-(paper v2 §11.4: "by imp:short-pcp, C^{O_{B_pf}}_{⟨B_src⟩_ν} is satisfied by at least a 1 − 1/L_ν fraction of its inputs.
+(`sec:gadget-machine`: "by imp:short-pcp, C^{O_{B_pf}}_{⟨B_src⟩_ν} is satisfied by at least a 1 − 1/L_ν fraction of its inputs.
 Hence D_B(x) = 1 on at most a 1/L_ν fraction of inputs"; `Outer.sound_at`). -/
 theorem outer_mean (hpow : N = 2 ^ nu N) (hν1 : 1 ≤ nu N) (hon : (g.sv s).onset ≤ nu N)
     (hfit : Outer.SrcFits g.lenExp (nu N) G.oracle.src) (hcheck : Outer.CheckAt (nu N) x G.oracle.src)

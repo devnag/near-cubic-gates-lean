@@ -36,7 +36,7 @@ theorem blk_ne (k k' : ℕ) (hk : k < 31) (hk' : k' < 31) (hs : 1 ≤ sz K k) (h
 
 theorem pow_le_E (X a E : ℕ) (hX : 1 ≤ X) (h : a ≤ E) : X ^ a ≤ X ^ E := Nat.pow_le_pow_right hX h
 
-/-- **The tail after stage 2** (paper §11.6, stage 3 and the two last branches). -/
+/-- **The tail after stage 2** (`sec:all-lengths`, stage 3 and the two last branches). -/
 theorem tailRuns : TailRuns K c := by
   intro C0 E0 hSB
   refine ⟨40 + 2 * 2 ^ c.Bq + 2 * C0 + K.c1.C + (aR s g).K + K.ht.C,

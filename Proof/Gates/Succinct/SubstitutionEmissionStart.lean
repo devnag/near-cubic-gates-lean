@@ -61,7 +61,7 @@ theorem emCost_le (S q M nC : ℕ) (hq : q ≤ S) (hM : M ≤ 2 * (S + 2) ^ 2) (
   omega
 
 set_option maxHeartbeats 2000000 in
-/-- **The start of the emission** (paper §11.4, `D_B`'s descriptor: header, then the fold's node `0`). -/
+/-- **The start of the emission** (`sec:gadget-machine`, `D_B`'s descriptor: header, then the fold's node `0`). -/
 theorem emStart_spec (cap : ℕ) (o : OracleOutput) {q : ℕ} (B : BooleanCircuit q) (σ : WState 4 nrH)
     (hs : StrAt σ o.word (PCPPNative.descriptor B) [] (ofl o.circuit) (natWord o.ell) (pC o) (pB B) 0 0 0)
     (hv : RV σ (V3 o B)) (hcell : σ.cell = false) (hcap : capH o B ≤ cap) :

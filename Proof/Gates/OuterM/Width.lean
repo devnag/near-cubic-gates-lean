@@ -73,7 +73,7 @@ theorem ideal_facts (r : Σ N, BitInput N) :
       (Expand.PolyTab.idealStart 1 9 (List.ofFn r.2) (fun _ => 0)).st 1 = [] := by
   refine ⟨?_, fun _ => rfl, fun _ => rfl, ?_⟩ <;> simp [Expand.PolyTab.idealStart]
 
-/-- **`q` in binary** (paper v2 §11.4, the exact native width): `x ↦ frame q.bits`, `q = q(2^{⌊log₂ |x|⌋})`. -/
+/-- **`q` in binary** (`sec:gadget-machine`, the exact native width): `x ↦ frame q.bits`, `q = q(2^{⌊log₂ |x|⌋})`. -/
 noncomputable def widthBitsFn (k A : ℕ) : OrdinaryWordFunction (Σ N, BitInput N) (fun r => List.ofFn r.2)
     (fun r => RepairOrdinary.frame (Outer.widthOf k A (2 ^ Nat.log 2 r.1)).bits)
     (fun r => widthK k A * (r.1 + 1) ^ 1) :=
@@ -85,7 +85,7 @@ noncomputable def widthBitsFn (k A : ℕ) : OrdinaryWordFunction (Σ N, BitInput
         (by simp [widthCap, List.length_ofFn])
       simpa [List.length_ofFn] using this)
 
-/-- **`q` in unary** (paper v2 §11.4, the exact native width): `x ↦ 1^q`, `q = q(2^{⌊log₂ |x|⌋})`. -/
+/-- **`q` in unary** (`sec:gadget-machine`, the exact native width): `x ↦ 1^q`, `q = q(2^{⌊log₂ |x|⌋})`. -/
 noncomputable def widthUnaryFn (k A : ℕ) : OrdinaryWordFunction (Σ N, BitInput N) (fun r => List.ofFn r.2)
     (fun r => List.replicate (Outer.widthOf k A (2 ^ Nat.log 2 r.1)) true)
     (fun r => widthK k A * (r.1 + 1) ^ 1) :=

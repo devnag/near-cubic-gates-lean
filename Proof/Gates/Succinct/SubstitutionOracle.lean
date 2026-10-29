@@ -37,7 +37,7 @@ theorem cp_len_le (fl : List Bool) (args : List ℕ) (n1 ob off S : ℕ) (B : Bo
     rw [Nat.succ_mul]; omega
 
 set_option maxHeartbeats 1600000 in
-/-- **The copy of `B`** (paper §11.4, an oracle gate's image). -/
+/-- **The copy of `B`** (`sec:gadget-machine`, an oracle gate's image). -/
 theorem copyLoop_spec (cap : ℕ) (B : BooleanCircuit q) (σ : WState 4 nrH) (hz : CBZ σ)
     (htag : σ.val (regH .tagB) = 0) (hD : σ.st sD = PCPPNative.descriptor B) (hDh : σ.sh sD = pB B)
     (hcd : σ.val (regH .cdB) = 0) (htC : σ.val (regH .tC) = B.nodes.length)

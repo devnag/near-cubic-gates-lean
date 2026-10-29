@@ -52,40 +52,40 @@ theorem leastUpTo_eq (Q : ℕ → Prop) [DecidablePred Q] (B t : ℕ) (ht : t �
 
 /-! ## The header and the fixed scales -/
 
-/-- The public data the parameters depend on (lines 1565–1621 use only these). -/
+/-- The public data the parameters depend on (the rules of `sec:finite` use only these). -/
 structure Header where
   n : ℕ
   W : ℕ
   pair : Bool
   beta : ℚ
 
-/-- `J_max = μ_n + 1` (line 1569). -/
+/-- `J_max = μ_n + 1` (`sec:finite`). -/
 def Jmax (n : ℕ) : ℕ := Target.mu n + 1
 
-/-- `k = (2J_max + c_T + μ_n) λ_n` (line 1570). -/
+/-- `k = (2J_max + c_T + μ_n) λ_n` (`sec:finite`). -/
 def inner (cT n : ℕ) : ℕ := (2 * Jmax n + cT + Target.mu n) * Target.lambda n
 
-/-- `B₀ = 4n⌈lg(n+1)⌉` (line 1546). -/
+/-- `B₀ = 4n⌈lg(n+1)⌉` (`sec:algorithm`). -/
 def B0 (n : ℕ) : ℕ := 4 * n * Nat.clog 2 (n + 1)
 
-/-- `G₀ = 2n⁴` (line 1546). -/
+/-- `G₀ = 2n⁴` (`sec:algorithm`). -/
 def G0 (n : ℕ) : ℕ := 2 * n ^ 4
 
-/-- `m`: `n − k` rounded up to even (line 1579). -/
+/-- `m`: `n − k` rounded up to even (`sec:finite`, rule 1). -/
 def outer (n k : ℕ) : ℕ := (n - k) + (n - k) % 2
 
-/-- `B_b = B₀ + ⌈lg(n+1)⌉ + ⌈lg(m+1)⌉ + 2` (line 1581). -/
+/-- `B_b = B₀ + ⌈lg(n+1)⌉ + ⌈lg(m+1)⌉ + 2` (`sec:finite`, rule 1). -/
 def Bb (n m : ℕ) : ℕ := B0 n + Nat.clog 2 (n + 1) + Nat.clog 2 (m + 1) + 2
 
-/-- `m_T = 1 + B_b m ⌈m/2⌉` (line 1582). -/
+/-- `m_T = 1 + B_b m ⌈m/2⌉` (`sec:finite`, rule 1). -/
 def mT (n m : ℕ) : ℕ := 1 + Bb n m * m * ((m + 1) / 2)
 
-/-- `U = 1 + 2G₀m_T` (line 1582). -/
+/-- `U = 1 + 2G₀m_T` (`sec:finite`, rule 1). -/
 def Ubase (n m : ℕ) : ℕ := 1 + 2 * G0 n * mT n m
 
 /-! ## Rule 1: the concentration parameter `T` -/
 
-/-- `2^t β ≥ 4 J_max 2^k` (line 1575). -/
+/-- `2^t β ≥ 4 J_max 2^k` (`sec:finite`, rule 1). -/
 def TPass (k J : ℕ) (β : ℚ) (t : ℕ) : Prop := (((4 * J * 2 ^ k : ℕ)) : ℚ) ≤ 2 ^ t * β
 
 instance (k J : ℕ) (β : ℚ) : DecidablePred (TPass k J β) := fun t => by
@@ -99,7 +99,7 @@ def leastT (k J : ℕ) (β : ℚ) : Option ℕ := leastUpTo (TPass k J β) (TBou
 
 /-! ## Rule 2: the degree budget, eq:degree-budget with the constant 100 -/
 
-/-- `2^{100(k+2)} U^{100 D} ≤ 2^m` (line 1587). -/
+/-- `2^{100(k+2)} U^{100 D} ≤ 2^m` (eq:degree-budget). -/
 def DegreePass (n k m D : ℕ) : Prop := 2 ^ (100 * (k + 2)) * Ubase n m ^ (100 * D) ≤ 2 ^ m
 
 instance (n k m : ℕ) : DecidablePred (DegreePass n k m) := fun D => by
@@ -110,7 +110,7 @@ def greatestDegree (n k m : ℕ) : ℕ := Nat.findGreatest (DegreePass n k m) m
 
 /-! ## Rule 3: the prime scale, eq:prime-budget -/
 
-/-- `P^e ≥ 2^{k+1+e}` with `e ≥ 1` (line 1595). -/
+/-- `P^e ≥ 2^{k+1+e}` with `e ≥ 1` (`sec:finite`, rule 3). -/
 def LiftPass (k P e : ℕ) : Prop := 1 ≤ e ∧ 2 ^ (k + 1 + e) ≤ P ^ e
 
 instance (k P : ℕ) : DecidablePred (LiftPass k P) := fun e => by
@@ -119,7 +119,7 @@ instance (k P : ℕ) : DecidablePred (LiftPass k P) := fun e => by
 /-- `e_P`, the least positive lift exponent; for `P ≥ 3` it is at most `2(k+1)`. -/
 def liftExp (k P : ℕ) : Option ℕ := leastUpTo (LiftPass k P) (2 * (k + 1))
 
-/-- `3 ≤ P ≤ min(n, D_max+1)` satisfying eq:prime-budget (lines 1594–1598). -/
+/-- `3 ≤ P ≤ min(n, D_max+1)` satisfying eq:prime-budget (`sec:finite`, rule 3). -/
 def PrimeCandidate (n k J Dmax P : ℕ) : Prop :=
   3 ≤ P ∧ P ≤ min n (Dmax + 1) ∧
     ∃ e, liftExp k P = some e ∧ (2 * e - 1) * (2 * J + 2) * (P - 1) ≤ Dmax
@@ -130,22 +130,22 @@ instance (n k J Dmax : ℕ) : DecidablePred (PrimeCandidate n k J Dmax) := fun P
     (dq := decidable_of_iff (∃ e, liftExp k P = some e ∧ (2 * e - 1) * (2 * J + 2) * (P - 1) ≤ Dmax)
       Iff.rfl))
 
-/-- The prime set `𝒫`: all primes in `(P/2, P]` (line 1600). -/
+/-- The prime set `𝒫`: all primes in `(P/2, P]` (`sec:finite`, rule 3). -/
 def dyadicPrimes (P : ℕ) : Finset ℕ :=
   (Finset.range (P + 1)).filter (fun p => Nat.Prime p ∧ P < 2 * p)
 
-/-- `L ≥ 2` is admissible if `S(⌊(D'−1)/(L−1)⌋) ≥ L` (lem:window-size, line 1058). -/
+/-- `L ≥ 2` is admissible if `S(⌊(D'−1)/(L−1)⌋) ≥ L` (lem:window-size). -/
 def Admissible (D' L : ℕ) : Prop :=
   2 ≤ L ∧ L ≤ TomographyDirections.degreeSum ((D' - 1) / (L - 1))
 
 instance (D' : ℕ) : DecidablePred (Admissible D') := fun L => by
   unfold Admissible; infer_instance
 
-/-- `L₂`: the largest admissible `L`, or one if none exists (line 1059). Admissible `L` are at most `D'`. -/
+/-- `L₂`: the largest admissible `L`, or one if none exists (lem:window-size). Admissible `L` are at most `D'`. -/
 def pairSide (D' : ℕ) : ℕ :=
   if Nat.findGreatest (Admissible D') D' = 0 then 1 else Nat.findGreatest (Admissible D') D'
 
-/-- `L_w = L₂` for a two-circuit call and `D'` for the other kinds (line 1606). -/
+/-- `L_w = L₂` for a two-circuit call and `D'` for the other kinds (`sec:finite`, rule 3). -/
 def windowInUse (pair : Bool) (L2 D' : ℕ) : ℕ := if pair then L2 else D'
 
 /-! ## Rule 4: the chain of lem:chain -/
@@ -197,7 +197,7 @@ structure Params where
   A : ℕ
   Lambda : ℕ
 
-/-- The computed record, with the default (`none`) at every failed guard of lines 1572–1621. -/
+/-- The computed record, with the default (`none`) at every failed guard of `sec:finite`. -/
 def selectParams (cT : ℕ) (hd : Header) : Option Params :=
   let n := hd.n
   let k := inner cT n
@@ -239,7 +239,7 @@ namespace NearCubicGates.Close.Counter
 
 open NearCubicGates
 
-/-- Every rule of lines 1565–1621, as satisfied by a selected record. -/
+/-- Every rule of `sec:finite`, as satisfied by a selected record. -/
 structure Spec (cT : ℕ) (hd : Header) (p : Params) : Prop where
   n_eq : p.n = hd.n
   pair_eq : p.pair = hd.pair
@@ -341,9 +341,10 @@ end NearCubicGates.Close.Counter
 /-!
 # Consequences of the parameter rules used by soundness and by the time count
 
-From `Spec` alone (paper v2 §7.1, lines 1565–1621): the prime set consists of primes in `(P/2, P]`
-(`primes_prime`, `primes_le`, `primes_gt`), each exceeds the digit window `2h_E − 1` (line 1745: "fewer than any
-prime in 𝒫"), lifts beyond `2^k` (`prime_pow_gt`, line 1676: `p^e > 2^k`), the chain ratios satisfy `a_j ≥ 4` so
+From `Spec` alone (`sec:finite`): the prime set consists of primes in `(P/2, P]`
+(`primes_prime`, `primes_le`, `primes_gt`), each exceeds the digit window `2h_E − 1` (proof of `prop:sound`: "fewer than any
+prime in 𝒫"), lifts beyond `2^k` (`prime_pow_gt`; `sec:algorithm`: "every `p ∈ 𝒫` has `p^e > 2^k`"),
+the chain ratios satisfy `a_j ≥ 4` so
 `A > 0` (lem:chain (i)), the windows are at least one, and the window in use is one of the three injective cases
 (lem:one-window, lem:two-window, singleton).
 -/
@@ -377,7 +378,7 @@ theorem primes_gt (hs : Spec cT hd p) : ∀ q ∈ p.primes, p.P < 2 * q := by
   rw [hs.primes_eq, mem_dyadicPrimes] at hq
   exact hq.2.2
 
-/-- The digit window `2h_E − 1` is below every prime of the set (line 1745). -/
+/-- The digit window `2h_E − 1` is below every prime of the set (proof of `prop:sound`). -/
 theorem digit_width (hs : Spec cT hd p) : ∀ q ∈ p.primes, 2 * (p.hE : ℤ) - 1 ≤ q := by
   intro q hq
   have h1 := primes_gt hs q hq
@@ -385,7 +386,7 @@ theorem digit_width (hs : Spec cT hd p) : ∀ q ∈ p.primes, 2 * (p.hE : ℤ) -
   have h3 : 4 * (p.P / 4) ≤ p.P := Nat.mul_div_le p.P 4
   omega
 
-/-- `p^e > 2^k` for every prime of the set (line 1676). -/
+/-- `p^e > 2^k` for every prime of the set (`sec:algorithm`, "Witnesses and the tables to be computed"). -/
 theorem prime_pow_gt (hs : Spec cT hd p) : ∀ q ∈ p.primes, 2 ^ p.k < q ^ p.e := by
   intro q hq
   have hlift := (leastUpTo_spec _ _ _ hs.e_eq).1
@@ -485,7 +486,7 @@ theorem Lw_pos (hs : Spec cT hd p) : 1 ≤ p.Lw := by
   · rw [hs.L2_eq]; exact pairSide_pos _
   · rw [hs.window_eq]; exact window_pos _
 
-/-- `L₂` is either one or an admissible side (lem:window-size, line 1058). -/
+/-- `L₂` is either one or an admissible side (lem:window-size). -/
 theorem pairSide_cases (D' : ℕ) :
     pairSide D' ≤ 1 ∨ (2 ≤ pairSide D' ∧
       pairSide D' ≤ TomographyDirections.degreeSum ((D' - 1) / (pairSide D' - 1))) := by
@@ -525,9 +526,9 @@ theorem k_pos_of (hs : Spec cT hd p) (hn : 2 ≤ hd.n) : 1 ≤ p.k := by
   have hl : 1 ≤ Target.lambda hd.n := Nat.clog_pos (by norm_num) (by omega)
   nlinarith
 
-/-! ## One statement per rule of §7.1 -/
+/-! ## One statement per rule of `sec:finite` -/
 
-/-- "The search for `L₂` is finite: admissible `L`'s are at most `D'`" (line 1603). -/
+/-- "The search for `L₂` is finite: admissible `L`'s are at most `D'`" (`sec:finite`, rule 3). -/
 theorem admissible_le (D' L : ℕ) (hD : 1 ≤ D') (h : Admissible D' L) : L ≤ D' := by
   by_contra hlt
   have hq : (D' - 1) / (L - 1) = 0 := Nat.div_eq_of_lt (by omega)
@@ -536,7 +537,7 @@ theorem admissible_le (D' L : ℕ) (hD : 1 ≤ D') (h : Admissible D' L) : L ≤
   simp [TomographyDirections.degreeSum] at h2
   omega
 
-/-- `L₂` is the largest admissible side, or one if none exists (lem:window-size, line 1059). -/
+/-- `L₂` is the largest admissible side, or one if none exists (lem:window-size). -/
 theorem pairSide_spec (D' : ℕ) (hD : 1 ≤ D') :
     (pairSide D' = 1 ∧ ∀ L, ¬ Admissible D' L) ∨
       (Admissible D' (pairSide D') ∧ ∀ L, Admissible D' L → L ≤ pairSide D') := by
@@ -551,14 +552,14 @@ theorem pairSide_spec (D' : ℕ) (hD : 1 ≤ D') :
     exact ⟨Nat.findGreatest_of_ne_zero rfl h,
       fun L hL => Nat.le_findGreatest (admissible_le D' L hD hL) hL⟩
 
-/-- Rule 1 (lines 1575–1584): `T` is the least nonnegative integer with `2^T β ≥ 4J_max 2^k`, and `m` is `n − k`
+/-- Rule 1 of `sec:finite`: `T` is the least nonnegative integer with `2^T β ≥ 4J_max 2^k`, and `m` is `n − k`
 rounded up to even. -/
 theorem spec_rule1 (hs : Spec cT hd p) :
     TPass p.k (Jmax hd.n) hd.beta p.T ∧ (∀ t, t < p.T → ¬ TPass p.k (Jmax hd.n) hd.beta t) ∧
       p.m = outer hd.n p.k ∧ p.k = inner cT hd.n ∧ p.k < hd.n :=
   ⟨hs.T_pass, hs.T_least, hs.m_eq, hs.k_eq, hs.k_lt⟩
 
-/-- Rule 2 (eq:degree-budget, line 1587, constant 100): `D_max` is the largest passing degree, and degree zero
+/-- Rule 2 (eq:degree-budget, constant 100): `D_max` is the largest passing degree, and degree zero
 passes. -/
 theorem spec_rule2 (hs : Spec cT hd p) (hn : 0 < hd.n) :
     DegreePass hd.n p.k p.m p.Dmax ∧ ∀ D, DegreePass hd.n p.k p.m D → D ≤ p.Dmax := by
@@ -577,7 +578,7 @@ theorem spec_rule2 (hs : Spec cT hd p) (hn : 0 < hd.n) :
   have := (Nat.pow_le_pow_iff_right (by decide : 1 < (2 : ℕ))).mp hpow
   omega
 
-/-- Rule 3 (eq:prime-budget, lines 1593–1606): `P` is the largest candidate, `e = e_P`, `𝒫` the primes in
+/-- Rule 3 (eq:prime-budget; `sec:finite`, rule 3): `P` is the largest candidate, `e = e_P`, `𝒫` the primes in
 `(P/2, P]` (nonempty), `D'`, `L₂`, `L_w`. -/
 theorem spec_rule3 (hs : Spec cT hd p) :
     PrimeCandidate hd.n p.k (Jmax hd.n) p.Dmax p.P ∧
@@ -593,7 +594,7 @@ theorem spec_rule3 (hs : Spec cT hd p) :
     rw [hs.P_eq]
     exact Nat.le_findGreatest (hP'.2.1.trans (le_refl _)) hP'
 
-/-- Rule 4 (lines 1608–1621): `h_E, h, R₀, ℓ₀`, the guards, the chain with `J ≤ J_max`, and `Λ`. -/
+/-- Rule 4 of `sec:finite`: `h_E, h, R₀, ℓ₀`, the guards, the chain with `J ≤ J_max`, and `Λ`. -/
 theorem spec_rule4 (hs : Spec cT hd p) :
     p.hE = p.P / 4 ∧ p.h = Nat.sqrt (2 * p.hE ^ 2) ∧ p.R0 = Nat.sqrt (hd.n - p.k + 1) ∧
       p.ell0 = ((hd.W * p.k : ℕ) : ℚ) / (hd.beta * p.R0) ∧ 100 ≤ p.P ∧ 64 * p.T ≤ p.h ∧ 2 * p.k ≤ p.Dmax ∧

@@ -5,7 +5,7 @@ namespace GR
 
 /-! One fixed common prefix on every final input length. Its parameters are
 chosen once from the actual weak machine and the selected refuter. All costs
-use the existing C.12 table-length envelope, including finite rejected lengths. -/
+use the existing table-length envelope of the `E^NP` recovery (`sec:all-lengths`), including finite rejected lengths. -/
 namespace NearCubicWires.RepairSource.CloseoutCommonPrefix
 open LocalBitMultitape RepairOrdinary CloseoutSchedule CloseoutRetainedRefuter
 open OrdinaryOracleCompose

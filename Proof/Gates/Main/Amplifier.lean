@@ -8,7 +8,7 @@ import Proof.Circuits.PolynomialOrdinaryClock
 `NineInputs.amplification` is CLW20 Lemma 3.9 with the ordinary multitape `TimeConstructible` of input 7
 (`CLW20_Lemma3_9_Multitape`). The proof needs the lemma at the size schedule `oracleSizeBound d = pairClock D`,
 `S(n) = (n+1)^K − 1` with `K = 2^D`, `D = oracleDepth d ≥ 1` (`pairClock_succ_exact`). The lemma is applied where
-the paper applies it (paper v2, `imp:ae-amplification`: "with S(q) = q^G"), at `S'(n) = n^K`, whose multitape clock is
+the paper applies it (`imp:ae-amplification`: "with S(q) = q^G"), at `S'(n) = n^K`, whose multitape clock is
 `PolynomialClock.ordinaryClock (K − 2)`. `transfer` then moves the conclusion from `S'` to `S` with the constant
 doubled: `S' ≤ S` carries the hardness hypothesis down, and `S ≤ S'^2` for `n ≥ 2` carries the inapproximability
 up; `n = 0` is the same statement, and `n = 1` is vacuous (every one-bit function has a circuit with two nodes, while
@@ -69,7 +69,7 @@ theorem hasCircuitOfSize_one (f : BoolFunction 1) : HasCircuitOfSize f 2 := by
 
 /-! ## The two size functions -/
 
-/-- Where the lemma is applied: `S'(n) = n^K`, `K = 2^(oracleDepth d)` (paper v2's `S(q) = q^G`). -/
+/-- Where the lemma is applied: `S'(n) = n^K`, `K = 2^(oracleDepth d)` (the paper's `S(q) = q^G`, `imp:ae-amplification`). -/
 def powSize (d n : ℕ) : ℕ := n ^ (2 ^ oracleDepth d)
 
 theorem two_le_degree (d : ℕ) : 2 ≤ 2 ^ oracleDepth d := by

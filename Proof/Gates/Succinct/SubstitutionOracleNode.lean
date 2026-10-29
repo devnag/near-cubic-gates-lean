@@ -38,7 +38,7 @@ theorem oCost (S nb l nl lb : ℕ) (hnb : nb ≤ S) (hl : l ≤ S) (hnl : nl ≤
   omega
 
 set_option maxHeartbeats 3200000 in
-/-- **An oracle gate of `C`** (paper §11.4): its image is `B`'s nodes copied at offset `cur` (`cpNode`). -/
+/-- **An oracle gate of `C`** (`sec:gadget-machine`): its image is `B`'s nodes copied at offset `cur` (`cpNode`). -/
 theorem nC5_spec (cap : ℕ) (B : BooleanCircuit q) (σ : WState 4 nrH) (hz : CBZ σ)
     (htagB : σ.val (regH .tagB) = 0) (htC : σ.val (regH .tC) = 0) (hcdB : σ.val (regH .cdB) = 0)
     (hL0 : σ.val (regH .L) = 0) (hcdL : σ.val (regH .cdL) = 0)

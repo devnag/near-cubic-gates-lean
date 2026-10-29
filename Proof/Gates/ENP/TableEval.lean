@@ -708,7 +708,7 @@ theorem nodes_wf : WF 0 (nodes C) := by
   intro z _
   exact seed_wf C z
 
-/-- **The stage-2 circuit `c_T`** on the `2^ℓ` table bits (paper §11.6 stage 2). -/
+/-- **The stage-2 circuit `c_T`** on the `2^ℓ` table bits (`sec:all-lengths` stage 2). -/
 def tCircuit : BooleanCircuit (T ℓ) where
   nodes := nodes C
   output := ⟨(nodes C).length - 1, by rw [nodes_length]; simp only [base, S]; omega⟩
@@ -728,7 +728,7 @@ theorem tCircuit_eval_allUpTo (r : BitInput (T ℓ)) : (tCircuit C).eval r = all
     rw [nodes_length]
   rw [hidx, h.read]
 
-/-- **The meaning of `c_T`** (paper §11.6 stage 2): it accepts the table `t` exactly when `C^{O_t}` is unsatisfiable,
+/-- **The meaning of `c_T`** (`sec:all-lengths` stage 2): it accepts the table `t` exactly when `C^{O_t}` is unsatisfiable,
 `O_t(a) = t(binaryAddress a)`. -/
 theorem tCircuit_eval (r : BitInput (T ℓ)) :
     (tCircuit C).eval r = true ↔ ∀ w : BitInput ℓ, C.eval (tOr r) w = false := by

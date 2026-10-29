@@ -2,7 +2,7 @@ import Proof.Gates.TabMachine.Mono4
 
 /-! # All monomials at one inner point
 
-lem:print (line 1458): at the inner point `c`, every monomial of `Q` in order. The occurrence stream holds the code
+Proof of lem:print: at the inner point `c`, every monomial of `Q` in order. The occurrence stream holds the code
 of the monomials, `codeRecs ts` (per monomial its occurrence count, then its occurrence blocks); the coefficient
 stream `Z 56` holds the coefficients, one record each. **`pointBody_spec`**: a record loop over the coefficients runs
 `monoStep` per monomial, so the cut stream gains `cutsOf Wd s c ts`, the fields of `Code.pointCutsL c`; the read

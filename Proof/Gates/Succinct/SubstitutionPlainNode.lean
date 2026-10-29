@@ -16,7 +16,7 @@ open NearCubicWires.Bindings.MW20
 open NearCubicGates.Close.WordPrograms NearCubicGates.Close.Succinct NearCubicGates.Close.Outer
 open RepairRepresentation (natWord)
 
-/-- **`C`'s `const b`** (paper §11.4; `Outer.substStepG`). -/
+/-- **`C`'s `const b`** (`sec:gadget-machine`; `Outer.substStepG`). -/
 theorem nC0b_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preW restW : List Bool) (bb : Bool)
     (hD : σ.st sW = preW ++ natWord bb.toNat ++ natWord 0 ++ restW) (hDh : σ.sh sW = preW.length)
     (out : List Bool) (hout : OutOK σ out) (hcl : WClean σ) {n : ℕ}
@@ -110,7 +110,7 @@ theorem nC2_cost (S c pc pf : ℕ) (hc : c ≤ S) (hp : pc ≤ 100 * (S + 2) ^ 2
   generalize (S + 2) ^ 2 = X at *
   omega
 
-/-- **`C`'s `not c`** (paper §11.4; `Outer.substStepG`: `not (ref c)`). -/
+/-- **`C`'s `not c`** (`sec:gadget-machine`; `Outer.substStepG`: `not (ref c)`). -/
 theorem nC2b_spec (cap : ℕ) (σ : WState 4 nrH) (hz : CBZ σ) (preW restW : List Bool) (c : ℕ)
     (hW : σ.st sW = preW ++ natWord c ++ natWord 0 ++ restW) (hWh : σ.sh sW = preW.length)
     (fl : List Bool) (hF : σ.st sF = fl) (hFh : σ.sh sF = 0) (S : ℕ) (hcS : c ≤ S)
@@ -215,7 +215,7 @@ theorem nC34_cost (S l r pc1 pc2 pf1 pf2 : ℕ) (hl : l ≤ S) (hr : r ≤ S) (h
   have hXX : 4 * X ≤ X * X := Nat.mul_le_mul_right _ h4'
   nlinarith
 
-/-- **`C`'s `and l r` / `or l r`** (paper §11.4; `Outer.substStepG`: the gate on `ref l`, `ref r`). -/
+/-- **`C`'s `and l r` / `or l r`** (`sec:gadget-machine`; `Outer.substStepG`: the gate on `ref l`, `ref r`). -/
 theorem nC34b_spec (cap : ℕ) (tg : ℕ) {n : ℕ} (mk : ℕ → ℕ → BooleanNode n)
     (hmk : ∀ x y, PCPPRequestNodeSchema.fields (mk x y) 0 = tg ∧ PCPPRequestNodeSchema.fields (mk x y) 1 = x ∧
       PCPPRequestNodeSchema.fields (mk x y) 2 = y) (htg : tg ≤ 4)

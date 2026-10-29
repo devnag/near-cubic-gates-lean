@@ -13,7 +13,7 @@ open NearCubicGates.Close.Interfaces NearCubicGates.Close.Interfaces.Formats
 section Res
 variable {V r : ℕ}
 
-/-- `Amp_e(∏_i (1 − (f_i − ρ_i)^{p−1}))` (lem:residue-count, line 1511) with formula-valued forms. -/
+/-- `Amp_e(∏_i (1 − (f_i − ρ_i)^{p−1}))` (lem:residue-count) with formula-valued forms. -/
 def resF (p e : ℕ) (f : Fin r → Formula V) (ρ : Fin r → ℤ) : Formula V :=
   Formula.amp e (Formula.prodList ((List.finRange r).map fun i =>
     .sub (.const 1) (.pow (.sub (f i) (.const (ρ i))) (p - 1))))

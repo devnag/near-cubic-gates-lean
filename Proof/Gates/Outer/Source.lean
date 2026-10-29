@@ -71,4 +71,35 @@ theorem mwSource_of_literal (h : MW20_OracleCircuitPCP_TM2) : MWSource := by
   · exact Nat.mul_le_mul_right _ (Nat.mul_le_mul_right _ (by omega))
   · exact Nat.mul_le_mul_right _ (by omega)
 
+/-- Input 6 in the ordinary model gives the import: the constructor's budget `K·(|input| + 1)^e` becomes a
+polynomial in `n + natBitLength (T n) + 1` (`input_length_le`); no machine simulation is needed. -/
+theorem mwSource_of_ordinary (h : OrdinaryOracleCircuitPCP) : MWSource := by
+  intro V T hT hrun
+  obtain ⟨out, ⟨Kc, ec, ⟨W⟩⟩, ⟨Kl, el, hl⟩, ⟨Ks, es, hs⟩, hc, hsd⟩ := h V T hT hrun
+  refine ⟨{
+    output := out
+    coefficient := Kc * 3 ^ ec + Kl + Ks + 1
+    coefficientPositive := Nat.succ_pos _
+    constructionExp := ec
+    ellExp := el
+    sizeExp := es
+    constructor := RepairOrdinary.WordFunction.enlargeBudget W ?_
+    ellBound := fun r hr => (hl r hr).trans ?_
+    sizeBound := fun r hr => (hs r hr).trans ?_
+    complete := fun r hr hy => hc r hr hy
+    sound := fun r hr hn O => hsd r hr hn O }⟩
+  · intro r
+    have hlen := input_length_le T r
+    rw [pow_one] at hlen
+    have h3 : (frame (List.ofFn r.2) ++ frame (T r.1).bits).length + 1 ≤
+        3 * (r.1 + natBitLength (T r.1) + 1) := by omega
+    calc Kc * ((frame (List.ofFn r.2) ++ frame (T r.1).bits).length + 1) ^ ec
+        ≤ Kc * (3 * (r.1 + natBitLength (T r.1) + 1)) ^ ec :=
+          Nat.mul_le_mul_left _ (Nat.pow_le_pow_left h3 _)
+      _ = Kc * 3 ^ ec * (r.1 + natBitLength (T r.1) + 1) ^ ec := by rw [mul_pow, mul_assoc]
+      _ ≤ (Kc * 3 ^ ec + Kl + Ks + 1) * (r.1 + natBitLength (T r.1) + 1) ^ ec :=
+          Nat.mul_le_mul_right _ (by omega)
+  · exact Nat.mul_le_mul_right _ (Nat.mul_le_mul_right _ (by omega))
+  · exact Nat.mul_le_mul_right _ (by omega)
+
 end NearCubicGates.Close.Outer

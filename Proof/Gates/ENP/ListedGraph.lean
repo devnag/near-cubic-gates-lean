@@ -86,7 +86,7 @@ noncomputable def machine (d : ℕ) :=
   Composition.machine (RecoveryFocus.machine (supplierSlot d) (USupply.machine d))
     (RecoveryFocus.machine (graphSlot d) RecoveryBoundedColdGraph.machine)
 
-/-- The listed-pairs formula's verifier circuit (paper §11.6 stages 1 and 3). -/
+/-- The listed-pairs formula's verifier circuit (`sec:all-lengths` stages 1 and 3). -/
 noncomputable def circuit (d w R : ℕ) (vals : List Bool) (hw : w ≤ R) {n : ℕ} (x : BitInput n) :=
   boundedOracleVerifierCircuit (unitOuter w R vals hw) x (oracleSizeBound d R)
 
@@ -97,7 +97,7 @@ noncomputable def budget (d w R W : ℕ) (vals : List Bool) (hw : w ≤ R) {n : 
       (circuit d w R vals hw x)
 
 set_option maxHeartbeats 3000000 in
-/-- **The listed-pairs formula** (paper §11.6, stages 1 and 3): the builder halts with the balanced CNF payload of the
+/-- **The listed-pairs formula** (`sec:all-lengths`, stages 1 and 3): the builder halts with the balanced CNF payload of the
 recovery formula of `unitOuter w R vals hw` and the unary arity of its description variables. -/
 theorem first_run (d : ℕ) (vals post : List Bool) (w R W : ℕ) (hlen : vals.length = 2 ^ w) (hw : w ≤ R)
     {n : ℕ} (x : BitInput n) (hb : 0 < oracleSizeBound d R)

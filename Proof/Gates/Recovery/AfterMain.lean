@@ -40,7 +40,7 @@ noncomputable def qC (K : Kit s P g) : ℕ := K.ts.K * (1915 + (aR s g).K) ^ K.t
 
 noncomputable def qE (K : Kit s P g) : ℕ := (2 * qD g + (aR s g).e) * K.ts.e
 
-/-- **Stage 2's cost is a fixed polynomial in `2^n`** (paper §11.6: formulas of size `2^{O(q)}`, `q ≤ n`). -/
+/-- **Stage 2's cost is a fixed polynomial in `2^n`** (`sec:all-lengths`: formulas of size `2^{O(q)}`, `q ≤ n`). -/
 theorem qfits_bound (K : Kit s P g) (n ν : ℕ) (hL : Live s g n ν) :
     K.ts.K * (2 ^ g.width s ν + (39 * (g.width s ν + g.bound s ν + 5) ^ 2 + ν +
       (aR s g).K * (ν + 1) ^ (aR s g).e) + 1) ^ K.ts.e ≤ qC K * (2 ^ n + 1) ^ qE K := by
@@ -95,7 +95,7 @@ theorem live_of {s : GateSources} {g : GateParams} (hR : AfterReady s g) {n ν :
   have h := le_trans (le_max_right _ _) hcut
   exact (Nat.pow_le_pow_iff_right (by norm_num)).mp h
 
-/-- **The assembly** (paper §11.6), from the three run segments. -/
+/-- **The assembly** (`sec:all-lengths`), from the three run segments. -/
 theorem afterSupply_of_segs
     (hHead : ∀ (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) (K : Kit s P g) (c : Cfg), HeadRuns K c)
     (hMid : ∀ (s : GateSources) (P : ThreeQueryPCPP) (g : GateParams) (K : Kit s P g) (c : Cfg), MidRuns K c)

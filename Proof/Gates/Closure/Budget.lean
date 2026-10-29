@@ -2,7 +2,7 @@ import Proof.Gates.Interfaces.Counter
 import Proof.Gates.Transfer.Budget
 
 /-!
-# The computable weight budget — paper v2 line 2516 ("b(q) = ⌊η₀ ε 𝒜₃(q)⌋")
+# The computable weight budget — `sec:all-lengths` ("b(q) = ⌊η₀ ε 𝒜₃(q)⌋"; `eq:gadget-parameters`)
 
 The worker checks `topWeight ≤ b(q)`, so `b` must be computable from `q` with integer arithmetic. With a rational
 `η > 0` and `r = ⌈λ^{1/4}⌉` (`root4 λ`, the least `r` with `λ ≤ r⁴`):

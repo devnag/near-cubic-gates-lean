@@ -16,7 +16,8 @@ variable (c : GateClosure s P ε)
 noncomputable def input (n : ℕ) : BitInput (2 ^ c.g.selected s n) :=
   (s.hierarchy (fun n => n ^ (c.g.k + 2)) c.g.clock).output c.M (2 ^ c.g.selected s n)
 
-/-- Case 2 at the selected source length (paper v2 §11.5: the first honest oracle of the first CHECK-passing source
+/-- Case 2 at the selected source length (`sec:gadget-extract`, case (Tautology): the first honest oracle of the
+first CHECK-passing source
 circuit has a `q^G`-gate circuit). -/
 def Small (n : ℕ) : Prop := c.g.IsCaseTwo s (c.g.selected s n) (c.input n)
 
@@ -25,7 +26,7 @@ noncomputable def nativeFn (n : ℕ) : BoolFunction (c.g.nativeLength s n) := c.
 end GateClosure
 
 /-- Selection facts shared by the case parts: the selected source index tends to infinity, and at large `n` it is a
-genuine index (`1 ≤ ν`, past the source onset) whose core arity is the native length (v2 lines 2499–2512). -/
+genuine index (`1 ≤ ν`, past the source onset) whose core arity is the native length (`sec:all-lengths`). -/
 def SelectionFacts (c : GateClosure s P ε) : Prop :=
   (∀ N0 : ℕ, ∃ n0 : ℕ, ∀ n, n0 ≤ n → N0 ≤ c.g.selected s n) ∧
     ∃ o : ℕ, ∀ n, o ≤ n → 1 ≤ c.g.selected s n ∧ c.g.sourceOnset ≤ 2 ^ c.g.selected s n ∧

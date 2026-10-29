@@ -272,7 +272,7 @@ theorem window_geometry_eventually (source : PublishedSources.PrimeDensity.Apost
     simpa only [windowInUse, hp, if_true, pairGrowthConstant] using
       pairBound.trans (Nat.mul_le_mul_left _ (Nat.pow_le_pow_left retained 4))
 
-/-! ## The caps pay the live term (proof of thm:pair-uniform, lines 1909–1934) -/
+/-! ## The caps pay the live term (proof of thm:pair-uniform) -/
 
 def liveCoefficient (B1 cT : ℕ) : ℕ := 244 * tCoefficient B1 cT * (cT + 5)
 

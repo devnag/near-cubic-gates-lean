@@ -34,7 +34,8 @@ noncomputable def cpNode (fl : List Bool) (args : List ℕ) (n1 ob off : ℕ) : 
   | .and l r => .and (off + l) (off + r)
   | .or l r => .or (off + l) (off + r)
 
-/-- **The written node is `Outer.copyNode`** (paper §11.4): the machine's images agree with the fold's references. -/
+/-- **The written node is `Outer.copyNode`** (`sec:gadget-machine`): the machine's images agree with the fold's
+references. -/
 theorem cpNode_eq (B : BooleanCircuit q) (C : OracleCircuit ℓ ℓ) (i : ℕ) (hi : i < C.nodes.length)
     (args : Fin ℓ → ℕ) (hargs : ∀ j, args j < i) (t : ℕ) (ht : t < B.nodes.length) :
     cpNode (ofl C) (List.ofFn args) (B.nodes.length - 1) B.output.val (accI B C i).1.length B.nodes[t] =
@@ -119,7 +120,7 @@ theorem br_cost (S a b c : ℕ) (ha : a ≤ S) (hb : b ≤ S) (hc : c ≤ (S + 2
   constructor <;> nlinarith
 
 set_option maxHeartbeats 3200000 in
-/-- **One node of `B`, copied** (paper §11.4; `Outer.copyNode` by `cpNode_eq`). -/
+/-- **One node of `B`, copied** (`sec:gadget-machine`; `Outer.copyNode` by `cpNode_eq`). -/
 theorem copyStep (cap : ℕ) (B : BooleanCircuit q) (t : ℕ) (ht : t < B.nodes.length) (σ : WState 4 nrH) (hz : CBZ σ)
     (htag : σ.val (regH .tagB) = 0) (hD : σ.st sD = PCPPNative.descriptor B)
     (hDh : σ.sh sD = pB B + lenB B t) (preA restA : List Bool) (args : List ℕ)

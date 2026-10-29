@@ -16,7 +16,8 @@ open NearCubicWires.RepairSource NearCubicWires.RepairSource.ProjectionNormaliza
 open NearCubicGates.PublishedSources.PCPP NearCubicGates.Close.Gadget NearCubicGates.Close.Transfer
 open NearCubicWires.Bindings.CLW20Lemma311 NearCubicWires.WireExponent3_5.PrimT.ReadEq
 
-/-- The supports record word (v2 line 2112): code row `j < L` contributes `listWord natWord` of the canonical list of
+/-- The supports record word (`imp:three-pcpp`: "Each systematic coordinate is a parity of input coordinates"):
+code row `j < L` contributes `listWord natWord` of the canonical list of
 its support (`canonList`, the order of `checkedCircuit`'s parity chains), as indices. -/
 def supportsWord (E : LinearCodeFamily) (q : ℕ) : List Bool :=
   (List.finRange (E.length q)).flatMap fun j =>
@@ -27,13 +28,13 @@ def portBank (t : ℕ) (a b : Fin t) (h d : List Bool) : Fin t → List Bool :=
   fun i => if i = a then h else if i = b then d else []
 
 /-- The word of the oracle circuit `C_{⟨B_src⟩_ν}` (`ν = log₂ N`) that the imported constructor returns (input 6's
-`OracleOutput.word`; paper v2 §11.4, "It constructs `C^O_{⟨B_src⟩_ν}`"). -/
+`OracleOutput.word`; `sec:gadget-machine`, "It constructs `C^O_{⟨B_src⟩_ν}`"). -/
 noncomputable def mwWord (s : GateSources) (g : GateParams) (N : ℕ)
     (Bsrc : BooleanCircuit (Outer.width s.mw (g.sv s) N)) : List Bool :=
   (Outer.outC s.mw (g.sv s) (Nat.log 2 N) Bsrc).word
 
 /-- The outer verifier `D_B` of the guessed pair at source length `N` (the worker's `Worker.substituted`, the Case 2
-producer's `D`; paper v2 §11.4, `D_B = ¬C^{O_{B_pf}}_{⟨B_src⟩_ν}` on `q` inputs). -/
+producer's `D`; `sec:gadget-machine`, `D_B = ¬C^{O_{B_pf}}_{⟨B_src⟩_ν}` on `q` inputs). -/
 noncomputable def substitutedAt (s : GateSources) (g : GateParams) {N : ℕ} (_x : BitInput N)
     (B : Outer.OuterGuess (Outer.width s.mw (g.sv s) N)) : Circuit :=
   Outer.Dat s.mw (g.sv s) (Nat.log 2 N) B

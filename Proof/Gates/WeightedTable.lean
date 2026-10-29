@@ -59,7 +59,7 @@ theorem weighted_table_bound (names : Finset Name)
   exact weighted_group_bound (positions x) err t (weight x) (chosenError x)
     (he x hx) (hc x hx) (hm x hx)
 
-/-- Division by table and gadget sizes yields the exact manuscript factor. -/
+/-- Division by table and gadget sizes yields the exact factor of `eq:gadget-table-error`. -/
 theorem normalized_table_bound (penalty errorTotal R P t δ : ℝ)
     (hR : 0 < R) (ht : 0 < t)
     (hpenalty : R * t * penalty ≤ errorTotal)
@@ -76,7 +76,7 @@ theorem normalized_table_bound (penalty errorTotal R P t δ : ℝ)
 
 /-- Finite arithmetic reserve: P/floor(P/5) approaches five.
 The hypotheses are exactly the inequalities supplied by the floor rule.
-For the paper P=128/ε, the numerical premise has generous slack. -/
+For `P_q = 128/ε_q` (`eq:gadget-parameters`), the numerical premise has generous slack. -/
 theorem five_position_factor (P t ε : ℝ)
     (ht : 0 < t) (hε : 0 < ε) (hε₁ : ε < 1)
     (hfloor : P - 5 < 5 * t) (hlarge : 128 ≤ ε * P) :

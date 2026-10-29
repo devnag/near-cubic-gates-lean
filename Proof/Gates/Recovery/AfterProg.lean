@@ -361,7 +361,7 @@ noncomputable def ports (K : Kit s P g) : Ports (T K) where
   queryTape := sh K 3
   queryFresh := by simp
 
-/-- **The after-prefix program** (paper §11.6). -/
+/-- **The after-prefix program** (`sec:all-lengths`). -/
 noncomputable def prog (K : Kit s P g) (c : Cfg) : OrdinaryOracleProgram :=
   (ports K).program (graph (pieces K c) 0 (next K c))
 

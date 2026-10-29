@@ -3,7 +3,7 @@ import Proof.Gates.CounterMachine.FormulaDig
 /-! # RG machine, part 12: one Fermat factor
 
 **`facP_spec`**: around any printer `P` of a form's tokens `D`, the factor printer emits `facToks D ρ q`, the tokens
-of `1 − (f − ρ)^{q−1}` (lem:residue-count, v2 1511), the residue `ρ` copied from the residue stream `KV` (whose head
+of `1 − (f − ρ)^{q−1}` (lem:residue-count), the residue `ρ` copied from the residue stream `KV` (whose head
 moves past it) and `q − 1` held in a register. -/
 
 set_option autoImplicit false

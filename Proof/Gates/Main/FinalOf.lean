@@ -17,7 +17,7 @@ namespace NearCubicGates.Close
 theorem main_of_producers (hK5 : CounterMachine.Supply.PolyTabReady)
     (hK6 : ∀ B1 B2, CounterMachine.CellTablesUniform B1 B2) (S : Interfaces.Formats.SolveMachine) (mainP : Cells.St Cells.VV Cells.MM)
     (K e : ℕ) (hL : Cells.LoopGoal mainP S K e) (hSU : Setup.SetupSupply) (hR : Transfer.RecoverySupply) :
-    FinalStatement :=
+    NineFinalStatement :=
   Closure.final_of_machines
     (CounterAsm.counterSupply_of (CounterMachine.Supply.counterInputsAll_of hK5 hK6
       (fun B1 B2 => CellsPack.cellsUniform_of_loop S mainP K e hL B1 B2)))
@@ -25,12 +25,12 @@ theorem main_of_producers (hK5 : CounterMachine.Supply.PolyTabReady)
 
 theorem main_of_loop (mainP : Cells.St Cells.VV Cells.MM) (K e : ℕ)
     (hL : Cells.LoopGoal mainP Solve.solveMachine K e) (hSU : Setup.SetupSupply) (hR : Transfer.RecoverySupply) :
-    FinalStatement :=
+    NineFinalStatement :=
   main_of_producers Expand.polyTabReady CounterMachine.cellTablesUniform Solve.solveMachine mainP K e hL hSU hR
 
 theorem main_of_fragments (cP gP : Cells.St Cells.VV Cells.MM) (tc tg : Cells.Ctx → Interfaces.Call → Counter.Params → ℕ → ℕ)
     (hC : Cells.ConstGoal cP tc) (hCc : Cells.ConstClass tc) (hG : Cells.GatherGoal gP tg)
-    (hGc : Cells.GatherClass tg) (hSU : Setup.SetupSupply) (hR : Transfer.RecoverySupply) : FinalStatement :=
+    (hGc : Cells.GatherClass tg) (hSU : Setup.SetupSupply) (hR : Transfer.RecoverySupply) : NineFinalStatement :=
   Closure.final_of_machines
     (CounterAsm.counterSupply_of (CounterMachine.Supply.counterInputsAll_of Expand.polyTabReady CounterMachine.cellTablesUniform
       (Cells.cellsMachine_uniform Solve.solveMachine cP gP Cells.SystemsPhase.sysP tc tg Cells.SystemsPhase.sysCost hC hCc hG hGc

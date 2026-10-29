@@ -75,7 +75,7 @@ theorem short_interval_residue_iff
   · intro h
     exact congrArg (fun z => z % p) h
 
-/-- The centered, strict digit window used in the manuscript. -/
+/-- The centered, strict digit window of `sec:algorithm`, "Reconstruction inside a certified cell". -/
 theorem centered_digit_residue_unique
     (a b center h p : Int)
     (haL : center - h < a) (haU : a < center + h)
@@ -183,7 +183,7 @@ theorem integerPowerSum_even (k : Nat) (values : List Int) :
     simp only [integerPowerSum, List.map_cons, powerSum, Int.natCast_add,
       even_power_eq_magnitude, ih]
 
-/-- The integer even-power moment appearing literally in the manuscript
+/-- The integer even-power moment appearing literally in `lem:moment`
 certifies every integer sample's magnitude. -/
 theorem integer_even_moment_certifies
     (k radius : Nat) (values : List Int)

@@ -10,11 +10,11 @@ open NearCubicWires.RepairOrdinary NearCubicWires.RepairOrdinary.MatrixScoreBatc
 
 /-! ## eq:print-condition -/
 
-/-- eq:print-condition (line 1450), `k + 2 + D lg(1 + G'' m_T) ≤ m/100` with `m` = `s` rounded up to an even
+/-- eq:print-condition (lem:print), `k + 2 + D lg(1 + G'' m_T) ≤ m/100` with `m` = `s` rounded up to an even
 integer, in the exact integer form `(2^{k+2} (1 + G'' m_T)^D)^{100} ≤ 2^m`. -/
 def PrintCondition (k s D V mT : ℕ) : Prop := (2 ^ (k + 2) * (1 + V * mT) ^ D) ^ 100 ≤ 2 ^ (s + s % 2)
 
-/-- The paper's real-valued printing condition implies the integer form. -/
+/-- The real-valued printing condition `eq:print-condition` implies the integer form. -/
 theorem printCondition_of_real (k s D V mT : ℕ)
     (h : (k : ℝ) + 2 + D * Real.logb 2 (1 + V * mT) ≤ ((s + s % 2 : ℕ) : ℝ) / 100) :
     PrintCondition k s D V mT := by
@@ -220,7 +220,7 @@ theorem capacity_of_condition (B D cbits : ℕ) (hb : T.Bounds B D cbits)
   printCondition_capacity k s D V _ _ hc (T.exactCuts_length_le_pow B D hb.gates hb.nodup hb.degree)
 
 /-- **lem:print's Request.** Built from the gates, the inner layout, the filter `H` and the polynomial `Q`, under
-the bit bounds and eq:print-condition with `m_T` of lem:exact for the restricted gates (line 1449). -/
+the bit bounds and eq:print-condition with `m_T` of lem:exact for the restricted gates (lem:print). -/
 def printRequest (B D cbits : ℕ) (hb : T.Bounds B D cbits)
     (hc : PrintCondition k s D V (mT s (B + Nat.clog 2 (n + 1)))) : Request :=
   EquationRow.request (T.input (fieldBits n s D B cbits) (T.fits_of_bounds B D cbits hb)
@@ -236,7 +236,7 @@ theorem printRequest_value (B D cbits : ℕ) (hb : T.Bounds B D cbits)
       ∑ x ∈ T.H, Terms.eval (T.value (outerPoint s row.val column.val) x) T.Q :=
   T.input_value _ _ _ _ row column
 
-/-- **lem:print, count.** `(2 · #weak cuts)^{100} ≤ 2^m`: at most `2^{m/100-1}` weak cuts (line 1465). -/
+/-- **lem:print, count.** `(2 · #weak cuts)^{100} ≤ 2^m`: at most `2^{m/100-1}` weak cuts (proof of lem:print). -/
 theorem printRequest_gates (B D cbits : ℕ) (hb : T.Bounds B D cbits)
     (hc : PrintCondition k s D V (mT s (B + Nat.clog 2 (n + 1)))) :
     (2 * (T.printRequest B D cbits hb hc).Gates) ^ 100 ≤ 2 ^ (s + s % 2) := by
@@ -260,7 +260,7 @@ end Tabulation
 
 /-! ## `Q` expanded from a formula -/
 
-/-- lem:print's data with `Q` the expansion of a formula (line 1445). -/
+/-- lem:print's data with `Q` the expansion of a formula (lem:print). -/
 def formulaTabulation {n k s G V : ℕ} (gates : Fin G → NormalizedThresholdGate n) (layout : Fin n ≃ Fin k ⊕ Fin s)
     (H : Finset (Fin k → Bool)) (role : Fin V → Role G) (F : Formula V) : Tabulation n k s G V :=
   ⟨gates, layout, H, role, F.expand⟩
@@ -298,15 +298,15 @@ theorem formulaRequest_value {n k s G V : ℕ} (gates : Fin G → NormalizedThre
 /-!
 # The counter's two tables through lem:print
 
-Paper v2 §7.2 (lines 1659-1680): "These operations are legal applications of lem:print, with the residue
+`sec:algorithm`: "These operations are legal applications of lem:print, with the residue
 polynomials of lem:residue-count ... moments have degree at most `2k ≤ D_max`." This module composes the end
 theorem of lem:print (`Tabulator.Request`) with the two instances (`Tabulator.Instances`):
 
 * `residueRequest_count`: the printed entry, reduced modulo `p^e`, is the exact joint residue count
-  `#{x ∈ H : L_i(y,x) ≡ ρ_i (mod p) for all i}` (lem:residue-count, line 1517).
-* `momentRequest_value`: the printed entry is `∑_{x ∈ H} (∑_t c_t (g_t(y,x) - g_t(y,0^I)))^{2h}` (lines 1665-1666).
+  `#{x ∈ H : L_i(y,x) ≡ ρ_i (mod p) for all i}` (lem:residue-count).
+* `momentRequest_value`: the printed entry is `∑_{x ∈ H} (∑_t c_t (g_t(y,x) - g_t(y,0^I)))^{2h}` (table (b) of `sec:algorithm`).
 * `printCondition_mono`, `mT_mono`: the printing condition may be supplied with any larger `D`, `G''` or `m_T`,
-  in particular with the paper's restriction growth `⌈lg(n+1)⌉ + 1` (`printCondition_paper`, line 1456).
+  in particular with the paper's restriction growth `⌈lg(n+1)⌉ + 1` (`printCondition_paper`, proof of `lem:print`).
 -/
 
 open scoped BigOperators
@@ -325,8 +325,8 @@ theorem printCondition_mono {k s D₁ D₂ V₁ V₂ m₁ m₂ : ℕ} (hD : D₁
   calc (1 + V₁ * m₁) ^ D₁ ≤ (1 + V₂ * m₂) ^ D₁ := Nat.pow_le_pow_left (by nlinarith) _
     _ ≤ (1 + V₂ * m₂) ^ D₂ := Nat.pow_le_pow_right (by omega) hD
 
-/-- The paper states restriction growth `⌈lg(n+1)⌉ + 1` (line 1456); our restriction needs only `⌈lg(n+1)⌉`, so the
-paper's printing condition implies the one the Request uses. -/
+/-- The paper states restriction growth `⌈lg(n+1)⌉ + 1` (proof of lem:print); our restriction needs only `⌈lg(n+1)⌉`, so the
+paper's printing condition (`eq:print-condition`) implies the one the Request uses. -/
 theorem printCondition_paper {n k s D V B : ℕ}
     (h : PrintCondition k s D V (mT s (B + Nat.clog 2 (n + 1) + 1))) :
     PrintCondition k s D V (mT s (B + Nat.clog 2 (n + 1))) :=
@@ -357,7 +357,8 @@ theorem residueRequest_count {n k s G V r : ℕ} (gates : Fin G → NormalizedTh
   rw [formulaRequest_value gates layout H role _ B hB hc]
   exact residue_count p hp e he L ρ H _ hH
 
-/-- **Moment table** (lines 1665-1666 with `Δ_y H = H(y,x) - H(y,0^I)`, line 861): with `a t` the formal variable of
+/-- **Moment table** (table (b) of `sec:algorithm`, with `Δ_y H = H(y,x) - H(y,0^I)` of `sec:prelim`): with `a t` the
+formal variable of
 gate `t` at `(y,x)` and `r t` the one of gate `t` at `(y,0^I)`, the printed entry is
 `∑_{x ∈ H} (∑_t c_t (g_t(y,x) - g_t(y,0^I)))^{2h}`. -/
 theorem momentRequest_value {n k s G V : ℕ} (gates : Fin G → NormalizedThresholdGate n)

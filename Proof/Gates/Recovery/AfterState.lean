@@ -50,7 +50,7 @@ def StageBudgetAt (d A B C E : ℕ) : Prop :=
     (0 < oracleSizeBound d R →
       ENP.UStage.cost d w R (CloseoutCapacity.capacity A B n) vals hw x ≤ C * (2 ^ n + 1) ^ E)
 
-/-- **The tail after stage 2** (paper §11.6, stage 3 and the two last branches): entering piece 24 (the copies of
+/-- **The tail after stage 2** (`sec:all-lengths`, stage 3 and the two last branches): entering piece 24 (the copies of
 `frame O*`) with stage 2's table `O*` on its table tape and the words of the preparation on the shared tapes, the
 program stops with the gate core's bit on the output tape, within `C (2^n + 1)^E`. -/
 def TailRuns {s : GateSources} {P : ThreeQueryPCPP} {g : GateParams} (K : Kit s P g) (c : Cfg) : Prop :=

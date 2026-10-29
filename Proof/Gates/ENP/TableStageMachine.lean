@@ -251,7 +251,7 @@ theorem nodes_le_word {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) :
   simp only [OracleOutput.word, List.length_append]
   omega
 
-/-- **The size of `c_T`** (paper §11.6: the stage-2 formula has size `2^{2ℓ_out} q^{O(1)}`): with
+/-- **The size of `c_T`** (`sec:all-lengths`: the stage-2 formula has size `2^{2ℓ_out} q^{O(1)}`): with
 `X ≥ 2^ℓ, |C|`, `c_T` has at most `8 X^4` nodes. -/
 theorem tNodes_le {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) (X : ℕ) (hT : 2 ^ ℓ ≤ X) (hm : C.nodes.length ≤ X) :
     (TCirc.tCircuit C).nodes.length ≤ 8 * X ^ 4 := by
@@ -279,7 +279,7 @@ theorem pow_mul_aux (X a b : ℕ) : (X ^ a) ^ b = X ^ (a * b) := (pow_mul X a b)
 /-- The stage's cost coefficient. -/
 def dockK (P : TProg) : ℕ := P.K + (backCoefficient + 2000) * 9 ^ 144
 
-/-- **The stage's cost** (paper §11.6: SAT formulas of size `2^{O(q)}`; here polynomial in `2^ℓ + |word ++ post|`). -/
+/-- **The stage's cost** (`sec:all-lengths`: SAT formulas of size `2^{O(q)}`; here polynomial in `2^ℓ + |word ++ post|`). -/
 theorem total_le (P : TProg) {ℓ : ℕ} (C : OracleCircuit ℓ ℓ) (post : List Bool) (n1 : ℕ)
     (hn1 : n1 ≤ P.K * (2 ^ ℓ + ((OracleOutput.word ⟨ℓ, C⟩) ++ post).length + 1) ^ P.e) :
     cost (n1 + 1 + prepCost (tGraph C).length (2 ^ ℓ) (TCirc.tCircuit C).output.val) (TCirc.tCircuit C) ≤
@@ -361,7 +361,7 @@ theorem bank_eq (w : List Bool) :
     simp only [inPortT, inPort0, Fin.val_castAdd, Fin.val_natAdd] at this
     omega
 
-/-- **Stage 2 of the E^NP recovery** (paper §11.6: "a formula with one variable per oracle address and the constraints
+/-- **Stage 2 of the E^NP recovery** (`sec:all-lengths`: "a formula with one variable per oracle address and the constraints
 `C^O_{⟨B*_src⟩_ν}(R) = 0` for all `2^{ℓ_out}` inputs `R` … finds the first oracle `O*`"), from builder T's emitter. -/
 noncomputable def tStage (P : TProg) : TStage where
   program := program (dockE P)

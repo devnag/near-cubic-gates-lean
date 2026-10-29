@@ -124,7 +124,7 @@ theorem rowsW_exec {ns cap : ℕ} (SUP SP : Fin (ns + 1)) (hSP : SUP ≠ SP) (sw
 /-! ## The I-stream header -/
 
 /-- The header file: `H 0 … H 4 = q, M, b, rb, cl` (`R 6`, `41`, `rBs = 111`, `42`, `43`), `H 5 = R 9`, scratch
-`100 … 107`. The header's `N` field carries the precision base `b = ν^{lenRoot+1}` (`L_ν = b^{10}`, paper v2 §11.4: the
+`100 … 107`. The header's `N` field carries the precision base `b = ν^{lenRoot+1}` (`L_ν = b^{10}`, `sec:gadget-machine`: the
 guard `γ/L_ν < ε_q`; the verdict machine's test `γ < ε·b^{10}`). -/
 def hF : Fin 14 ↪ Fin nrW :=
   ⟨![6, 41, 111, 42, 43, 9, 100, 101, 102, 103, 104, 105, 106, 107], by decide⟩
