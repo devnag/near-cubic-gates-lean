@@ -14,7 +14,7 @@ import unicodedata
 from pathlib import Path
 
 SCHEMA = "near-cubic-gates/source-map/2"
-PAPER_SHA = "a9010ba2a94e6f27a767a30eaacdc96c5664bbc342f98e12716cf3012c0da8ca"
+PAPER_SHA = "3bfede57ee87cb531f0623dcd29529c25d8be2c19251670f1cf7e5e5d849be88"
 # Canonical JSON of all eight reviewed source entries, including exact PDF/text
 # pins and release-relative paths. Removing sources must not turn INCOMPLETE into COMPLETE.
 SOURCE_CATALOG_SHA = "086f2bc29ba586fd09df6282d767d6dfc053a40511ad642c2c7f5c59de1665a1"

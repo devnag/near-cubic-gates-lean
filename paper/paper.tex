@@ -112,14 +112,17 @@ The resulting certified counter runs in
 classical MAX-2SAT gadget makes pair counting sufficient for the
 constant-error transfer; Chen--Lyu--Williams' constructive refuter
 supplies hardness at every large length. We include the required
-short-PCP and machine-model adaptations. A companion Lean~4
-development proves the main statement from seven cited results.
+short-PCP and machine-model adaptations. The proof is machine-checked:
+a companion Lean~4 formalization,
+\url{https://github.com/devnag/near-cubic-gates-lean}, derives the main
+theorem from seven cited published results, each assumed as stated in
+its source.
 \end{abstract}
 
 \medskip
 \noindent\textbf{Keywords.} Circuit lower bounds; symmetric functions;
 linear threshold gates; average-case hardness; certified counting;
-discrete tomography.
+discrete tomography; formal verification; Lean~4.
 
 \clearpage
 \tableofcontents
@@ -378,12 +381,14 @@ and adaptations. The necessary short-PCP and multitape adaptations
 are proved in \cref{app:multitape,app:short-pcp-proof}.
 
 \paragraph{Formal proof companion.}
-The \href{https://github.com/devnag/near-cubic-gates-lean}{Lean~4 companion}
-proves the main statement from seven cited results, each stated in its
-source's own terms. The adaptations of
+The Lean~4 companion formally verifies the main theorem: assuming only
+seven cited results, each stated in its source's own terms, the final
+statement is checked by the Lean kernel using only Lean's standard
+axioms. The adaptations of
 \cref{app:sources,app:multitape,app:short-pcp-proof} are proved there as
 well. \Cref{app:formal-boundary} lists the seven results and records
-the verification boundary.
+the verification boundary. The companion is available at
+\url{https://github.com/devnag/near-cubic-gates-lean}.
 
 \section{Proof overview: localize, certify, reconstruct}
 \label{sec:overview}\label{sec:idea}

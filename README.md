@@ -32,7 +32,7 @@ statements; names in the second column are under `NearCubicGates.Published`.
 | Apostol, prime number theorem | `Apostol.primeNumberTheorem` | [Prime density](SourceMapping/4-prime-number-theorem.md) |
 | Williams, Corollary 4.4 = C.2 | `Williams.RectangularProductLeaf` | [Rectangular matrix product](SourceMapping/5-rectangular-product.md) |
 
-The distinction matters. [Threshold normalization](SourceMapping/1-threshold-normalization.md),
+[Threshold normalization](SourceMapping/1-threshold-normalization.md),
 [random restrictions](SourceMapping/2-live-restriction.md), [finite Bernstein](SourceMapping/3-bernstein.md) and
 the [fixed-machine refuter](SourceMapping/7-refuter.md) are proved without a published premise.
 The other five interfaces follow from the seven statements above. [SourceMapping](SourceMapping/README.md)
@@ -104,7 +104,7 @@ formalizations; they do not change the theorem stated in `Statement.lean`.
 ## Paper, provenance and license
 
 The current [paper source](paper/paper.tex) is version 3 (October 28, 2026), SHA-256
-`a9010ba2a94e6f27a767a30eaacdc96c5664bbc342f98e12716cf3012c0da8ca`.
+`3bfede57ee87cb531f0623dcd29529c25d8be2c19251670f1cf7e5e5d849be88`.
 [Version 1](https://doi.org/10.5281/zenodo.23224160) and
 [version 2](https://doi.org/10.5281/zenodo.23405983) are archival releases. Citations to those versions should not
 be read as references to the current source's line numbers.

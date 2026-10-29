@@ -10,7 +10,7 @@ The release theorem is `NearCubicGates.Close.main_from_published : FinalStatemen
 They are not nine additional published assumptions.
 
 The current [paper](../paper/paper.tex) is version 3, October 28, 2026, SHA-256
-`a9010ba2a94e6f27a767a30eaacdc96c5664bbc342f98e12716cf3012c0da8ca`. The relevant labels are `thm:main` and
+`3bfede57ee87cb531f0623dcd29529c25d8be2c19251670f1cf7e5e5d849be88`. The relevant labels are `thm:main` and
 `def:class`. This page refers to those labels, not the previous version's line numbers.
 
 ## Quantifiers and circuit class
